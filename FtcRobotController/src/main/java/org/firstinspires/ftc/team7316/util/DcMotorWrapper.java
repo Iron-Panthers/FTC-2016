@@ -17,12 +17,22 @@ public class DcMotorWrapper implements Loopable {
         Scheduler.instance.addTask(this);
     }
 
+    @Override
+    public void init() {
+
+    }
+
     public void loop() {
         motor.setPower(axis.value());
     }
 
     public boolean shouldRemove() {
         return false;
+    }
+
+    @Override
+    public void terminate() {
+
     }
 
 }

@@ -15,6 +15,7 @@ public class Scheduler {
 
     public void addTask(Loopable task) {
         tasks.add(task);
+        task.init();
     }
 
     public void loop() {
@@ -23,6 +24,7 @@ public class Scheduler {
             Loopable thisTask = tasks.get(i);
             if (thisTask.shouldRemove()) {
                 tasks.remove(i);
+                thisTask.terminate();
             } else {
                 thisTask.loop();
                 i++;

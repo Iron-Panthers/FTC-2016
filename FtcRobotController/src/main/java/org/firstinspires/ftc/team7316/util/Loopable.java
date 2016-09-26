@@ -5,7 +5,9 @@ package org.firstinspires.ftc.team7316.util;
  */
 public interface Loopable {
 
-    public void loop();
-    public boolean shouldRemove();
+    void init();
+    void loop();
+    boolean shouldRemove();
+    void terminate();
 
 }

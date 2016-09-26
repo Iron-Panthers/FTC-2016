@@ -18,6 +18,11 @@ public class ServoWrapper implements Loopable {
     }
 
     @Override
+    public void init() {
+
+    }
+
+    @Override
     public void loop() {
         if (button.state()) {
             servo.setPosition(1.0);
@@ -29,5 +34,10 @@ public class ServoWrapper implements Loopable {
     @Override
     public boolean shouldRemove() {
         return false;
+    }
+
+    @Override
+    public void terminate() {
+
     }
 }

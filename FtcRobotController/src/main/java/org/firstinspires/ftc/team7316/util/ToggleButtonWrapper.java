@@ -19,6 +19,11 @@ public class ToggleButtonWrapper extends ButtonWrapper implements Loopable {
     }
 
     @Override
+    public void init() {
+
+    }
+
+    @Override
     public void loop() {
         //according to ftc forums don't need to debounce
 
@@ -32,5 +37,10 @@ public class ToggleButtonWrapper extends ButtonWrapper implements Loopable {
     @Override
     public boolean shouldRemove() {
         return false;
+    }
+
+    @Override
+    public void terminate() {
+
     }
 }
