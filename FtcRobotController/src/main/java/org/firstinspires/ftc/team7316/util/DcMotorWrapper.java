@@ -1,7 +1,4 @@
-package org.firstinspires.ftc.team7316;
-
-import android.os.Debug;
-import android.util.Log;
+package org.firstinspires.ftc.team7316.util;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 

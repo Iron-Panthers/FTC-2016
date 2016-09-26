@@ -1,9 +1,6 @@
-package org.firstinspires.ftc.team7316;
+package org.firstinspires.ftc.team7316.util;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by andrew on 9/15/16.

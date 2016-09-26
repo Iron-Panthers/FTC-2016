@@ -1,6 +1,4 @@
-package org.firstinspires.ftc.team7316;
-
-import android.util.Log;
+package org.firstinspires.ftc.team7316.util;
 
 import java.util.ArrayList;
 
