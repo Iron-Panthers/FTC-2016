@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class Scheduler {
 
-    public static Scheduler instance = new Scheduler();
+    public static final Scheduler instance = new Scheduler();
 
     private ArrayList<Loopable> tasks = new ArrayList<Loopable>();
 

@@ -2,6 +2,8 @@ package org.firstinspires.ftc.team7316.util;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.team7316.Hardware;
+
 /**
  * Created by andrew on 9/15/16.
  */
@@ -23,16 +25,16 @@ public class RobotTest extends OpMode {
         gp1 = new GamepadWrapper(gamepad1);
 
         //mLWrapper = new DcMotorWrapper(hardware.leftMotor, gp1.left_stick_y);
-        mRWrapper = new DcMotorWrapper(hardware.rightMotor, gp1.right_stick_y);
+        mRWrapper = new DcMotorWrapper(hardware.rightDriveMotor, gp1.right_stick_y);
 
-        aButtonServoWrapper = new ServoWrapper(hardware.aButtonServo, gp1.aButtonWrapper);
-        triggerServoWrapper = new ServoWrapper(hardware.triggerServo, gp1.leftTriggerWrapper);
+        aButtonServoWrapper = new ServoWrapper(hardware.leftBeaconServo, gp1.aButtonWrapper);
+        triggerServoWrapper = new ServoWrapper(hardware.rightBeaconServo, gp1.leftTriggerWrapper);
     }
 
     @Override
     public void loop() {
         Scheduler.instance.loop();
 
-        hardware.leftMotor.setPower(1.0);
+        hardware.leftDriveMotor.setPower(1.0);
     }
 }
