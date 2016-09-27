@@ -28,40 +28,28 @@ public class GamepadWrapper {
         this.rightTriggerWrapper = new TriggerWrapper(GamepadAxis.R_TRIGGER, this);
     }
 
-    public Boolean buttonState(GamepadButton buttonIndex) {
-        if (buttonIndex == GamepadButton.A_BUTTON) {
-            return gamepad.a;
-        } else if (buttonIndex == GamepadButton.B_BUTTON) {
-            return gamepad.b;
-        } else if (buttonIndex == GamepadButton.X_BUTTON) {
-            return gamepad.x;
-        } else if (buttonIndex == GamepadButton.Y_BUTTON) {
-            return gamepad.y;
-        } else if (buttonIndex == GamepadButton.R_BUMPER) {
-            return gamepad.right_bumper;
-        } else if (buttonIndex == GamepadButton.L_BUMPER) {
-            return gamepad.left_bumper;
-        } else {
-            throw new IllegalAccessError();
+    public boolean buttonState(GamepadButton buttonIndex) {
+        switch (buttonIndex) {
+            case A_BUTTON: return gamepad.a;
+            case B_BUTTON: return gamepad.b;
+            case X_BUTTON: return gamepad.x;
+            case Y_BUTTON: return gamepad.y;
+            case R_BUMPER: return gamepad.right_bumper;
+            case L_BUMPER: return gamepad.left_bumper;
         }
+        throw new IllegalArgumentException();
     }
 
     public float axisValue(GamepadAxis axisIndex) {
-        if (axisIndex == GamepadAxis.L_STICK_X) {
-            return gamepad.left_stick_x;
-        } else if (axisIndex == GamepadAxis.L_STICK_Y) {
-            return gamepad.left_stick_y;
-        } else if (axisIndex == GamepadAxis.R_STICK_X) {
-            return gamepad.right_stick_x;
-        } else if (axisIndex == GamepadAxis.R_STICK_Y) {
-            return gamepad.right_stick_y;
-        } else if (axisIndex == GamepadAxis.R_TRIGGER) {
-            return gamepad.right_trigger;
-        } else if (axisIndex == GamepadAxis.L_TRIGGER) {
-            return gamepad.left_trigger;
-        } else {
-            throw new IllegalAccessError();
+        switch (axisIndex) {
+            case L_STICK_X: return gamepad.left_stick_x;
+            case R_STICK_X: return gamepad.left_stick_y;
+            case L_STICK_Y: return gamepad.right_stick_x;
+            case R_STICK_Y: return gamepad.right_stick_y;
+            case L_TRIGGER: return gamepad.left_trigger;
+            case R_TRIGGER: return gamepad.left_trigger;
         }
+        throw new IllegalArgumentException();
     }
 
 }
