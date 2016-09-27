@@ -14,7 +14,7 @@ public class ButtonWrapper implements Loopable {
     private GamepadButton gamepadInput;
     private GamepadWrapper gpSource;
 
-    private boolean isToggled = false, lastValue = false; // for toggling
+    boolean lastValue; // for detecting rising/falling edges
 
     public ButtonWrapper(GamepadButton gamepadInput, GamepadWrapper gpSource) {
         this.gamepadInput = gamepadInput;
@@ -30,10 +30,6 @@ public class ButtonWrapper implements Loopable {
         return gpSource.buttonState(gamepadInput);
     }
 
-    public boolean isToggled() {
-        return isToggled;
-    }
-
     @Override
     public void init() {
 
@@ -43,7 +39,6 @@ public class ButtonWrapper implements Loopable {
     public void loop() {
         boolean currentValue = isPressed();
         if (currentValue && !lastValue) { // Rising edge
-            isToggled = !isToggled;
             for (ButtonListener listener: listeners) {
                 listener.onPressed();
             }

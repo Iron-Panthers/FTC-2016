@@ -19,9 +19,7 @@ public class DriveMode extends OpMode {
     private Hardware hardware;
 
     private GamepadWrapper gpWrapper;
-    private AxisWrapper leftAxis, rightAxis;
     private DcMotorWrapper leftDrive, rightDrive;
-    private ServoWrapper servoWrapper;
 
     @Override
     public void init() {
@@ -29,13 +27,8 @@ public class DriveMode extends OpMode {
 
         gpWrapper = new GamepadWrapper(gamepad1);
 
-        leftAxis = new AxisWrapper(GamepadAxis.L_STICK_Y, gpWrapper);
-        rightAxis = new AxisWrapper(GamepadAxis.R_STICK_Y, gpWrapper);
-
-        leftDrive = new DcMotorWrapper(hardware.leftDriveMotor, leftAxis);
-        rightDrive = new DcMotorWrapper(hardware.rightDriveMotor, rightAxis);
-
-        //servoWrapper = new ServoWrapper(hardware.leftCatcherServo, new ButtonWrapper(GamepadButton.L_BUMPER, gpWrapper));
+        leftDrive = new DcMotorWrapper(hardware.leftDriveMotor, gpWrapper.right_axis_y, false);
+        rightDrive = new DcMotorWrapper(hardware.rightDriveMotor, gpWrapper.left_axis_y, true);
 
     }
 

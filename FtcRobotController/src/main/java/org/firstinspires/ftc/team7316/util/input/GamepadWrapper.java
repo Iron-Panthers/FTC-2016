@@ -9,8 +9,8 @@ public class GamepadWrapper {
 
     private Gamepad gamepad;
 
-    public JoystickWrapper left_stick_y;
-    public JoystickWrapper right_stick_y;
+    public JoystickWrapper left_stick, right_stick;
+    public AxisWrapper left_axis_y, right_axis_y;
 
     public ButtonWrapper a_button, b_button, x_button, y_button;
     public TriggerWrapper leftTriggerWrapper, rightTriggerWrapper;
@@ -18,8 +18,11 @@ public class GamepadWrapper {
     public GamepadWrapper(Gamepad gamepad) {
         this.gamepad = gamepad;
 
-        this.left_stick_y = new JoystickWrapper(JoystickWrapper.Joystick.LEFT, this);
-        this.right_stick_y = new JoystickWrapper(JoystickWrapper.Joystick.RIGHT, this);
+        this.left_stick = new JoystickWrapper(JoystickWrapper.Joystick.LEFT, this);
+        this.right_stick = new JoystickWrapper(JoystickWrapper.Joystick.RIGHT, this);
+        this.left_axis_y = new AxisWrapper(GamepadAxis.L_STICK_Y, this);
+        this.right_axis_y = new AxisWrapper(GamepadAxis.R_STICK_Y, this);
+
         this.a_button = new ButtonWrapper(GamepadButton.A_BUTTON, this);
         this.b_button = new ButtonWrapper(GamepadButton.B_BUTTON, this);
         this.x_button = new ButtonWrapper(GamepadButton.X_BUTTON, this);
