@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.team7316.util;
+package org.firstinspires.ftc.team7316.util.input;
 
 /**
  * Created by andrew on 9/15/16.

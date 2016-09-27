@@ -1,6 +1,10 @@
-package org.firstinspires.ftc.team7316.util;
+package org.firstinspires.ftc.team7316.util.hardware;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+
+import org.firstinspires.ftc.team7316.util.Loopable;
+import org.firstinspires.ftc.team7316.util.Scheduler;
+import org.firstinspires.ftc.team7316.util.input.AxisWrapper;
 
 /**
  * Created by andrew on 9/15/16.

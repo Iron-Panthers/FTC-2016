@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.team7316.util;
+package org.firstinspires.ftc.team7316.util.input;
 
 import android.util.Log;
 
 import org.firstinspires.ftc.team7316.Hardware;
 
 /**
- * Created by andrew on 9/15/16.
+ * A wrapper for a single joystick axis.
  */
 public class AxisWrapper {
 
@@ -15,8 +15,6 @@ public class AxisWrapper {
     public AxisWrapper (GamepadAxis inputName, GamepadWrapper gpWrapper) {
         this.inputName = inputName;
         this.gpWrapper = gpWrapper;
-
-        Log.d(Hardware.tag, "AxisWrapper created, " + this.inputName);
     }
 
     public float value() {

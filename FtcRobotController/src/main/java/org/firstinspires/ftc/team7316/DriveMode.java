@@ -2,16 +2,13 @@ package org.firstinspires.ftc.team7316;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.team7316.util.AxisWrapper;
-import org.firstinspires.ftc.team7316.util.ButtonWrapper;
-import org.firstinspires.ftc.team7316.util.DcMotorWrapper;
-import org.firstinspires.ftc.team7316.util.GamepadAxis;
-import org.firstinspires.ftc.team7316.util.GamepadButton;
-import org.firstinspires.ftc.team7316.util.GamepadWrapper;
+import org.firstinspires.ftc.team7316.util.input.AxisWrapper;
+import org.firstinspires.ftc.team7316.util.hardware.DcMotorWrapper;
+import org.firstinspires.ftc.team7316.util.input.GamepadAxis;
+import org.firstinspires.ftc.team7316.util.input.GamepadWrapper;
 import org.firstinspires.ftc.team7316.util.Scheduler;
-import org.firstinspires.ftc.team7316.util.ServoWrapper;
+import org.firstinspires.ftc.team7316.util.hardware.ServoWrapper;
 
 /**
  * Created by Maxim on 9/26/2016.

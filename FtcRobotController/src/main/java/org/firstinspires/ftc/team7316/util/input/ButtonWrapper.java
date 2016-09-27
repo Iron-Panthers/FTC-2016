@@ -1,0 +1,67 @@
+package org.firstinspires.ftc.team7316.util.input;
+
+import org.firstinspires.ftc.team7316.util.Loopable;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * A wrapper for a button.
+ */
+public class ButtonWrapper implements Loopable {
+
+    private List<ButtonListener> listeners;
+    private GamepadButton gamepadInput;
+    private GamepadWrapper gpSource;
+
+    private boolean isToggled = false, lastValue = false; // for toggling
+
+    public ButtonWrapper(GamepadButton gamepadInput, GamepadWrapper gpSource) {
+        this.gamepadInput = gamepadInput;
+        this.gpSource  = gpSource;
+        this.listeners = new ArrayList<>();
+    }
+
+    public void addListener(ButtonListener listener) {
+        this.listeners.add(listener);
+    }
+
+    public boolean isPressed() {
+        return gpSource.buttonState(gamepadInput);
+    }
+
+    public boolean isToggled() {
+        return isToggled;
+    }
+
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void loop() {
+        boolean currentValue = isPressed();
+        if (currentValue && !lastValue) { // Rising edge
+            isToggled = !isToggled;
+            for (ButtonListener listener: listeners) {
+                listener.onPressed();
+            }
+        } else if (!currentValue && lastValue) { // Falling edge
+            for (ButtonListener listener: listeners) {
+                listener.onReleased();
+            }
+        }
+        lastValue = currentValue;
+    }
+
+    @Override
+    public boolean shouldRemove() {
+        return false;
+    }
+
+    @Override
+    public void terminate() {
+
+    }
+}

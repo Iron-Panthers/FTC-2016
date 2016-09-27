@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.team7316.util;
+package org.firstinspires.ftc.team7316.util.input;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
@@ -9,23 +9,23 @@ public class GamepadWrapper {
 
     private Gamepad gamepad;
 
-    public AxisWrapper left_stick_y;
-    public AxisWrapper right_stick_y;
+    public JoystickWrapper left_stick_y;
+    public JoystickWrapper right_stick_y;
 
-    public ToggleButtonWrapper aButtonWrapper;
-    public ButtonWrapper bButtonWrapper, xButtonWrapper, yButtonWrapper;
-    public AxisThresholdWrapper leftTriggerWrapper;
+    public ButtonWrapper a_button, b_button, x_button, y_button;
+    public TriggerWrapper leftTriggerWrapper, rightTriggerWrapper;
 
     public GamepadWrapper(Gamepad gamepad) {
         this.gamepad = gamepad;
 
-        this.left_stick_y = new AxisWrapper(GamepadAxis.L_STICK_Y, this);
-        this.right_stick_y = new AxisWrapper(GamepadAxis.R_STICK_Y, this);
-        this.aButtonWrapper = new ToggleButtonWrapper(GamepadButton.A_BUTTON, this);
-        this.bButtonWrapper = new ButtonWrapper(GamepadButton.B_BUTTON, this);
-        this.xButtonWrapper = new ButtonWrapper(GamepadButton.X_BUTTON, this);
-        this.yButtonWrapper = new ButtonWrapper(GamepadButton.Y_BUTTON, this);
-        this.leftTriggerWrapper = new AxisThresholdWrapper(GamepadAxis.L_TRIGGER, this);
+        this.left_stick_y = new JoystickWrapper(JoystickWrapper.Joystick.LEFT, this);
+        this.right_stick_y = new JoystickWrapper(JoystickWrapper.Joystick.RIGHT, this);
+        this.a_button = new ButtonWrapper(GamepadButton.A_BUTTON, this);
+        this.b_button = new ButtonWrapper(GamepadButton.B_BUTTON, this);
+        this.x_button = new ButtonWrapper(GamepadButton.X_BUTTON, this);
+        this.y_button = new ButtonWrapper(GamepadButton.Y_BUTTON, this);
+        this.leftTriggerWrapper = new TriggerWrapper(GamepadAxis.L_TRIGGER, this);
+        this.rightTriggerWrapper = new TriggerWrapper(GamepadAxis.R_TRIGGER, this);
     }
 
     public Boolean buttonState(GamepadButton buttonIndex) {
