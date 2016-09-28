@@ -1,6 +1,6 @@
 The Hardware class is very badly implemented atm. 
 
-I think that it would be nice to have a teleop opmode and an auto opmode (and by "nice" I mean neccisary to do autonomous)
+I think that it would be nice to have a teleop opmode and an auto opmode (and by "nice" I mean necessary to do autonomous)
 
 However, usually we initialize hardware within a class then access its various properties. But NOW, we have 2 opmodes, and we cannot initialize Hardware in both (I think, someone should PROOOBably check that). 
 
