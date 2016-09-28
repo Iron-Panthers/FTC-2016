@@ -11,8 +11,8 @@ import org.firstinspires.ftc.team7316.util.Scheduler;
  * Created by andrew on 9/27/16.
  */
 
-@Autonomous(name = "PantherAuto")
-public class AutoMode extends OpMode {
+@Autonomous(name = "PrecisePantherAuto")
+public class PreciseAutoMode extends OpMode {
 
     private DcMotor leftMotor;
     private DcMotor rightMotor;
@@ -24,8 +24,8 @@ public class AutoMode extends OpMode {
         leftMotor = Hardware.instance.leftDriveMotor;
         rightMotor = Hardware.instance.rightDriveMotor;
 
-        Scheduler.instance.addTask(new DriveDistance(10000, 0.5, leftMotor));
-        Scheduler.instance.addTask(new DriveDistance(10000, -0.5, rightMotor));
+        Scheduler.instance.addTask(new PreciseDriveDistance(10000, 0.5, leftMotor));
+        Scheduler.instance.addTask(new PreciseDriveDistance(10000, -0.5, rightMotor));
     }
 
     @Override
