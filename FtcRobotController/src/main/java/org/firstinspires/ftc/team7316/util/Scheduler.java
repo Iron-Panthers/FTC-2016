@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.team7316.util;
 
+import android.util.Log;
+
+import org.firstinspires.ftc.team7316.Hardware;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -37,6 +41,10 @@ public class Scheduler {
                 i++;
             }
         }
+    }
+
+    public void clear() {
+        this.tasks.clear();
     }
 
 }

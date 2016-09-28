@@ -32,7 +32,7 @@ public class TurnDistance implements Loopable {
     @Override
     public void loop() {
         this.lM.setPower(this.power);
-        this.rM.setPower(-this.power);
+        this.rM.setPower(this.power);
         if (Math.abs(this.startAngle - 0) > this.wantedAngle) {
             reachedAngle = true;
         }

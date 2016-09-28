@@ -7,7 +7,12 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Created by andrew on 9/15/16.
  */
+
+//MAKE SURE TO CALL setHardwareMap AT LEAST ONCE
+
 public class Hardware {
+
+    public static Hardware instance = null;
 
     public static final String tag = "IronPanthers";
 
@@ -42,5 +47,9 @@ public class Hardware {
         leftBeaconServo = map.servo.get(LEFT_BEACON_SERVO_NAME);
         rightBeaconServo = map.servo.get(RIGHT_BEACON_SERVO_NAME);
         */
+    }
+
+    public static void setHardwareMap(HardwareMap map) {
+        instance = new Hardware(map);
     }
 }

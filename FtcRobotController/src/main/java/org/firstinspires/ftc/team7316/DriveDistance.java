@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.team7316;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.team7316.util.Loopable;
@@ -11,11 +13,10 @@ public class DriveDistance implements Loopable {
 
     private DcMotor motor;
 
-    private boolean reachedDistance = false;
-    private float power;
+    private double power;
     private float wantedDist;
 
-    public DriveDistance (float dist, float power, MOTOR motor) {
+    public DriveDistance (float dist, double power, DcMotor motor) {
         wantedDist = dist;
         this.power = power;
         this.motor = motor;
@@ -23,24 +24,22 @@ public class DriveDistance implements Loopable {
 
     @Override
     public void loop() {
-        this.motor.SETPOWER(this.power)
-        if (this.motor.CURRENTENCODERDIST() > this.wantedDist) {
-            reachedDistance = true;
-        }
+        this.motor.setPower(this.power);
     }
 
     @Override
     public boolean shouldRemove() {
-        return reachedDistance;
+        return Math.abs(this.motor.getCurrentPosition()) > this.wantedDist;
     }
 
     @Override
     public void terminate() {
+        this.motor.setPower(0);
     }
 
     @Override
     public void init() {
-        this.wantedDist += this.moto.CURRENTENCODERDIST();
+        this.wantedDist += this.motor.getCurrentPosition();
     }
 
 }

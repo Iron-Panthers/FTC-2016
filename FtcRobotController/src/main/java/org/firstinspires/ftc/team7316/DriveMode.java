@@ -13,20 +13,17 @@ import org.firstinspires.ftc.team7316.util.input.GamepadWrapper;
 @TeleOp(name = "PantherDrive")
 public class DriveMode extends OpMode {
 
-    private Hardware hardware;
-
     private GamepadWrapper gpWrapper;
     private DcMotorWrapper leftDrive, rightDrive;
 
+
     @Override
     public void init() {
-        hardware = new Hardware(hardwareMap);
-
+        Scheduler.instance.clear();
         gpWrapper = new GamepadWrapper(gamepad1);
 
-        leftDrive = new DcMotorWrapper(hardware.leftDriveMotor, gpWrapper.left_axis_y, false);
-        rightDrive = new DcMotorWrapper(hardware.rightDriveMotor, gpWrapper.right_axis_y, true);
-
+        leftDrive = new DcMotorWrapper(Hardware.instance.leftDriveMotor, gpWrapper.left_axis_y, false);
+        rightDrive = new DcMotorWrapper(Hardware.instance.rightDriveMotor, gpWrapper.right_axis_y, true);
     }
 
     @Override
