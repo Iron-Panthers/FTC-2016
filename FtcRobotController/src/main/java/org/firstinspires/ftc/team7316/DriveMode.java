@@ -27,11 +27,12 @@ public class DriveMode extends OpMode {
         leftDrive = new DcMotorWrapper(hardware.leftDriveMotor, gpWrapper.left_axis_y, false);
         rightDrive = new DcMotorWrapper(hardware.rightDriveMotor, gpWrapper.right_axis_y, true);
 
-
     }
 
     @Override
     public void loop() {
         Scheduler.instance.loop();
+        telemetry.addData("encoderLeft", leftDrive.getEncoderPos());
+        telemetry.addData("encoderRight", rightDrive.getEncoderPos());
     }
 }
