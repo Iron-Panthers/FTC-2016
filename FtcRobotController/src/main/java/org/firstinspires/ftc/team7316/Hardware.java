@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.team7316;
 
+import android.graphics.Path;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -33,10 +36,12 @@ public class Hardware {
     public Hardware (HardwareMap map) {
 
         leftDriveMotor = map.dcMotor.get(LEFT_DRIVE_MOTOR_NAME);
-        //leftDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftDriveMotor.setDirection(DcMotor.Direction.FORWARD);
+        leftDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         rightDriveMotor = map.dcMotor.get(RIGHT_DRIVE_MOTOR_NAME);
-        //rightDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightDriveMotor.setDirection(DcMotor.Direction.REVERSE);
+        rightDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //leftCatcherServo = map.servo.get(LEFT_CATCHER_SERVO_NAME);
         //rightCatcherServo = map.servo.get(RIGHT_CATCHER_SERVO_NAME);

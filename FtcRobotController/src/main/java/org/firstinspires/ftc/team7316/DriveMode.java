@@ -22,8 +22,8 @@ public class DriveMode extends OpMode {
         Scheduler.instance.clear();
         gpWrapper = new GamepadWrapper(gamepad1);
 
-        leftDrive = new DcMotorWrapper(Hardware.instance.leftDriveMotor, gpWrapper.left_axis_y, false);
-        rightDrive = new DcMotorWrapper(Hardware.instance.rightDriveMotor, gpWrapper.right_axis_y, true);
+        leftDrive = new DcMotorWrapper(Hardware.instance.leftDriveMotor, gpWrapper.left_axis_y);
+        rightDrive = new DcMotorWrapper(Hardware.instance.rightDriveMotor, gpWrapper.right_axis_y);
     }
 
     @Override

@@ -27,7 +27,7 @@ public class AutoMode extends OpMode {
         rightMotor = Hardware.instance.rightDriveMotor;
 
         Scheduler.instance.addTask(new PIDDriveDistance(10000, 1, leftMotor));
-        Scheduler.instance.addTask(new PIDDriveDistance(-10000, -1, rightMotor));
+        Scheduler.instance.addTask(new PIDDriveDistance(10000, 1, rightMotor));
 
     }
 
