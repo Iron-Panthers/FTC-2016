@@ -3,7 +3,9 @@ package org.firstinspires.ftc.team7316;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.team7316.util.PreciseDriveDistance;
 import org.firstinspires.ftc.team7316.util.Scheduler;
 
@@ -24,8 +26,9 @@ public class AutoMode extends OpMode {
         leftMotor = Hardware.instance.leftDriveMotor;
         rightMotor = Hardware.instance.rightDriveMotor;
 
-        Scheduler.instance.addTask(new DriveDistance(10000, 0.5, leftMotor));
-        Scheduler.instance.addTask(new DriveDistance(10000, -0.5, rightMotor));
+        Scheduler.instance.addTask(new PIDDriveDistance(10000, 1, leftMotor));
+        Scheduler.instance.addTask(new PIDDriveDistance(-10000, -1, rightMotor));
+
     }
 
     @Override

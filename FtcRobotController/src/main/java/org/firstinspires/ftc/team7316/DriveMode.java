@@ -33,3 +33,11 @@ public class DriveMode extends OpMode {
         telemetry.addData("encoderRight", rightDrive.getEncoderPos());
     }
 }
+
+//this is absolutely amazing wow wowowwowowowowwowowowoowowowwowoowowowowowowowowwo :)
+//this is absolutely amazing wow wowowwowowowowwowowowoowowowwowoowowowowowowowowwo :)
+//this is absolutely amazing wow wowowwowowowowwowowowoowowowwowoowowowowowowowowwo :)
+//this is absolutely amazing wow wowowwowowowowwowowowoowowowwowoowowowowowowowowwo :)
+//this is absolutely amazing wow wowowwowowowowwowowowoowowowwowoowowowowowowowowwo :)
+//this is absolutely amazing wow wowowwowowowowwowowowoowowowwowoowowowowowowowowwo :)
+//this is absolutely amazing wow wowowwowowowowwowowowoowowowwowoowowowowowowowowwo :)
