@@ -1,9 +1,5 @@
 package org.firstinspires.ftc.team7316.util.input;
 
-import android.util.Log;
-
-import org.firstinspires.ftc.team7316.Hardware;
-
 /**
  * A wrapper for a single joystick axis.
  */

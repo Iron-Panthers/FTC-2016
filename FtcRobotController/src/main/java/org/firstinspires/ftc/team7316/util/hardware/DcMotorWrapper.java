@@ -13,12 +13,10 @@ public class DcMotorWrapper implements Loopable {
 
     private DcMotor motor;
     private AxisWrapper axis;
-    private boolean isReversed;
 
-    public DcMotorWrapper(DcMotor motor, AxisWrapper axis, boolean isReversed) {
+    public DcMotorWrapper(DcMotor motor, AxisWrapper axis) {
         this.motor = motor;
         this.axis = axis;
-        this.isReversed = isReversed;
 
         Scheduler.instance.addTask(this);
     }
@@ -29,27 +27,10 @@ public class DcMotorWrapper implements Loopable {
     }
 
     public void loop() {
-
-        if (isReversed) {
-            motor.setPower(-axis.value());
-        } else {
-            motor.setPower(axis.value());
-        }
-
-    }
-
-    public void setTargetPosition(int position) {
-        if (isReversed) {
-            motor.setTargetPosition(-position);
-        } else {
-            motor.setTargetPosition(position);
-        }
+        motor.setPower(axis.value());
     }
 
     public int getEncoderPos() {
-        if (isReversed) {
-            return -motor.getCurrentPosition();
-        }
         return motor.getCurrentPosition();
     }
 

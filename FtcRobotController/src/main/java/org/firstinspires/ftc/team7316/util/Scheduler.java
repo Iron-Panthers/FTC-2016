@@ -1,9 +1,5 @@
 package org.firstinspires.ftc.team7316.util;
 
-import android.util.Log;
-
-import org.firstinspires.ftc.team7316.Hardware;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -32,18 +28,20 @@ public class Scheduler {
                 thisTask.init();
                 hasInitialized.put(thisTask, false);
             }
+
+            thisTask.loop();
             if (thisTask.shouldRemove()) {
                 tasks.remove(i);
                 thisTask.terminate();
                 hasInitialized.remove(thisTask);
             } else {
-                thisTask.loop();
                 i++;
             }
         }
     }
 
     public void clear() {
+        this.hasInitialized.clear();
         this.tasks.clear();
     }
 

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.team7316;
+package org.firstinspires.ftc.team7316.util.auto;
 
 import android.util.Log;
 
@@ -23,9 +23,16 @@ public class DriveDistance implements Loopable {
     }
 
     @Override
+    public void init() {
+        this.wantedDist += Math.abs(this.motor.getCurrentPosition());
+    }
+
+
+    @Override
     public void loop() {
         this.motor.setPower(this.power);
     }
+
 
     @Override
     public boolean shouldRemove() {
@@ -35,11 +42,6 @@ public class DriveDistance implements Loopable {
     @Override
     public void terminate() {
         this.motor.setPower(0);
-    }
-
-    @Override
-    public void init() {
-        this.wantedDist += this.motor.getCurrentPosition();
     }
 
 }

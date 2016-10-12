@@ -13,6 +13,7 @@ public class GamepadWrapper {
     public AxisWrapper left_axis_y, right_axis_y;
 
     public ButtonWrapper a_button, b_button, x_button, y_button;
+    public ButtonWrapper left_bumper, right_bumper;
     public TriggerWrapper leftTriggerWrapper, rightTriggerWrapper;
 
     public GamepadWrapper(Gamepad gamepad) {
@@ -29,6 +30,9 @@ public class GamepadWrapper {
         this.y_button = new ButtonWrapper(GamepadButton.Y_BUTTON, this);
         this.leftTriggerWrapper = new TriggerWrapper(GamepadAxis.L_TRIGGER, this);
         this.rightTriggerWrapper = new TriggerWrapper(GamepadAxis.R_TRIGGER, this);
+
+        this.left_bumper = new ButtonWrapper(GamepadButton.L_BUMPER, this);
+        this.right_bumper = new ButtonWrapper(GamepadButton.R_BUMPER, this);
     }
 
     public boolean buttonState(GamepadButton buttonIndex) {
