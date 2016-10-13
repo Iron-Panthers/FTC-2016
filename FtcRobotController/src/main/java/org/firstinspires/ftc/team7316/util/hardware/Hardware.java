@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.team7316.util.hardware;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -40,6 +41,7 @@ public class Hardware {
 
         rightDriveMotor = map.dcMotor.get(RIGHT_DRIVE_MOTOR_NAME);
         rightDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightDriveMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //leftCatcherServo = map.servo.get(LEFT_CATCHER_SERVO_NAME);
         //rightCatcherServo = map.servo.get(RIGHT_CATCHER_SERVO_NAME);

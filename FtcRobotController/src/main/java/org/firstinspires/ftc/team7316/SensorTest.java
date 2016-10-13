@@ -4,41 +4,41 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
+import com.qualcomm.robotcore.hardware.LightSensor;
 
 import org.firstinspires.ftc.team7316.util.Scheduler;
 import org.firstinspires.ftc.team7316.util.hardware.ColorWrapper;
+import org.firstinspires.ftc.team7316.util.hardware.DcMotorWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.GyroWrapper;
+import org.firstinspires.ftc.team7316.util.hardware.Hardware;
+import org.firstinspires.ftc.team7316.util.input.GamepadWrapper;
 
 /**
  * Created by andrew on 10/11/16.
  */
-@TeleOp(name = "SensorTest123")
+@TeleOp(name = "SensorTest")
 public class SensorTest extends OpMode {
 
-    GyroWrapper gyroWrapper;
-    ColorWrapper colorWrapper;
+    LightSensor lightSensor;
+    GamepadWrapper gamepadWrapper;
 
     @Override
     public void init() {
-        GyroSensor gyroSensor = hardwareMap.gyroSensor.get("gyro");
-        gyroWrapper = new GyroWrapper(gyroSensor);
-        Scheduler.instance.addTask(gyroWrapper);
+        gamepadWrapper = new GamepadWrapper(gamepad1);
 
-        ColorSensor colorSensor = hardwareMap.colorSensor.get("color");
-        colorWrapper = new ColorWrapper(colorSensor);
-        Scheduler.instance.addTask(colorWrapper);
+        Hardware.instance.setHardwareMap(hardwareMap);
 
-        gyroWrapper.calibrate();
+        lightSensor = Hardware.instance.lightSensor;
     }
 
     @Override
     public void loop() {
         Scheduler.instance.loop();
 
-        telemetry.addData("gyro_z", gyroWrapper.getHeading());
+        Hardware.instance.leftDriveMotor.setPower(gamepadWrapper.left_stick.getY());
+        Hardware.instance.rightDriveMotor.setPower(gamepadWrapper.right_stick.getY());
 
-        telemetry.addData("color_r", colorWrapper.sumR());
-        telemetry.addData("color_g", colorWrapper.sumG());
-        telemetry.addData("color_b", colorWrapper.sumB());
+        telemetry.addData("light: ", lightSensor.getLightDetected());
+        telemetry.addData("raw_light: ", lightSensor.getRawLightDetected());
     }
 }
