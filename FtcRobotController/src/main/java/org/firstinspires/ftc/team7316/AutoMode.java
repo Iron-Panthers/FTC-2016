@@ -31,7 +31,7 @@ public class AutoMode extends OpMode {
         leftMotor = Hardware.instance.leftDriveMotor;
         rightMotor = Hardware.instance.rightDriveMotor;
 
-        Scheduler.instance.addTask(new LineFollow(leftMotor, rightMotor, Hardware.instance.lightSensor, 0.1));
+        Scheduler.instance.addTask(new LineFollow(leftMotor, rightMotor, Hardware.instance.lightSensor, 0.2));
     }
 
     @Override

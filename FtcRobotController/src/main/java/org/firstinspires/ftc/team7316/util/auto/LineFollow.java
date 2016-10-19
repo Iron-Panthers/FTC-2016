@@ -18,15 +18,14 @@ public class LineFollow implements Loopable {
     private final double minLight = 0.31;
     private final double maxLight = 0.46;
 
-    private double errorToTurnRatio = 0;
+    private double errorToLeftRatio = 0;
+    private double errorToRightRatio = 0;
 
-    private final double k = 1; //ratio of error to turn
+    private final double k = 0.2; //ratio of error to turn
     private double wantedPower;
-    private double leftPower;
-    private double rightPower;
 
     private double minPower = 0; //-1 to maxPower
-    private double maxPower = 0.3; //minPower to 1
+    private double maxPower = 1; //minPower to 1
 
     public LineFollow (DcMotor leftMotor, DcMotor rightMotor, LightSensor sensor, double wantedPower) {
         sensor.enableLed(true);
@@ -41,24 +40,26 @@ public class LineFollow implements Loopable {
         double minError = this.error(minLight);
         double maxError = this.error(maxLight);
 
-        double minErrorSlope = 1/minError;
-        double maxErrorSlope = -1/maxError;
+        double minErrorSlope = (maxPower - wantedPower)/minError;
+        double maxErrorSlope = (minPower - wantedPower)/maxError;
 
-        errorToTurnRatio = (minErrorSlope + maxErrorSlope)/2;
+        errorToLeftRatio = (minErrorSlope + maxErrorSlope)/2;
+
+        minErrorSlope = (minPower - wantedPower)/minError;
+        maxErrorSlope = (maxPower - wantedPower)/maxError;
+
+        errorToRightRatio = (minErrorSlope + maxErrorSlope)/2;
+
     }
 
     @Override
     public void init() {
-        double turn = 0;
-        this.turn(turn);
     }
 
     @Override
     public void loop() {
-        double error = this.error(this.sensor.getLightDetected());
-        double turnNumber = error*errorToTurnRatio;
-
-        this.turn(turnNumber*k);
+        this.leftMotor.setPower(leftPower(this.sensor.getLightDetected()));
+        this.rightMotor.setPower(rightPower(this.sensor.getLightDetected()));
     }
 
     @Override
@@ -73,26 +74,22 @@ public class LineFollow implements Loopable {
         sensor.enableLed(false);
     }
 
-    private void turn(double value) { //-1 (left) to 1 (right)
-        if (value > 1) {
-            value = 1;
-        } else if (value < -1) {
-            value = -1;
-        }
-
-        double leftVal = turnAssist(value);
-        double rightVal = turnAssist(-value);
-
-        this.leftMotor.setPower(leftVal);
-        this.rightMotor.setPower(rightVal);
+    private double leftPower(double reading) {
+        /*
+        1. convert reading to error
+        2. convert error to motor power
+            a. motor power should be in range 0 to 1 (later replace min and max motor power)
+            b. if error is minLight should return 0 motor
+            c. if error is wantedLight should return wantedPower
+            d. if error is maxLight should return 1 motor power
+         */
+        double error = error(reading);
+        return error * errorToLeftRatio + wantedPower;
     }
 
-    private double turnAssist(double turnAmount) {
-        if (turnAmount < 0) {
-            return (this.wantedPower - minPower)*turnAmount + this.wantedPower;
-        } else {
-            return (maxPower - this.wantedPower)*turnAmount + this.wantedPower;
-        }
+    private double rightPower(double reading) {
+        double error = error(reading);
+        return error * errorToRightRatio + wantedPower;
     }
 
     private double error(double reading) {
