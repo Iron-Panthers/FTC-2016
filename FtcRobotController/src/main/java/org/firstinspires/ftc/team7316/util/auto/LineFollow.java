@@ -14,18 +14,23 @@ public class LineFollow implements Loopable {
 
     private LightSensor sensor;
 
-    private final double wantedLight = 0.11; //FIX THESE NUMBERS WITH TESTING
-    private final double minLight = 0.06;
-    private final double maxLight = 0.18;
+    private final double wantedLight = 0.387; //FIX THESE NUMBERS WITH TESTING
+    private final double minLight = 0.31;
+    private final double maxLight = 0.46;
 
     private double errorToTurnRatio = 0;
 
-    private final double k = 0.1;
+    private final double k = 1; //ratio of error to turn
     private double wantedPower;
     private double leftPower;
     private double rightPower;
 
+    private double minPower = 0; //-1 to maxPower
+    private double maxPower = 0.3; //minPower to 1
+
     public LineFollow (DcMotor leftMotor, DcMotor rightMotor, LightSensor sensor, double wantedPower) {
+        sensor.enableLed(true);
+
         this.leftMotor = leftMotor;
         this.rightMotor = rightMotor;
 
@@ -53,7 +58,7 @@ public class LineFollow implements Loopable {
         double error = this.error(this.sensor.getLightDetected());
         double turnNumber = error*errorToTurnRatio;
 
-        this.turn(turnNumber);
+        this.turn(turnNumber*k);
     }
 
     @Override
@@ -65,6 +70,7 @@ public class LineFollow implements Loopable {
     public void terminate() {
         this.leftMotor.setPower(0);
         this.rightMotor.setPower(0);
+        sensor.enableLed(false);
     }
 
     private void turn(double value) { //-1 (left) to 1 (right)
@@ -83,9 +89,9 @@ public class LineFollow implements Loopable {
 
     private double turnAssist(double turnAmount) {
         if (turnAmount < 0) {
-            return (1 + this.wantedPower)*turnAmount + this.wantedPower;
+            return (this.wantedPower - minPower)*turnAmount + this.wantedPower;
         } else {
-            return (1 - this.wantedPower)*turnAmount + this.wantedPower;
+            return (maxPower - this.wantedPower)*turnAmount + this.wantedPower;
         }
     }
 

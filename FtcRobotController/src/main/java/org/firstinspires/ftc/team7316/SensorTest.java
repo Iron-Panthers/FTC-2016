@@ -29,6 +29,7 @@ public class SensorTest extends OpMode {
         Hardware.instance.setHardwareMap(hardwareMap);
 
         lightSensor = Hardware.instance.lightSensor;
+        lightSensor.enableLed(true);
     }
 
     @Override

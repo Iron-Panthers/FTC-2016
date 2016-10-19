@@ -27,20 +27,20 @@ public class DriveMode extends OpMode {
         Scheduler.instance.clear();
 
         Hardware.setHardwareMap(hardwareMap);
-        //Hardware.instance.lightSensor.enableLed(true);
+        Hardware.instance.lightSensor.enableLed(true);
 
         gpWrapper = new GamepadWrapper(gamepad1);
 
-        //leftDrive = new DcMotorWrapper(Hardware.instance.leftDriveMotor, gpWrapper.left_axis_y, false);
-        //rightDrive = new DcMotorWrapper(Hardware.instance.rightDriveMotor, gpWrapper.right_axis_y, true);
+        leftDrive = new DcMotorWrapper(Hardware.instance.leftDriveMotor, gpWrapper.left_axis_y);
+        rightDrive = new DcMotorWrapper(Hardware.instance.rightDriveMotor, gpWrapper.right_axis_y);
 
-        leftPusher = new ServoWrapper(Hardware.instance.leftBeaconServo, gpWrapper.left_bumper);
-        rightPusher = new ServoWrapper(Hardware.instance.rightBeaconServo, gpWrapper.right_bumper);
+        //leftPusher = new ServoWrapper(Hardware.instance.leftBeaconServo, gpWrapper.left_bumper);
+        //rightPusher = new ServoWrapper(Hardware.instance.rightBeaconServo, gpWrapper.right_bumper);
     }
 
     @Override
     public void loop() {
         Scheduler.instance.loop();
-        //telemetry.addData(Hardware.tag, "light: " + Hardware.instance.lightSensor.getLightDetected());
+        telemetry.addData(Hardware.tag, "light: " + Hardware.instance.lightSensor.getLightDetected());
     }
 }
