@@ -4,11 +4,14 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.Const;
 import org.firstinspires.ftc.team7316.util.Alliance;
+import org.firstinspires.ftc.team7316.util.Constants;
 import org.firstinspires.ftc.team7316.util.Loopable;
+import org.firstinspires.ftc.team7316.util.Scheduler;
 
 /**
- * Created by Maxim on 10/18/2016.
+ * It presses the bacon
  */
 public class PressBeacon implements Loopable {
 
@@ -19,6 +22,7 @@ public class PressBeacon implements Loopable {
     private ColorSensor sensor;
     private Servo left, right;
     private boolean sensorIsOnRight;
+    private ElapsedTime pressedTime;
 
     public PressBeacon(Alliance alliance, ColorSensor sensor, Servo left, Servo right, boolean sensorIsOnRight) {
 
@@ -28,13 +32,22 @@ public class PressBeacon implements Loopable {
         this.right = right;
 
         this.sensorIsOnRight = sensorIsOnRight;
+        this.pressedTime = new ElapsedTime();
     }
 
     @Override
     public void init() {
-        if (alliance.isGoodGood(sensor) && sensorIsOnRight) {
-
-        }
+        Scheduler.instance.addTask(new DelayedStart(Constants.COLOR_SENSOR_DELAY, new Runnable() {
+            @Override
+            public void run() {
+                pressedTime.reset();
+                if (alliance.isGoodGood(sensor) && sensorIsOnRight) { // If the right sensor is good
+                    right.setPosition(Constants.RIGHT_ON);
+                } else {
+                    left.setPosition(Constants.LEFT_ON);
+                }
+            }
+        }));
     }
 
     @Override
@@ -44,11 +57,12 @@ public class PressBeacon implements Loopable {
 
     @Override
     public boolean shouldRemove() {
-        return false;
+        return pressedTime.seconds() >= Constants.PRESSER_SERVO_TRAVEL_TIME;
     }
 
     @Override
     public void terminate() {
-
+        right.setPosition(Constants.RIGHT_OFF);
+        left.setPosition(Constants.LEFT_OFF);
     }
 }

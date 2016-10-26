@@ -14,6 +14,11 @@ public enum Alliance {
         this.threshold = threshold;
     }
 
+    /**
+     * Check if good good
+     * @param sensor the sensor to check if good good
+     * @return is good good or not is good good
+     */
     public boolean isGoodGood(ColorSensor sensor) {
         switch (this) {
             case RED:
