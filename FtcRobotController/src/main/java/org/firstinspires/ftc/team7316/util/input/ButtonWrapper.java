@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.team7316.util.input;
 
 import org.firstinspires.ftc.team7316.util.Loopable;
+import org.firstinspires.ftc.team7316.util.Scheduler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ public class ButtonWrapper implements Loopable {
         this.gamepadInput = gamepadInput;
         this.gpSource  = gpSource;
         this.listeners = new ArrayList<>();
+        Scheduler.instance.addTask(this);
     }
 
     public void addListener(ButtonListener listener) {

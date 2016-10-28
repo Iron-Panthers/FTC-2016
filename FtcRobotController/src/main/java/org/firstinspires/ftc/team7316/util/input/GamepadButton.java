@@ -9,5 +9,9 @@ public enum GamepadButton {
     Y_BUTTON,
     X_BUTTON,
     R_BUMPER,
-    L_BUMPER
+    L_BUMPER,
+    DPAD_UP,
+    DPAD_DOWN,
+    DPAD_LEFT,
+    DPAD_RIGHT,
 }
