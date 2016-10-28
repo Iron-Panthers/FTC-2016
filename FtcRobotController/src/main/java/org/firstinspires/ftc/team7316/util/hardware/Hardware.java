@@ -33,6 +33,8 @@ public class Hardware {
     public Servo leftCatcherServo, rightCatcherServo;
     public LightSensor lightSensor;
 
+    public double jankDelta = 0;
+    public double jankSum = 0;
 
     public Hardware (HardwareMap map) {
 

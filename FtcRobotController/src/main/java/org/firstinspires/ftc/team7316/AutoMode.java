@@ -31,17 +31,14 @@ public class AutoMode extends OpMode {
         leftMotor = Hardware.instance.leftDriveMotor;
         rightMotor = Hardware.instance.rightDriveMotor;
 
-        Scheduler.instance.addTask(new LineFollow(leftMotor, rightMotor, Hardware.instance.lightSensor, 0.2));
+        Scheduler.instance.addTask(new LineFollow(leftMotor, rightMotor, Hardware.instance.lightSensor, 0.15));
     }
 
     @Override
     public void loop() {
         Scheduler.instance.loop();
-        telemetry.addData("Encoder Left", leftMotor.getCurrentPosition());
-        telemetry.addData("Encoder Right", rightMotor.getCurrentPosition());
-        telemetry.addData("Power Left", leftMotor.getPower());
-        telemetry.addData("Power Right", rightMotor.getPower());
-        telemetry.addData("Light: ", Hardware.instance.lightSensor.getLightDetected());
+        telemetry.addData("Delta Error", Hardware.instance.jankDelta);
+        telemetry.addData("Error Sum", Hardware.instance.jankSum);
     }
 }
 

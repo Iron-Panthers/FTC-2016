@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.LightSensor;
 
 import org.firstinspires.ftc.team7316.util.Loopable;
+import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
 /**
  * Created by andrew on 10/4/16.
@@ -14,18 +15,24 @@ public class LineFollow implements Loopable {
 
     private LightSensor sensor;
 
-    private final double wantedLight = 0.387; //FIX THESE NUMBERS WITH TESTING
-    private final double minLight = 0.31;
-    private final double maxLight = 0.46;
+    private final double wantedLight = 0.2; //FIX THESE NUMBERS WITH TESTING
+    private final double minLight = 0.13;
+    private final double maxLight = 0.25;
 
     private double errorToLeftRatio = 0;
     private double errorToRightRatio = 0;
 
-    private final double k = 0.2; //ratio of error to turn
+    private int counter = 0;
+    private final double p = 0.8; //ratio of error to turn
+    private final double i = 0; //ration of sum of errors to turn
+    private final double d = 9.5; //ratio of delta to turn
+    private double deltaError = 0;
+    private double lastError = 0;
+    private double errorSum = 0;
     private double wantedPower;
 
     private double minPower = 0; //-1 to maxPower
-    private double maxPower = 1; //minPower to 1
+    private double maxPower = 0.3; //minPower to 1
 
     public LineFollow (DcMotor leftMotor, DcMotor rightMotor, LightSensor sensor, double wantedPower) {
         sensor.enableLed(true);
@@ -58,8 +65,10 @@ public class LineFollow implements Loopable {
 
     @Override
     public void loop() {
-        this.leftMotor.setPower(leftPower(this.sensor.getLightDetected()));
-        this.rightMotor.setPower(rightPower(this.sensor.getLightDetected()));
+        double error = error(this.sensor.getLightDetected());
+
+        this.leftMotor.setPower(leftPower(error));
+        this.rightMotor.setPower(rightPower(error));
     }
 
     @Override
@@ -74,7 +83,7 @@ public class LineFollow implements Loopable {
         sensor.enableLed(false);
     }
 
-    private double leftPower(double reading) {
+    private double leftPower(double error) {
         /*
         1. convert reading to error
         2. convert error to motor power
@@ -83,16 +92,29 @@ public class LineFollow implements Loopable {
             c. if error is wantedLight should return wantedPower
             d. if error is maxLight should return 1 motor power
          */
-        double error = error(reading);
-        return error * errorToLeftRatio + wantedPower;
+        return error * errorToLeftRatio * this.p + this.errorSum * errorToLeftRatio * this.i + this.deltaError * errorToLeftRatio * this.d + wantedPower;
     }
 
-    private double rightPower(double reading) {
-        double error = error(reading);
-        return error * errorToRightRatio + wantedPower;
+    private double rightPower(double error) {
+        return error * errorToRightRatio * this.p + this.errorSum * errorToRightRatio * this.i + this.deltaError * errorToRightRatio * this.d + wantedPower;
     }
 
     private double error(double reading) {
-        return reading - this.wantedLight;
+        double error = reading - this.wantedLight;
+
+        this.errorSum += error;
+
+        if (counter % 3 == 0) {
+            this.deltaError = 0;
+        }
+        this.deltaError += error - this.lastError;
+        counter++;
+
+        Hardware.instance.jankDelta = this.deltaError;
+        Hardware.instance.jankSum = this.errorSum;
+
+        lastError = error;
+
+        return error;
     }
 }
