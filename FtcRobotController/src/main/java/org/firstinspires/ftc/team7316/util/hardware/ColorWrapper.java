@@ -8,7 +8,7 @@ import org.firstinspires.ftc.team7316.util.Loopable;
  * Created by andrew on 10/11/16.
  */
 
-import org.firstinspires.ftc.team7316.Buffer;
+import org.firstinspires.ftc.team7316.util.Buffer;
 
 public class ColorWrapper implements Loopable {
 
