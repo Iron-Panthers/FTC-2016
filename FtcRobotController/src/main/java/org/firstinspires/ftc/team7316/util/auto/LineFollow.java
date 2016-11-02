@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.LightSensor;
 
 import org.firstinspires.ftc.team7316.util.Loopable;
+import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
 /**
  * Created by andrew on 10/4/16.
@@ -14,16 +15,21 @@ public class LineFollow implements Loopable {
 
     private LightSensor sensor;
 
-    private final double wantedLight = 0.387; //FIX THESE NUMBERS WITH TESTING
-    private final double minLight = 0.31;
-    private final double maxLight = 0.46;
+    private final double wantedLight = 0.2; //FIX THESE NUMBERS WITH TESTING
+    private final double minLight = 0.13;
+    private final double maxLight = 0.25;
 
-    private double errorToTurnRatio = 0;
+    private double errorToLeftRatio = 0;
+    private double errorToRightRatio = 0;
 
-    private final double k = 1; //ratio of error to turn
+    private int counter = 0;
+    private final double p = 0.8; //ratio of error to turn
+    private final double i = 0; //ration of sum of errors to turn
+    private final double d = 9.5; //ratio of delta to turn
+    private double deltaError = 0;
+    private double lastError = 0;
+    private double errorSum = 0;
     private double wantedPower;
-    private double leftPower;
-    private double rightPower;
 
     private double minPower = 0; //-1 to maxPower
     private double maxPower = 0.3; //minPower to 1
@@ -41,24 +47,28 @@ public class LineFollow implements Loopable {
         double minError = this.error(minLight);
         double maxError = this.error(maxLight);
 
-        double minErrorSlope = 1/minError;
-        double maxErrorSlope = -1/maxError;
+        double minErrorSlope = (maxPower - wantedPower)/minError;
+        double maxErrorSlope = (minPower - wantedPower)/maxError;
 
-        errorToTurnRatio = (minErrorSlope + maxErrorSlope)/2;
+        errorToLeftRatio = (minErrorSlope + maxErrorSlope)/2;
+
+        minErrorSlope = (minPower - wantedPower)/minError;
+        maxErrorSlope = (maxPower - wantedPower)/maxError;
+
+        errorToRightRatio = (minErrorSlope + maxErrorSlope)/2;
+
     }
 
     @Override
     public void init() {
-        double turn = 0;
-        this.turn(turn);
     }
 
     @Override
     public void loop() {
-        double error = this.error(this.sensor.getLightDetected());
-        double turnNumber = error*errorToTurnRatio;
+        double error = error(this.sensor.getLightDetected());
 
-        this.turn(turnNumber*k);
+        this.leftMotor.setPower(leftPower(error));
+        this.rightMotor.setPower(rightPower(error));
     }
 
     @Override
@@ -73,29 +83,38 @@ public class LineFollow implements Loopable {
         sensor.enableLed(false);
     }
 
-    private void turn(double value) { //-1 (left) to 1 (right)
-        if (value > 1) {
-            value = 1;
-        } else if (value < -1) {
-            value = -1;
-        }
-
-        double leftVal = turnAssist(value);
-        double rightVal = turnAssist(-value);
-
-        this.leftMotor.setPower(leftVal);
-        this.rightMotor.setPower(rightVal);
+    private double leftPower(double error) {
+        /*
+        1. convert reading to error
+        2. convert error to motor power
+            a. motor power should be in range 0 to 1 (later replace min and max motor power)
+            b. if error is minLight should return 0 motor
+            c. if error is wantedLight should return wantedPower
+            d. if error is maxLight should return 1 motor power
+         */
+        return error * errorToLeftRatio * this.p + this.errorSum * errorToLeftRatio * this.i + this.deltaError * errorToLeftRatio * this.d + wantedPower;
     }
 
-    private double turnAssist(double turnAmount) {
-        if (turnAmount < 0) {
-            return (this.wantedPower - minPower)*turnAmount + this.wantedPower;
-        } else {
-            return (maxPower - this.wantedPower)*turnAmount + this.wantedPower;
-        }
+    private double rightPower(double error) {
+        return error * errorToRightRatio * this.p + this.errorSum * errorToRightRatio * this.i + this.deltaError * errorToRightRatio * this.d + wantedPower;
     }
 
     private double error(double reading) {
-        return reading - this.wantedLight;
+        double error = reading - this.wantedLight;
+
+        this.errorSum += error;
+
+        if (counter % 3 == 0) {
+            this.deltaError = 0;
+        }
+        this.deltaError += error - this.lastError;
+        counter++;
+
+        Hardware.instance.jankDelta = this.deltaError;
+        Hardware.instance.jankSum = this.errorSum;
+
+        lastError = error;
+
+        return error;
     }
 }

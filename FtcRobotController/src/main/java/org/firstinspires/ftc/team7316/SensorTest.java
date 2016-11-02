@@ -19,27 +19,24 @@ import org.firstinspires.ftc.team7316.util.input.GamepadWrapper;
 @TeleOp(name = "SensorTest")
 public class SensorTest extends OpMode {
 
-    LightSensor lightSensor;
+    ColorSensor colorSensor;
     GamepadWrapper gamepadWrapper;
 
     @Override
     public void init() {
         gamepadWrapper = new GamepadWrapper(gamepad1);
 
-        Hardware.instance.setHardwareMap(hardwareMap);
-
-        lightSensor = Hardware.instance.lightSensor;
-        lightSensor.enableLed(true);
+        colorSensor = hardwareMap.colorSensor.get("color");
     }
 
     @Override
     public void loop() {
         Scheduler.instance.loop();
 
-        Hardware.instance.leftDriveMotor.setPower(gamepadWrapper.left_stick.getY());
-        Hardware.instance.rightDriveMotor.setPower(gamepadWrapper.right_stick.getY());
-
-        telemetry.addData("light: ", lightSensor.getLightDetected());
-        telemetry.addData("raw_light: ", lightSensor.getRawLightDetected());
+        telemetry.addData("red", colorSensor.red());
+        telemetry.addData("green", colorSensor.green());
+        telemetry.addData("blue", colorSensor.blue());
+        telemetry.addData("alpha", colorSensor.alpha());
+        telemetry.addData("argb", Integer.toHexString(colorSensor.argb()));
     }
 }
