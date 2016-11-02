@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 /**
  * Created by andrew on 9/15/16.
  */
@@ -17,6 +19,8 @@ public class Hardware {
     public static Hardware instance = null;
 
     public static final String tag = "IronPanthers";
+
+    private static Telemetry telemetry;
 
     private static final String LEFT_DRIVE_MOTOR_NAME = "mdl";
     private static final String RIGHT_DRIVE_MOTOR_NAME = "mdr";
@@ -40,10 +44,10 @@ public class Hardware {
 
         leftDriveMotor = map.dcMotor.get(LEFT_DRIVE_MOTOR_NAME);
         leftDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftDriveMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         rightDriveMotor = map.dcMotor.get(RIGHT_DRIVE_MOTOR_NAME);
         rightDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightDriveMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //leftCatcherServo = map.servo.get(LEFT_CATCHER_SERVO_NAME);
         //rightCatcherServo = map.servo.get(RIGHT_CATCHER_SERVO_NAME);
@@ -53,10 +57,20 @@ public class Hardware {
         // leftBeaconServo = map.servo.get(LEFT_BEACON_SERVO_NAME);
         // rightBeaconServo = map.servo.get(RIGHT_BEACON_SERVO_NAME);
 
-        lightSensor = map.lightSensor.get(LIGHT_SENSOR_NAME);
+        //lightSensor = map.lightSensor.get(LIGHT_SENSOR_NAME);
     }
 
     public static void setHardwareMap(HardwareMap map) {
         instance = new Hardware(map);
+    }
+
+    public static void setTelemetry(Telemetry telemetry) {
+        Hardware.telemetry = telemetry;
+    }
+
+    public static void log(String caption, Object value) {
+        if (telemetry != null) {
+            telemetry.addData(caption, value);
+        }
     }
 }

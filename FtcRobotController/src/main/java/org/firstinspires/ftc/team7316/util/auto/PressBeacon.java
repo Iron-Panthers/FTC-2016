@@ -37,6 +37,7 @@ public class PressBeacon implements Loopable {
 
     @Override
     public void init() {
+        // Delay the sensor
         Scheduler.instance.addTask(new DelayedStart(Constants.COLOR_SENSOR_DELAY, new Runnable() {
             @Override
             public void run() {

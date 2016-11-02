@@ -47,7 +47,6 @@ public class DriveDistanceAccurate implements Loopable {
             if (this.currentPower <= this.minPower) {
                 this.currentPower = this.minPower;
             } else {
-                Log.d(Hardware.tag, "Decreasing power: " + String.valueOf(this.motor.getCurrentPosition()) + ", " + this.currentPower);
                 this.currentPower *= this.decreaseRate;
             }
         }
