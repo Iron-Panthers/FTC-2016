@@ -3,14 +3,10 @@ package org.firstinspires.ftc.team7316;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.team7316.util.PreciseDriveDistance;
 import org.firstinspires.ftc.team7316.util.Scheduler;
-import org.firstinspires.ftc.team7316.util.auto.DriveDistance;
-import org.firstinspires.ftc.team7316.util.auto.DriveDistanceAccurate;
-import org.firstinspires.ftc.team7316.util.auto.LineFollow;
+import org.firstinspires.ftc.team7316.util.auto.CommandSequence;
+import org.firstinspires.ftc.team7316.util.auto.SimultaneousCommands;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
 /**
@@ -33,8 +29,7 @@ public class AutoMode extends OpMode {
         leftMotor = Hardware.instance.leftDriveMotor;
         rightMotor = Hardware.instance.rightDriveMotor;
 
-        Scheduler.instance.addTask(new DriveDistanceAccurate(11287, -0.6, Hardware.instance.leftDriveMotor));
-        Scheduler.instance.addTask(new DriveDistanceAccurate(11287, -0.6, Hardware.instance.rightDriveMotor));
+        Scheduler.instance.addTask(AutoCodes.closeBeaconCloseStartRed());
     }
 
     @Override

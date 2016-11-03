@@ -1,0 +1,48 @@
+package org.firstinspires.ftc.team7316.util.auto.conditions;
+
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.team7316.util.Loopable;
+
+/**
+ * Created by andrew on 11/2/16.
+ */
+public class DistanceSensorThreshold implements Loopable {
+
+    private OpticalDistanceSensor distanceSensor;
+    private double threshold;
+    private boolean wantedLess;
+
+    public DistanceSensorThreshold(OpticalDistanceSensor distanceSensor, double thresh, boolean wantedLess) { //if wanted less is true, then it will return true if distance is less than thresh
+        this.distanceSensor = distanceSensor;
+        this.threshold = thresh;
+        this.wantedLess = wantedLess;
+    }
+
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void loop() {
+
+    }
+
+    @Override
+    public boolean shouldRemove() {
+        if (this.wantedLess) {
+            return distanceSensor.getLightDetected() < this.threshold;
+        } else {
+            return distanceSensor.getLightDetected() > this.threshold;
+        }
+    }
+
+    @Override
+    public void terminate() {
+
+    }
+}

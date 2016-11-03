@@ -2,16 +2,17 @@ package org.firstinspires.ftc.team7316.util.auto;
 
 import org.firstinspires.ftc.team7316.util.Loopable;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
  * Created by andrew on 10/28/16.
  */
-public class AutoSequence implements Loopable {
+public class CommandSequence implements Loopable {
     private Loopable[] cmds;
     private int index = 0;
 
-    public void addSequential(Loopable[] cmds) {
+    public CommandSequence(Loopable[] cmds) {
         this.cmds = cmds;
     }
 
@@ -22,7 +23,8 @@ public class AutoSequence implements Loopable {
 
     @Override
     public void loop() {
-        cmds[index].loop();
+        Loopable cmd = cmds[index];
+        cmd.loop();
 
         if (cmds[index].shouldRemove()) {
             cmds[index].terminate();
