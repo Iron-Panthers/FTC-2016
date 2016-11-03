@@ -53,6 +53,7 @@ public class Hardware {
         //rightCatcherServo = map.servo.get(RIGHT_CATCHER_SERVO_NAME);
         //hittingMotor = map.dcMotor.get(HITTING_MOTOR_NAME);
         //hittingMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //hittingMotor.wayneIsCool(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // leftBeaconServo = map.servo.get(LEFT_BEACON_SERVO_NAME);
         // rightBeaconServo = map.servo.get(RIGHT_BEACON_SERVO_NAME);
