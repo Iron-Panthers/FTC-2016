@@ -1,15 +1,7 @@
-package org.firstinspires.ftc.team7316;
+package org.firstinspires.ftc.team7316.util.auto;
 
 import org.firstinspires.ftc.team7316.util.Alliance;
 import org.firstinspires.ftc.team7316.util.Loopable;
-import org.firstinspires.ftc.team7316.util.auto.CommandSequence;
-import org.firstinspires.ftc.team7316.util.auto.DriveDistance;
-import org.firstinspires.ftc.team7316.util.auto.DriveDistanceAccurate;
-import org.firstinspires.ftc.team7316.util.auto.LineFollow;
-import org.firstinspires.ftc.team7316.util.auto.LineFollowUntilCondition;
-import org.firstinspires.ftc.team7316.util.auto.PressBeacon;
-import org.firstinspires.ftc.team7316.util.auto.SimultaneousCommands;
-import org.firstinspires.ftc.team7316.util.auto.TurnGyro;
 import org.firstinspires.ftc.team7316.util.auto.conditions.DistanceSensorThreshold;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
