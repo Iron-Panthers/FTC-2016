@@ -13,9 +13,6 @@ import org.firstinspires.ftc.team7316.util.auto.TurnGyro;
 import org.firstinspires.ftc.team7316.util.auto.conditions.DistanceSensorThreshold;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
-//THIS COMMENT IS A GIT TEST
-
-
 /**
  * Created by andrew on 11/2/16.
  */
