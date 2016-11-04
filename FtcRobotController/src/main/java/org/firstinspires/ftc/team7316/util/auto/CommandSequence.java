@@ -12,7 +12,7 @@ public class CommandSequence implements Loopable {
     private Loopable[] cmds;
     private int index = 0;
 
-    public CommandSequence(Loopable[] cmds) {
+    public CommandSequence(Loopable... cmds) {
         this.cmds = cmds;
     }
 

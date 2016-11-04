@@ -12,7 +12,7 @@ public class SimultaneousCommands implements Loopable {
 
     private ArrayList<Loopable> cmds;
 
-    public SimultaneousCommands(Loopable[] cmds) {
+    public SimultaneousCommands(Loopable... cmds) {
         this.cmds = new ArrayList<Loopable>(Arrays.asList(cmds));
     }
 
