@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -44,10 +45,10 @@ public class Hardware {
     public DcMotor hittingMotor;
     public Servo leftBeaconServo, rightBeaconServo;
     public Servo leftCatcherServo, rightCatcherServo;
-    public LightSensor lightSensor;
+    public OpticalDistanceSensor lightSensor;
     public GyroSensor gyroSensor;
     public ColorSensor colorSensor;
-    public OpticalDistanceSensor distanceSensor;
+    public UltrasonicSensor distanceSensor;
 
     public double jankDelta = 0;
     public double jankSum = 0;
@@ -69,10 +70,10 @@ public class Hardware {
         leftBeaconServo = map.servo.get(LEFT_BEACON_SERVO_NAME);
         rightBeaconServo = map.servo.get(RIGHT_BEACON_SERVO_NAME);
 
-        lightSensor = map.lightSensor.get(LIGHT_SENSOR_NAME);
+        lightSensor = map.opticalDistanceSensor.get(LIGHT_SENSOR_NAME);
         gyroSensor = map.gyroSensor.get(GYRO_SENSOR_NAME);
         colorSensor = map.colorSensor.get(COLOR_SENSOR_NAME);
-        distanceSensor = map.opticalDistanceSensor.get(DISTANCE_SENSOR_NAME);
+        distanceSensor = map.ultrasonicSensor.get(DISTANCE_SENSOR_NAME);
     }
 
     public static void setHardwareMap(HardwareMap map) {
