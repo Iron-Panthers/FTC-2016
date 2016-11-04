@@ -1,9 +1,10 @@
-package org.firstinspires.ftc.team7316;
+package org.firstinspires.ftc.team7316.modes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.team7316.AutoCodes;
 import org.firstinspires.ftc.team7316.util.Scheduler;
 import org.firstinspires.ftc.team7316.util.auto.CommandSequence;
 import org.firstinspires.ftc.team7316.util.auto.SimultaneousCommands;
