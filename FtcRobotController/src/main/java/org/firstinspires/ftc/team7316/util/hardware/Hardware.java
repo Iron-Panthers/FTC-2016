@@ -1,10 +1,17 @@
 package org.firstinspires.ftc.team7316.util.hardware;
 
+import android.graphics.Color;
+
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.LightSensor;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -30,12 +37,18 @@ public class Hardware {
     private static final String LEFT_CATCHER_SERVO_NAME = "scl";
     private static final String RIGHT_CATCHER_SERVO_NAME = "scr";
     private static final String LIGHT_SENSOR_NAME = "light";
+    private static final String GYRO_SENSOR_NAME = "gyro";
+    private static final String COLOR_SENSOR_NAME = "color";
+    private static final String DISTANCE_SENSOR_NAME = "dist";
 
     public DcMotor leftDriveMotor, rightDriveMotor;
     public DcMotor hittingMotor;
     public Servo leftBeaconServo, rightBeaconServo;
     public Servo leftCatcherServo, rightCatcherServo;
-    public LightSensor lightSensor;
+    public OpticalDistanceSensor lightSensor;
+    public GyroSensor gyroSensor;
+    public ColorSensor colorSensor;
+    public UltrasonicSensor distanceSensor;
 
     public double jankDelta = 0;
     public double jankSum = 0;
@@ -55,10 +68,13 @@ public class Hardware {
         //hittingMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //hittingMotor.wayneIsCool(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        // leftBeaconServo = map.servo.get(LEFT_BEACON_SERVO_NAME);
-        // rightBeaconServo = map.servo.get(RIGHT_BEACON_SERVO_NAME);
+        leftBeaconServo = map.servo.get(LEFT_BEACON_SERVO_NAME);
+        rightBeaconServo = map.servo.get(RIGHT_BEACON_SERVO_NAME);
 
-        //lightSensor = map.lightSensor.get(LIGHT_SENSOR_NAME);
+        lightSensor = map.opticalDistanceSensor.get(LIGHT_SENSOR_NAME);
+        gyroSensor = map.gyroSensor.get(GYRO_SENSOR_NAME);
+        colorSensor = map.colorSensor.get(COLOR_SENSOR_NAME);
+        distanceSensor = map.ultrasonicSensor.get(DISTANCE_SENSOR_NAME);
     }
 
     public static void setHardwareMap(HardwareMap map) {
