@@ -11,7 +11,7 @@ import org.firstinspires.ftc.team7316.util.Loopable;
 /**
  * Created by andrew on 11/2/16.
  */
-public class DistanceSensorThreshold implements Loopable {
+public class DistanceSensorThreshold implements Conditional {
 
     private UltrasonicSensor distanceSensor;
     private double threshold;
@@ -24,16 +24,6 @@ public class DistanceSensorThreshold implements Loopable {
     }
 
     @Override
-    public void init() {
-
-    }
-
-    @Override
-    public void loop() {
-
-    }
-
-    @Override
     public boolean shouldRemove() {
         if (this.wantedLess) {
             return distanceSensor.getUltrasonicLevel() < this.threshold;
@@ -42,8 +32,4 @@ public class DistanceSensorThreshold implements Loopable {
         }
     }
 
-    @Override
-    public void terminate() {
-
-    }
 }
