@@ -1,11 +1,8 @@
-package org.firstinspires.ftc.team7316.util.auto;
-
-import android.util.Log;
+package org.firstinspires.ftc.team7316.util.commands;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.team7316.util.Loopable;
-import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
 /**
  * Created by andrew on 10/4/16.
