@@ -13,6 +13,7 @@ public class GamepadWrapper {
 
     public JoystickWrapper left_stick, right_stick;
     public AxisWrapper left_axis_y, right_axis_y;
+    public AxisWrapper r_trigger;
 
     public ButtonWrapper a_button, b_button, x_button, y_button;
     public ButtonWrapper dp_up, dp_down, dp_right, dp_left;
@@ -42,6 +43,8 @@ public class GamepadWrapper {
 
         this.leftTriggerWrapper = new TriggerWrapper(GamepadAxis.L_TRIGGER, this);
         this.rightTriggerWrapper = new TriggerWrapper(GamepadAxis.R_TRIGGER, this);
+
+        this.r_trigger = new AxisWrapper(GamepadAxis.L_TRIGGER, this);
 
     }
 
