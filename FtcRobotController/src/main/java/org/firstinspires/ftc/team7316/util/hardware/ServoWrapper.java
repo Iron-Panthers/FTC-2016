@@ -16,10 +16,13 @@ public class ServoWrapper implements Loopable {
 
     private Servo servo;
     private ButtonWrapper button;
+    private double on, off;
 
-    public ServoWrapper(Servo servo, ButtonWrapper button) {
+    public ServoWrapper(Servo servo, ButtonWrapper button, double on, double off) {
         this.servo = servo;
         this.button = button;
+        this.on = on;
+        this.off = off;
 
         Scheduler.instance.addTask(this);
     }
@@ -32,9 +35,9 @@ public class ServoWrapper implements Loopable {
     @Override
     public void loop() {
         if (button.isPressed()) {
-            servo.setPosition(1.0);
+            servo.setPosition(on);
         } else {
-            servo.setPosition(0.0);
+            servo.setPosition(off);
         }
     }
 

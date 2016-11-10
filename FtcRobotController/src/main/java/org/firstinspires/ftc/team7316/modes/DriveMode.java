@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.LightSensor;
 
+import org.firstinspires.ftc.robotcore.external.Const;
+import org.firstinspires.ftc.team7316.util.Constants;
 import org.firstinspires.ftc.team7316.util.Scheduler;
 import org.firstinspires.ftc.team7316.util.hardware.DcMotorToggleWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.DcMotorWrapper;
@@ -54,8 +56,8 @@ public class DriveMode extends OpMode {
 
         catapultDrive = new DcMotorWrapper(Hardware.instance.catapultMotor, gpWrapper.r_trigger);
 
-        rightPusher = new ServoWrapper(Hardware.instance.rightBeaconServo, gpWrapper.right_bumper);
-        leftPusher = new ServoWrapper(Hardware.instance.leftBeaconServo, gpWrapper.left_bumper);
+        rightPusher = new ServoWrapper(Hardware.instance.rightBeaconServo, gpWrapper.right_bumper, Constants.RIGHT_ON, Constants.RIGHT_OFF);
+        leftPusher = new ServoWrapper(Hardware.instance.leftBeaconServo, gpWrapper.left_bumper, Constants.LEFT_ON, Constants.LEFT_OFF);
     }
 
     @Override
