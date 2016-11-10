@@ -23,8 +23,6 @@ public class ServoWrapper implements Loopable {
         this.button = button;
         this.on = on;
         this.off = off;
-
-        Scheduler.instance.addTask(this);
     }
 
     @Override

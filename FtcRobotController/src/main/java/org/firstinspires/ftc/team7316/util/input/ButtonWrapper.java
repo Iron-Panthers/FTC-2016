@@ -21,7 +21,6 @@ public class ButtonWrapper implements Loopable {
         this.gamepadInput = gamepadInput;
         this.gpSource  = gpSource;
         this.listeners = new ArrayList<>();
-        Scheduler.instance.addTask(this);
     }
 
     public void addListener(ButtonListener listener) {
