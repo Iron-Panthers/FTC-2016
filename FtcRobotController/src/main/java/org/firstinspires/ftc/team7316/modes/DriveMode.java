@@ -14,8 +14,18 @@ import org.firstinspires.ftc.team7316.util.input.GamepadButton;
 import org.firstinspires.ftc.team7316.util.input.GamepadWrapper;
 import org.firstinspires.ftc.team7316.util.input.ToggleButtonWrapper;
 
-/**
- * Created by Maxim on 9/26/2016.
+/*
+gamepad1:
+-left stick y = left motor power
+-right stick y = right motor power
+
+gamepad2:
+-left bumper: left beacon servo
+-right bumper: right beacon servo
+-right trigger (with threshold) = catapult next movement in cycle (either go to sensor or go past sensor)
+-left trigger (with threshold) = move catapult backwards
+-a button = run intake inward (toggle)
+-b button = run intake outward (toggle)
  */
 @TeleOp(name = "PantherDrive")
 public class DriveMode extends OpMode {
