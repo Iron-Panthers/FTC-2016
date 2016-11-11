@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.team7316.util.input;
 
+import android.util.Log;
+
 import org.firstinspires.ftc.team7316.util.Loopable;
+import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
 /**
  * Created by andrew on 11/10/16.

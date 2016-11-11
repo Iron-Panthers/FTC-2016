@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.team7316.util.hardware;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.team7316.util.Loopable;
@@ -29,13 +31,17 @@ public class DcMotorThreeStateWrapper implements Loopable {
 
     @Override
     public void loop() {
-        switch (buttons.buttonsState()) {
+        TwoButtonToggleWrapper.TwoButtonToggleState state = buttons.buttonsState();
+        switch (state) {
             case NEUTRAL:
                 motor.setPower(neutralPower);
+                break;
             case FORWARD:
                 motor.setPower(forwardPower);
+                break;
             case BACKWARD:
                 motor.setPower(reversePower);
+                break;
         }
     }
 
