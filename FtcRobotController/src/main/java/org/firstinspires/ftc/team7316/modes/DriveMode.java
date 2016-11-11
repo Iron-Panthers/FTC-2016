@@ -5,7 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.LightSensor;
 
+import org.firstinspires.ftc.robotcore.external.Const;
+import org.firstinspires.ftc.team7316.util.Constants;
 import org.firstinspires.ftc.team7316.util.Scheduler;
+import org.firstinspires.ftc.team7316.util.hardware.DcMotorThreeStateWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.DcMotorToggleWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.DcMotorWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
@@ -13,39 +16,64 @@ import org.firstinspires.ftc.team7316.util.hardware.ServoWrapper;
 import org.firstinspires.ftc.team7316.util.input.GamepadButton;
 import org.firstinspires.ftc.team7316.util.input.GamepadWrapper;
 import org.firstinspires.ftc.team7316.util.input.ToggleButtonWrapper;
+import org.firstinspires.ftc.team7316.util.input.TwoButtonToggleWrapper;
 
-/**
- * Created by Maxim on 9/26/2016.
+/*
+gamepad1:
+-left stick y = left motor power √
+-right stick y = right motor power √
+
+gamepad2:
+-left bumper: left beacon servo √
+-right bumper: right beacon servo √
+-right trigger (with threshold) = catapult next movement in cycle (either go to sensor or go past sensor)
+-left trigger (with threshold) = move catapult backwards
+-a button = run intake inward (toggle) √
+-b button = run intake outward (toggle) √
  */
 @TeleOp(name = "PantherDrive")
 public class DriveMode extends OpMode {
 
-    private GamepadWrapper gpWrapper;
+    private GamepadWrapper gpWrapperDriver;
+    private GamepadWrapper gpWrapperNotDriver;
+
     private DcMotorWrapper leftDrive, rightDrive;
-    private DcMotorToggleWrapper intakeDrive;
+    private DcMotorThreeStateWrapper intakeDrive;
     private DcMotorWrapper catapultDrive;
 
     private ServoWrapper leftPusher, rightPusher;
+
+    private TwoButtonToggleWrapper aAndBToggle;
 
 
     @Override
     public void init() {
         Scheduler.instance.clear();
 
-        gpWrapper = new GamepadWrapper(gamepad1);
+        gpWrapperDriver = new GamepadWrapper(gamepad1);
+        gpWrapperNotDriver = new GamepadWrapper(gamepad2);
+
         Hardware.setHardwareMap(hardwareMap);
         Hardware.setTelemetry(telemetry);
 
-        leftDrive = new DcMotorWrapper(Hardware.instance.leftDriveMotor, gpWrapper.left_axis_y);
-        rightDrive = new DcMotorWrapper(Hardware.instance.rightDriveMotor, gpWrapper.right_axis_y);
+        leftDrive = new DcMotorWrapper(Hardware.instance.leftDriveMotor, gpWrapperDriver.left_axis_y);
+        rightDrive = new DcMotorWrapper(Hardware.instance.rightDriveMotor, gpWrapperDriver.right_axis_y);
 
-        ToggleButtonWrapper toggleAButton = new ToggleButtonWrapper(GamepadButton.A_BUTTON, gpWrapper);
-        intakeDrive = new DcMotorToggleWrapper(Hardware.instance.intakeMotor, 0, 1.0, toggleAButton);
+        aAndBToggle = new TwoButtonToggleWrapper(gpWrapperNotDriver.a_button, gpWrapperNotDriver.b_button);
+        intakeDrive = new DcMotorThreeStateWrapper(Hardware.instance.intakeMotor, 1.0, 0, -1.0, aAndBToggle);
 
-        catapultDrive = new DcMotorWrapper(Hardware.instance.catapultMotor, gpWrapper.r_trigger);
+        catapultDrive = new DcMotorWrapper(Hardware.instance.catapultMotor, gpWrapperDriver.r_trigger);
 
-        rightPusher = new ServoWrapper(Hardware.instance.rightBeaconServo, gpWrapper.right_bumper);
-        leftPusher = new ServoWrapper(Hardware.instance.leftBeaconServo, gpWrapper.left_bumper);
+        rightPusher = new ServoWrapper(Hardware.instance.rightBeaconServo, gpWrapperNotDriver.right_bumper, Constants.RIGHT_ON, Constants.RIGHT_OFF);
+        leftPusher = new ServoWrapper(Hardware.instance.leftBeaconServo, gpWrapperNotDriver.left_bumper, Constants.LEFT_ON, Constants.LEFT_OFF);
+
+        Scheduler.instance.addTask(leftDrive);
+        Scheduler.instance.addTask(rightDrive);
+        Scheduler.instance.addTask(aAndBToggle);
+        Scheduler.instance.addTask(intakeDrive);
+        Scheduler.instance.addTask(catapultDrive);
+        Scheduler.instance.addTask(rightPusher);
+        Scheduler.instance.addTask(leftPusher);
     }
 
     @Override
