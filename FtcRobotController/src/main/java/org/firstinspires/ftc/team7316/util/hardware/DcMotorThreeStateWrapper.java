@@ -16,6 +16,7 @@ public class DcMotorThreeStateWrapper implements Loopable {
 
     public DcMotorThreeStateWrapper(DcMotor motor, double forwardPower, double neutralPower, double reversePower, TwoButtonToggleWrapper buttons) {
         this.motor = motor;
+        this.buttons = buttons;
         this.forwardPower = forwardPower;
         this.neutralPower = neutralPower;
         this.reversePower = reversePower;

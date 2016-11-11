@@ -46,6 +46,16 @@ public class GamepadWrapper {
 
         this.r_trigger = new AxisWrapper(GamepadAxis.L_TRIGGER, this);
 
+        Scheduler.instance.addTask(a_button);
+        Scheduler.instance.addTask(b_button);
+        Scheduler.instance.addTask(x_button);
+        Scheduler.instance.addTask(y_button);
+        Scheduler.instance.addTask(dp_left);
+        Scheduler.instance.addTask(dp_right);
+        Scheduler.instance.addTask(dp_down);
+        Scheduler.instance.addTask(dp_up);
+        Scheduler.instance.addTask(left_bumper);
+        Scheduler.instance.addTask(right_bumper);
     }
 
     public boolean buttonState(GamepadButton buttonIndex) {
