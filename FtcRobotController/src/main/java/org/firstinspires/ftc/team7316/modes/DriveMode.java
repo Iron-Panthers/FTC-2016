@@ -43,6 +43,8 @@ public class DriveMode extends OpMode {
 
     private ServoWrapper leftPusher, rightPusher;
 
+    private TwoButtonToggleWrapper aAndBToggle;
+
 
     @Override
     public void init() {
@@ -57,13 +59,21 @@ public class DriveMode extends OpMode {
         leftDrive = new DcMotorWrapper(Hardware.instance.leftDriveMotor, gpWrapperDriver.left_axis_y);
         rightDrive = new DcMotorWrapper(Hardware.instance.rightDriveMotor, gpWrapperDriver.right_axis_y);
 
-        TwoButtonToggleWrapper aAndBToggle = new TwoButtonToggleWrapper(gpWrapperNotDriver.a_button, gpWrapperNotDriver.b_button);
+        aAndBToggle = new TwoButtonToggleWrapper(gpWrapperNotDriver.a_button, gpWrapperNotDriver.b_button);
         intakeDrive = new DcMotorThreeStateWrapper(Hardware.instance.intakeMotor, 1.0, 0, -1.0, aAndBToggle);
 
         catapultDrive = new DcMotorWrapper(Hardware.instance.catapultMotor, gpWrapperDriver.r_trigger);
 
         rightPusher = new ServoWrapper(Hardware.instance.rightBeaconServo, gpWrapperNotDriver.right_bumper, Constants.RIGHT_ON, Constants.RIGHT_OFF);
         leftPusher = new ServoWrapper(Hardware.instance.leftBeaconServo, gpWrapperNotDriver.left_bumper, Constants.LEFT_ON, Constants.LEFT_OFF);
+
+        Scheduler.instance.addTask(leftDrive);
+        Scheduler.instance.addTask(rightDrive);
+        Scheduler.instance.addTask(aAndBToggle);
+        Scheduler.instance.addTask(intakeDrive);
+        Scheduler.instance.addTask(catapultDrive);
+        Scheduler.instance.addTask(rightPusher);
+        Scheduler.instance.addTask(leftPusher);
     }
 
     @Override
