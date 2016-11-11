@@ -32,7 +32,9 @@ gamepad2:
 @TeleOp(name = "PantherDrive")
 public class DriveMode extends OpMode {
 
-    private GamepadWrapper gpWrapper;
+    private GamepadWrapper gpWrapperDriver;
+    private GamepadWrapper gpWrapperNotDriver;
+
     private DcMotorWrapper leftDrive, rightDrive;
     private DcMotorToggleWrapper intakeDrive;
     private DcMotorWrapper catapultDrive;
@@ -44,12 +46,14 @@ public class DriveMode extends OpMode {
     public void init() {
         Scheduler.instance.clear();
 
-        gpWrapper = new GamepadWrapper(gamepad1);
+        gpWrapperDriver = new GamepadWrapper(gamepad1);
+        gpWrapperNotDriver = new GamepadWrapper(gamepad2);
+
         Hardware.setHardwareMap(hardwareMap);
         Hardware.setTelemetry(telemetry);
 
-        leftDrive = new DcMotorWrapper(Hardware.instance.leftDriveMotor, gpWrapper.left_axis_y);
-        rightDrive = new DcMotorWrapper(Hardware.instance.rightDriveMotor, gpWrapper.right_axis_y);
+        leftDrive = new DcMotorWrapper(Hardware.instance.leftDriveMotor, gpWrapperDriver.left_axis_y);
+        rightDrive = new DcMotorWrapper(Hardware.instance.rightDriveMotor, gpWrapperDriver.right_axis_y);
 
         ToggleButtonWrapper toggleAButton = new ToggleButtonWrapper(GamepadButton.A_BUTTON, gpWrapper);
         intakeDrive = new DcMotorToggleWrapper(Hardware.instance.intakeMotor, 0, 1.0, toggleAButton);
