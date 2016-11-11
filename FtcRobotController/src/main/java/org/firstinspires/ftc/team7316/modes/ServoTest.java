@@ -22,8 +22,10 @@ public class ServoTest extends OpMode {
     @Override
     public void init() {
         gp = new GamepadWrapper(gamepad1);
-        left = hardwareMap.servo.get("ls");
-        right = hardwareMap.servo.get("rs");
+        left = hardwareMap.servo.get("leftServo");
+        right = hardwareMap.servo.get("rightServo");
+        leftpos = 0.5;
+        rightpos = 0.5;
         gp.y_button.addListener(new ButtonListener() {
             @Override
             public void onPressed() {
