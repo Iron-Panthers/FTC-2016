@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.LightSensor;
 import org.firstinspires.ftc.robotcore.external.Const;
 import org.firstinspires.ftc.team7316.util.Constants;
 import org.firstinspires.ftc.team7316.util.Scheduler;
+import org.firstinspires.ftc.team7316.util.hardware.DcMotorThreeStateWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.DcMotorToggleWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.DcMotorWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
@@ -15,19 +16,20 @@ import org.firstinspires.ftc.team7316.util.hardware.ServoWrapper;
 import org.firstinspires.ftc.team7316.util.input.GamepadButton;
 import org.firstinspires.ftc.team7316.util.input.GamepadWrapper;
 import org.firstinspires.ftc.team7316.util.input.ToggleButtonWrapper;
+import org.firstinspires.ftc.team7316.util.input.TwoButtonToggleWrapper;
 
 /*
 gamepad1:
--left stick y = left motor power
--right stick y = right motor power
+-left stick y = left motor power √
+-right stick y = right motor power √
 
 gamepad2:
--left bumper: left beacon servo
--right bumper: right beacon servo
+-left bumper: left beacon servo √
+-right bumper: right beacon servo √
 -right trigger (with threshold) = catapult next movement in cycle (either go to sensor or go past sensor)
 -left trigger (with threshold) = move catapult backwards
--a button = run intake inward (toggle)
--b button = run intake outward (toggle)
+-a button = run intake inward (toggle) √
+-b button = run intake outward (toggle) √
  */
 @TeleOp(name = "PantherDrive")
 public class DriveMode extends OpMode {
@@ -36,7 +38,7 @@ public class DriveMode extends OpMode {
     private GamepadWrapper gpWrapperNotDriver;
 
     private DcMotorWrapper leftDrive, rightDrive;
-    private DcMotorToggleWrapper intakeDrive;
+    private DcMotorThreeStateWrapper intakeDrive;
     private DcMotorWrapper catapultDrive;
 
     private ServoWrapper leftPusher, rightPusher;
@@ -55,13 +57,13 @@ public class DriveMode extends OpMode {
         leftDrive = new DcMotorWrapper(Hardware.instance.leftDriveMotor, gpWrapperDriver.left_axis_y);
         rightDrive = new DcMotorWrapper(Hardware.instance.rightDriveMotor, gpWrapperDriver.right_axis_y);
 
-        ToggleButtonWrapper toggleAButton = new ToggleButtonWrapper(GamepadButton.A_BUTTON, gpWrapper);
-        intakeDrive = new DcMotorToggleWrapper(Hardware.instance.intakeMotor, 0, 1.0, toggleAButton);
+        TwoButtonToggleWrapper aAndBToggle = new TwoButtonToggleWrapper(gpWrapperNotDriver.a_button, gpWrapperNotDriver.b_button);
+        intakeDrive = new DcMotorThreeStateWrapper(Hardware.instance.intakeMotor, 1.0, 0, -1.0, aAndBToggle);
 
-        catapultDrive = new DcMotorWrapper(Hardware.instance.catapultMotor, gpWrapper.r_trigger);
+        catapultDrive = new DcMotorWrapper(Hardware.instance.catapultMotor, gpWrapperDriver.r_trigger);
 
-        rightPusher = new ServoWrapper(Hardware.instance.rightBeaconServo, gpWrapper.right_bumper, Constants.RIGHT_ON, Constants.RIGHT_OFF);
-        leftPusher = new ServoWrapper(Hardware.instance.leftBeaconServo, gpWrapper.left_bumper, Constants.LEFT_ON, Constants.LEFT_OFF);
+        rightPusher = new ServoWrapper(Hardware.instance.rightBeaconServo, gpWrapperNotDriver.right_bumper, Constants.RIGHT_ON, Constants.RIGHT_OFF);
+        leftPusher = new ServoWrapper(Hardware.instance.leftBeaconServo, gpWrapperNotDriver.left_bumper, Constants.LEFT_ON, Constants.LEFT_OFF);
     }
 
     @Override
