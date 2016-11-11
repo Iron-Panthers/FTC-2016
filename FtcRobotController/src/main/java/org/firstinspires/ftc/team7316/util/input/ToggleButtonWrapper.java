@@ -12,8 +12,6 @@ public class ToggleButtonWrapper extends ButtonWrapper implements Loopable {
 
     public ToggleButtonWrapper(GamepadButton gamepadInput, GamepadWrapper gpSource) {
         super(gamepadInput, gpSource);
-
-        Scheduler.instance.addTask(this);
     }
 
     @Override

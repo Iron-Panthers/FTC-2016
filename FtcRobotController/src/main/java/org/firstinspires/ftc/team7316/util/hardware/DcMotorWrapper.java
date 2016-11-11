@@ -17,8 +17,6 @@ public class DcMotorWrapper implements Loopable {
     public DcMotorWrapper(DcMotor motor, AxisWrapper axis) {
         this.motor = motor;
         this.axis = axis;
-
-        Scheduler.instance.addTask(this);
     }
 
     @Override

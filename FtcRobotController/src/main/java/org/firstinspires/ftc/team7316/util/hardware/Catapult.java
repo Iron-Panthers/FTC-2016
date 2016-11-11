@@ -21,7 +21,6 @@ public class Catapult implements ButtonListener, Loopable {
     public Catapult(DcMotor motor, Conditional primedState) {
         this.motor = motor;
         this.primedState = primedState;
-        Scheduler.instance.addTask(this);
     }
 
     @Override

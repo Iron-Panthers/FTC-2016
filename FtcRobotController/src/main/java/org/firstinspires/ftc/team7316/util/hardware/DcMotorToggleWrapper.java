@@ -21,8 +21,6 @@ public class DcMotorToggleWrapper implements Loopable {
         this.lowPower = lowPower;
         this.highPower = highPower;
         this.button = button;
-
-        Scheduler.instance.addTask(this);
     }
 
     @Override
