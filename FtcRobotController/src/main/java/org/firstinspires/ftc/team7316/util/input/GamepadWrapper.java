@@ -56,6 +56,8 @@ public class GamepadWrapper {
         Scheduler.instance.addTask(dp_up);
         Scheduler.instance.addTask(left_bumper);
         Scheduler.instance.addTask(right_bumper);
+        Scheduler.instance.addTask(leftTriggerWrapper);
+        Scheduler.instance.addTask(rightTriggerWrapper);
     }
 
     public boolean buttonState(GamepadButton buttonIndex) {

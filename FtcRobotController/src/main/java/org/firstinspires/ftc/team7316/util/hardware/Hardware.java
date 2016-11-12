@@ -35,22 +35,13 @@ public class Hardware {
     private static final String CATAPULT_MOTOR_NAME = "cm";
     private static final String LEFT_BEACON_SERVO_NAME = "leftServo";
     private static final String RIGHT_BEACON_SERVO_NAME = "rightServo";
-    private static final String LEFT_CATCHER_SERVO_NAME = "scl";
-    private static final String RIGHT_CATCHER_SERVO_NAME = "scr";
-    private static final String LIGHT_SENSOR_NAME = "light";
-    private static final String GYRO_SENSOR_NAME = "gyro";
-    private static final String COLOR_SENSOR_NAME = "color";
-    private static final String DISTANCE_SENSOR_NAME = "dist";
+    private static final String CATAPULT_SENSOR_NAME = "cat";
 
     public DcMotor leftDriveMotor, rightDriveMotor;
     public DcMotor catapultMotor;
     public DcMotor intakeMotor;
     public Servo leftBeaconServo, rightBeaconServo;
-    public Servo leftCatcherServo, rightCatcherServo;
-    public OpticalDistanceSensor lightSensor;
-    public GyroSensor gyroSensor;
-    public ColorSensor colorSensor;
-    public UltrasonicSensor distanceSensor;
+    public OpticalDistanceSensor catapultSensor;
 
     public double jankDelta = 0;
     public double jankSum = 0;
@@ -69,6 +60,8 @@ public class Hardware {
 
         catapultMotor = map.dcMotor.get(CATAPULT_MOTOR_NAME);
         catapultMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        catapultSensor = map.opticalDistanceSensor.get(CATAPULT_SENSOR_NAME);
 
         intakeMotor = map.dcMotor.get(INTAKE_MOTOR_NAME);
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
