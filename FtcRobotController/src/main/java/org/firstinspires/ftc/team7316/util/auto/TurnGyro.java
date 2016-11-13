@@ -21,6 +21,10 @@ public class TurnGyro implements Loopable {
     protected float deltaBearing;
     protected float startBearing;
 
+    private float deltaOffset = 0;
+
+    //This doesn't really work
+
 
     public TurnGyro(float deltaBearing, double power, DcMotor leftMotor, DcMotor rightMotor, GyroSensor gyro) { //+power = clockwise
         this.deltaBearing = deltaBearing;

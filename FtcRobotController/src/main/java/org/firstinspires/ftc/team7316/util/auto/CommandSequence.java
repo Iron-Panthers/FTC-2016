@@ -18,6 +18,7 @@ public class CommandSequence implements Loopable {
 
     @Override
     public void init() {
+        index = 0;
         cmds[0].init();
     }
 

@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.team7316.util.auto.AutoCodes;
 import org.firstinspires.ftc.team7316.util.Scheduler;
+import org.firstinspires.ftc.team7316.util.auto.TurnGyro;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
 /**
@@ -28,7 +29,8 @@ public class AutoMode extends OpMode {
         leftMotor = Hardware.instance.leftDriveMotor;
         rightMotor = Hardware.instance.rightDriveMotor;
 
-        Scheduler.instance.addTask(AutoCodes.darrionHouseTest());
+        //Scheduler.instance.addTask(AutoCodes.darrionHouseTest());
+        Scheduler.instance.addTask(new TurnGyro(90, 0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor));
     }
 
     @Override
