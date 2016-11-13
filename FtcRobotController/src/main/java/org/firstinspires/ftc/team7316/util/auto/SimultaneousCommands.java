@@ -25,7 +25,7 @@ public class SimultaneousCommands implements Loopable {
 
     @Override
     public void loop() {
-        for (int i = cmds.size()-1; i >= 0; i++) {
+        for (int i = cmds.size()-1; i >= 0; i--) {
             Loopable cmd = cmds.get(i);
             cmd.loop();
 

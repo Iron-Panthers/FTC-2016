@@ -57,10 +57,10 @@ public class Hardware {
 
         leftDriveMotor = map.dcMotor.get(LEFT_DRIVE_MOTOR_NAME);
         leftDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftDriveMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         rightDriveMotor = map.dcMotor.get(RIGHT_DRIVE_MOTOR_NAME);
         rightDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightDriveMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //leftCatcherServo = map.servo.get(LEFT_CATCHER_SERVO_NAME);
         //rightCatcherServo = map.servo.get(RIGHT_CATCHER_SERVO_NAME);

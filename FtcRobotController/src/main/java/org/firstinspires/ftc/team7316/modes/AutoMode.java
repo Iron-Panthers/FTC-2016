@@ -28,7 +28,7 @@ public class AutoMode extends OpMode {
         leftMotor = Hardware.instance.leftDriveMotor;
         rightMotor = Hardware.instance.rightDriveMotor;
 
-        Scheduler.instance.addTask(AutoCodes.closeBeaconCloseStartRed());
+        Scheduler.instance.addTask(AutoCodes.darrionHouseTest());
     }
 
     @Override
@@ -36,6 +36,8 @@ public class AutoMode extends OpMode {
         Scheduler.instance.loop();
         Hardware.log(Hardware.tag, "Left Motor: " + Hardware.instance.leftDriveMotor.getCurrentPosition());
         Hardware.log(Hardware.tag, "Right Motor: " + Hardware.instance.rightDriveMotor.getCurrentPosition());
+        Hardware.log(Hardware.tag, "gyro: " + Hardware.instance.gyroSensor.getHeading());
+        Hardware.log(Hardware.tag, "ultrasonic: " + Hardware.instance.distanceSensor.getUltrasonicLevel());
     }
 }
 
