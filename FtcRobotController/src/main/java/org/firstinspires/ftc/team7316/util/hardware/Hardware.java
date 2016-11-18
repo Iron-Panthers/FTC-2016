@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -40,14 +41,17 @@ public class Hardware {
     private static final String GYRO_SENSOR_NAME = "gyro";
     private static final String COLOR_SENSOR_NAME = "color";
     private static final String LIGHT_SENSOR_NAME = "light";
+    private static final String TOUCH_SENSOR_NAME = "touch";
+    private static final String INTAKE_UP_SERVO_NAME = "inUp";
 
     public DcMotor leftDriveMotor, rightDriveMotor;
     public DcMotor catapultMotor;
     public DcMotor intakeMotor;
-    public Servo leftBeaconServo, rightBeaconServo;
+    public Servo leftBeaconServo, rightBeaconServo, intakeUpServo;
     public OpticalDistanceSensor catapultSensor, lightSensor;
     public GyroSensor gyroSensor;
     private ColorSensor colorSensor;
+    private TouchSensor touchSensor;
 
     public double jankDelta = 0;
     public double jankSum = 0;
@@ -79,6 +83,10 @@ public class Hardware {
         gyroSensor = map.gyroSensor.get(GYRO_SENSOR_NAME);
         colorSensor = map.colorSensor.get(COLOR_SENSOR_NAME);
         //distanceSensor = map.ultrasonicSensor.get(DISTANCE_SENSOR_NAME);
+
+        intakeUpServo = map.servo.get(INTAKE_UP_SERVO_NAME);
+
+        touchSensor = map.touchSensor.get(TOUCH_SENSOR_NAME);
     }
 
     public static void setHardwareMap(HardwareMap map) {
