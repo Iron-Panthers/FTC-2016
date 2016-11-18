@@ -1,9 +1,6 @@
-package org.firstinspires.ftc.team7316.util.auto;
+package org.firstinspires.ftc.team7316.util.commands;
 
 import org.firstinspires.ftc.team7316.util.Loopable;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 /**
  * Created by andrew on 10/28/16.

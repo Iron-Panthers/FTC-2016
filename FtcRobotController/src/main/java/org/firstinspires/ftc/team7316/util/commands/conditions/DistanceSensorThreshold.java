@@ -1,12 +1,6 @@
-package org.firstinspires.ftc.team7316.util.auto.conditions;
+package org.firstinspires.ftc.team7316.util.commands.conditions;
 
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.UltrasonicSensor;
-
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.team7316.util.Loopable;
 
 /**
  * Created by andrew on 11/2/16.

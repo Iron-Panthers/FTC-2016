@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.team7316.util.auto;
+package org.firstinspires.ftc.team7316.util.commands;
 
 import org.firstinspires.ftc.team7316.util.Alliance;
 import org.firstinspires.ftc.team7316.util.Loopable;
-import org.firstinspires.ftc.team7316.util.auto.conditions.Conditional;
-import org.firstinspires.ftc.team7316.util.auto.conditions.DistanceSensorThreshold;
+import org.firstinspires.ftc.team7316.util.commands.conditions.Conditional;
+import org.firstinspires.ftc.team7316.util.commands.conditions.DistanceSensorThreshold;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
 /**

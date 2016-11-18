@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.team7316.util.auto;
+package org.firstinspires.ftc.team7316.util.commands;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
