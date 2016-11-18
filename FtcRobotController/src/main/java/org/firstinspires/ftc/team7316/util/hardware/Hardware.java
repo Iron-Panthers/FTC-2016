@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.team7316.util.hardware;
 
 import android.graphics.Color;
+import android.webkit.CookieManager;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -36,12 +37,17 @@ public class Hardware {
     private static final String LEFT_BEACON_SERVO_NAME = "leftServo";
     private static final String RIGHT_BEACON_SERVO_NAME = "rightServo";
     private static final String CATAPULT_SENSOR_NAME = "cat";
+    private static final String GYRO_SENSOR_NAME = "gyro";
+    private static final String COLOR_SENSOR_NAME = "color";
+    private static final String LIGHT_SENSOR_NAME = "light";
 
     public DcMotor leftDriveMotor, rightDriveMotor;
     public DcMotor catapultMotor;
     public DcMotor intakeMotor;
     public Servo leftBeaconServo, rightBeaconServo;
-    public OpticalDistanceSensor catapultSensor;
+    public OpticalDistanceSensor catapultSensor, lightSensor;
+    public GyroSensor gyroSensor;
+    private ColorSensor colorSensor;
 
     public double jankDelta = 0;
     public double jankSum = 0;
@@ -69,9 +75,9 @@ public class Hardware {
         leftBeaconServo = map.servo.get(LEFT_BEACON_SERVO_NAME);
         rightBeaconServo = map.servo.get(RIGHT_BEACON_SERVO_NAME);
 
-        //lightSensor = map.opticalDistanceSensor.get(LIGHT_SENSOR_NAME);
-        //gyroSensor = map.gyroSensor.get(GYRO_SENSOR_NAME);
-        //colorSensor = map.colorSensor.get(COLOR_SENSOR_NAME);
+        lightSensor = map.opticalDistanceSensor.get(LIGHT_SENSOR_NAME);
+        gyroSensor = map.gyroSensor.get(GYRO_SENSOR_NAME);
+        colorSensor = map.colorSensor.get(COLOR_SENSOR_NAME);
         //distanceSensor = map.ultrasonicSensor.get(DISTANCE_SENSOR_NAME);
     }
 

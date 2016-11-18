@@ -79,13 +79,18 @@ public class GamepadWrapper {
     public float axisValue(GamepadAxis axisIndex) {
         switch (axisIndex) {
             case L_STICK_X: return gamepad.left_stick_x;
-            case L_STICK_Y: return -gamepad.left_stick_y;
+            case L_STICK_Y: return squared(-gamepad.left_stick_y);
             case R_STICK_X: return gamepad.right_stick_x;
-            case R_STICK_Y: return -gamepad.right_stick_y;
+            case R_STICK_Y: return squared(-gamepad.right_stick_y);
             case L_TRIGGER: return gamepad.left_trigger;
             case R_TRIGGER: return gamepad.left_trigger;
         }
         throw new IllegalArgumentException();
+    }
+
+    private float squared(float value) {
+        float result = (float) Math.abs(Math.pow(value, 2));
+        return value > 0 ? result : -result;
     }
 
 }

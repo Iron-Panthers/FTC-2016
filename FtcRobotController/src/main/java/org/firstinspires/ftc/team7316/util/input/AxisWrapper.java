@@ -20,9 +20,7 @@ public class AxisWrapper {
     }
 
     public float value() {
-        float input = gpWrapper.axisValue(inputName);
-        float value = (float) Math.abs(Math.pow(input, power));
-        return input > 0 ? value : -value;
+        return gpWrapper.axisValue(inputName);
     }
 
     public String name() {
