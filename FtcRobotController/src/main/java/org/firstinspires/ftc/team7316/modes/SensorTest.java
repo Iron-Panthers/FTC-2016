@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.LightSensor;
 
 import org.firstinspires.ftc.team7316.util.Scheduler;
+import org.firstinspires.ftc.team7316.util.auto.conditions.RedThreshold;
 import org.firstinspires.ftc.team7316.util.hardware.ColorWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.DcMotorWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.GyroWrapper;
@@ -21,12 +22,16 @@ public class SensorTest extends OpMode {
 
     ColorSensor colorSensor;
     GamepadWrapper gamepadWrapper;
+    RedThreshold threshold;
 
     @Override
     public void init() {
         gamepadWrapper = new GamepadWrapper(gamepad1);
 
         colorSensor = hardwareMap.colorSensor.get("color");
+
+        threshold = new RedThreshold(0.5, colorSensor, true);
+        colorSensor.enableLed(false);
     }
 
     @Override
@@ -36,7 +41,6 @@ public class SensorTest extends OpMode {
         telemetry.addData("red", colorSensor.red());
         telemetry.addData("green", colorSensor.green());
         telemetry.addData("blue", colorSensor.blue());
-        telemetry.addData("alpha", colorSensor.alpha());
-        telemetry.addData("argb", Integer.toHexString(colorSensor.argb()));
+        telemetry.addData("the command", threshold.shouldRemove());
     }
 }
