@@ -10,7 +10,7 @@ import org.firstinspires.ftc.team7316.util.input.TwoButtonToggleWrapper;
  */
 public class IntakeDrive extends DcMotorThreeStateWrapper {
 
-    private Conditional canRun;
+    private Conditional canIntake;
 
     /**
      * Create a new IntakeDrive object.
@@ -19,19 +19,30 @@ public class IntakeDrive extends DcMotorThreeStateWrapper {
      * @param neutralPower The power when in neutral mode
      * @param reversePower The power when in reverse mode
      * @param buttons The buttons to use
-     * @param canRun If canRun.shouldRemove() is true, run, otherwise nothing will work
+     * @param canIntake If canRun.shouldRemove() is true, run, otherwise nothing will work
      */
-    public IntakeDrive(DcMotor motor, double forwardPower, double neutralPower, double reversePower, TwoButtonToggleWrapper buttons, Conditional canRun) {
+    public IntakeDrive(DcMotor motor, double forwardPower, double neutralPower, double reversePower, TwoButtonToggleWrapper buttons, Conditional canIntake) {
         super(motor, forwardPower, neutralPower, reversePower, buttons);
-        this.canRun = canRun;
+        this.canIntake = canIntake;
     }
 
     @Override
     public void loop() {
-        if (canRun.shouldRemove()) {
-            super.loop();
-        } else {
-            motor.setPower(neutralPower);
+        TwoButtonToggleWrapper.TwoButtonToggleState state = buttons.buttonsState();
+        switch (state) {
+            case NEUTRAL:
+                motor.setPower(neutralPower);
+                break;
+            case FORWARD:
+                if (canIntake.shouldRemove()) {
+                    motor.setPower(neutralPower);
+                } else {
+                    motor.setPower(forwardPower);
+                }
+                break;
+            case BACKWARD:
+                motor.setPower(reversePower);
+                break;
         }
     }
 
