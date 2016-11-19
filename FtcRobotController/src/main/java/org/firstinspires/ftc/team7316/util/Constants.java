@@ -9,4 +9,6 @@ public class Constants {
     public static final double PRESSER_SERVO_TRAVEL_TIME = 1; // seconds
     public static final double COLOR_SENSOR_DELAY = 0.5; // seconds
 
+    public static final double LINE_FOLLOW_HIGH_THRESHOLD = .15;
+
 }
