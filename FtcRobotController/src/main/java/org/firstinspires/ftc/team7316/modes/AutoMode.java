@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.team7316.util.Scheduler;
 import org.firstinspires.ftc.team7316.util.commands.AutoCodes;
+import org.firstinspires.ftc.team7316.util.commands.LineFollow;
 import org.firstinspires.ftc.team7316.util.commands.TurnGyro;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
@@ -23,7 +24,7 @@ public class AutoMode extends OpMode {
         Hardware.setHardwareMap(hardwareMap);
         Hardware.setTelemetry(telemetry);
 
-        Scheduler.instance.addTask(AutoCodes.beaconPressTest());
+        Scheduler.instance.addTask(new LineFollow(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensor, 0.2));
     }
 
     @Override
