@@ -24,14 +24,14 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 //MAKE SURE TO CALL setHardwareMap AT LEAST ONCE
 
 /*
-    toggle a b needs to always disable if its the wrong button
-    need to merge into master
-    need to reduce intake speed
+    toggle a b needs to always disable if its the wrong button √
+    need to merge into master √ (sort of, still need to do auto merge)
+    need to reduce intake speed √
     need to tune line follow
     need to test auto as one full command sequence
-    need to zip tie down the wire across the intake ramp
-    need to zip tie down the wire to up intake servo
-    need to write up intake servo code
+    need to zip tie down the wire across the intake ramp √
+    need to zip tie down the wire to up intake servo √
+    need to write up intake servo code √
 */
 
 public class Hardware {

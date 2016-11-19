@@ -59,7 +59,7 @@ public class DriveMode extends OpMode {
 
         aAndBToggle = new TwoButtonToggleWrapper(gpWrapperNotDriver.a_button, gpWrapperNotDriver.b_button);
 
-        intakeDrive = new IntakeDrive(Hardware.instance.intakeMotor, 1.0, 0, -1.0, aAndBToggle,
+        intakeDrive = new IntakeDrive(Hardware.instance.intakeMotor, 0.5, 0, -1.0, aAndBToggle,
                 new ServoPositionConditional(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE, true));
 
         catapultDrive = new CatapultWrapper(
