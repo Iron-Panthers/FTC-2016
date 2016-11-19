@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.team7316.util.commands;
 
 import org.firstinspires.ftc.team7316.util.Alliance;
+import org.firstinspires.ftc.team7316.util.Constants;
 import org.firstinspires.ftc.team7316.util.Loopable;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ButtonCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.Conditional;
@@ -36,6 +37,8 @@ public class AutoCodes {
     public static CommandSequence closeBeaconCloseStartRed() {
         if (AutoCodes.closeBeaconCloseStartRed == null) {
 
+            Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
+
             Conditional odsCondition = new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false);
             Loopable armCatapult = new RunMotorUntilConditional(Hardware.instance.catapultMotor, odsCondition, 1);
 
@@ -48,7 +51,7 @@ public class AutoCodes {
 
             Loopable pressBeacon = new PressBeacon(Alliance.RED, Hardware.instance.colorSensor, Hardware.instance.leftBeaconServo, Hardware.instance.rightBeaconServo);
 
-            Loopable[] cmds = {armCatapult, driveToLine, turnToLine, followLine, pressBeacon};
+            Loopable[] cmds = {setServoPosition, armCatapult, driveToLine, turnToLine, followLine, pressBeacon};
 
             AutoCodes.closeBeaconCloseStartRed =  new CommandSequence(cmds);
         }
@@ -59,6 +62,8 @@ public class AutoCodes {
     public static CommandSequence beaconPressTest() {
         if (AutoCodes.beaconPressTest == null) {
 
+            Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
+
             Conditional odsCondition = new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false);
             Loopable armCatapult = new RunMotorUntilConditional(Hardware.instance.catapultMotor, odsCondition, 1);
 
@@ -67,7 +72,7 @@ public class AutoCodes {
 
             Loopable pressBeacon = new PressBeacon(Alliance.RED, Hardware.instance.colorSensor, Hardware.instance.leftBeaconServo, Hardware.instance.rightBeaconServo);
 
-            Loopable[] cmds = {armCatapult, followLine, pressBeacon};
+            Loopable[] cmds = {setServoPosition, armCatapult, followLine, pressBeacon};
 
             AutoCodes.beaconPressTest =  new CommandSequence(cmds);
         }
