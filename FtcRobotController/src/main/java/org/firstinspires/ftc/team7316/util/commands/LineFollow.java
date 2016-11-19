@@ -15,17 +15,17 @@ public class LineFollow implements Loopable {
 
     private LightSensor sensor;
 
-    private final double wantedLight = 0.14; //FIX THESE NUMBERS WITH TESTING
-    private final double minLight = 0.01;
-    private final double maxLight = 0.22;
+    private final double wantedLight = 0.2; //FIX THESE NUMBERS WITH TESTING
+    private final double minLight = 0.13;
+    private final double maxLight = 0.25;
 
     private double errorToLeftRatio = 0;
     private double errorToRightRatio = 0;
 
     private int counter = 0;
-    private final double p = 0.4; //ratio of error to turn
+    private final double p = 0.8; //ratio of error to turn
     private final double i = 0; //ration of sum of errors to turn
-    private final double d = 0; //ratio of delta to turn
+    private final double d = 9.5; //ratio of delta to turn
     private double deltaError = 0;
     private double lastError = 0;
     private double errorSum = 0;
