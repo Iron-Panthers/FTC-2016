@@ -19,14 +19,17 @@ public class PressBeacon implements Loopable {
     private Alliance alliance;
     private ColorSensor sensor;
     private Servo left, right;
+    private boolean sensorIsOnRight;
     private ElapsedTime pressedTime;
 
-    public PressBeacon(Alliance alliance, ColorSensor sensor, Servo left, Servo right) { //sensor should be on the left
+    public PressBeacon(Alliance alliance, ColorSensor sensor, Servo left, Servo right, boolean sensorIsOnRight) {
 
         this.alliance = alliance;
         this.sensor = sensor;
         this.left = left;
         this.right = right;
+
+        this.sensorIsOnRight = sensorIsOnRight;
         this.pressedTime = new ElapsedTime();
     }
 
@@ -37,10 +40,10 @@ public class PressBeacon implements Loopable {
             @Override
             public void run() {
                 pressedTime.reset();
-                if (alliance.shouldPressLeftServo(sensor)) { // If the left servo should be pressed
-                    left.setPosition(Constants.LEFT_ON);
-                } else {
+                if (alliance.isGoodGood(sensor) && sensorIsOnRight) { // If the right sensor is good
                     right.setPosition(Constants.RIGHT_ON);
+                } else {
+                    left.setPosition(Constants.LEFT_ON);
                 }
             }
         }));
