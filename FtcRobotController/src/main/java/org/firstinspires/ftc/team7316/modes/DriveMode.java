@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.team7316.util.Constants;
 import org.firstinspires.ftc.team7316.util.Scheduler;
+import org.firstinspires.ftc.team7316.util.commands.conditions.CatapultPositionConditional;
+import org.firstinspires.ftc.team7316.util.commands.conditions.Conditional;
 import org.firstinspires.ftc.team7316.util.commands.conditions.OpticalDistanceSensorThreshold;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ServoPositionConditional;
 import org.firstinspires.ftc.team7316.util.hardware.CatapultWrapper;
@@ -59,14 +61,15 @@ public class DriveMode extends OpMode {
 
         aAndBToggle = new TwoButtonToggleWrapper(gpWrapperNotDriver.a_button, gpWrapperNotDriver.b_button);
 
-        intakeDrive = new IntakeDrive(Hardware.instance.intakeMotor, 0.5, 0, -1.0, aAndBToggle,
-                new ServoPositionConditional(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE, true));
-
         catapultDrive = new CatapultWrapper(
                 Hardware.instance.catapultMotor,
                 new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false)
         );
         gpWrapperNotDriver.rightTriggerWrapper.addListener(catapultDrive);
+
+        ServoPositionConditional servoPosition = new ServoPositionConditional(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE, true);
+        Conditional canIntake = new CatapultPositionConditional(catapultDrive, true, servoPosition);
+        intakeDrive = new IntakeDrive(Hardware.instance.intakeMotor, 0.5, 0, -1.0, aAndBToggle, canIntake);
 
         rightPusher = new ServoWrapper(Hardware.instance.rightBeaconServo, gpWrapperNotDriver.right_bumper, Constants.RIGHT_ON, Constants.RIGHT_OFF);
         leftPusher = new ServoWrapper(Hardware.instance.leftBeaconServo, gpWrapperNotDriver.left_bumper, Constants.LEFT_ON, Constants.LEFT_OFF);
