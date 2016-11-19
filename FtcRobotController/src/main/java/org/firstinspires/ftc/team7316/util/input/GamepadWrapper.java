@@ -13,6 +13,7 @@ public class GamepadWrapper {
 
     public JoystickWrapper left_stick, right_stick;
     public AxisWrapper left_axis_y, right_axis_y;
+    public AxisWrapper r_trigger;
 
     public ButtonWrapper a_button, b_button, x_button, y_button;
     public ButtonWrapper dp_up, dp_down, dp_right, dp_left;
@@ -43,6 +44,20 @@ public class GamepadWrapper {
         this.leftTriggerWrapper = new TriggerWrapper(GamepadAxis.L_TRIGGER, this);
         this.rightTriggerWrapper = new TriggerWrapper(GamepadAxis.R_TRIGGER, this);
 
+        this.r_trigger = new AxisWrapper(GamepadAxis.L_TRIGGER, this);
+
+        Scheduler.instance.addTask(a_button);
+        Scheduler.instance.addTask(b_button);
+        Scheduler.instance.addTask(x_button);
+        Scheduler.instance.addTask(y_button);
+        Scheduler.instance.addTask(dp_left);
+        Scheduler.instance.addTask(dp_right);
+        Scheduler.instance.addTask(dp_down);
+        Scheduler.instance.addTask(dp_up);
+        Scheduler.instance.addTask(left_bumper);
+        Scheduler.instance.addTask(right_bumper);
+        Scheduler.instance.addTask(leftTriggerWrapper);
+        Scheduler.instance.addTask(rightTriggerWrapper);
     }
 
     public boolean buttonState(GamepadButton buttonIndex) {
@@ -64,13 +79,18 @@ public class GamepadWrapper {
     public float axisValue(GamepadAxis axisIndex) {
         switch (axisIndex) {
             case L_STICK_X: return gamepad.left_stick_x;
-            case L_STICK_Y: return gamepad.left_stick_y;
+            case L_STICK_Y: return squared(-gamepad.left_stick_y);
             case R_STICK_X: return gamepad.right_stick_x;
-            case R_STICK_Y: return gamepad.right_stick_y;
+            case R_STICK_Y: return squared(-gamepad.right_stick_y);
             case L_TRIGGER: return gamepad.left_trigger;
             case R_TRIGGER: return gamepad.left_trigger;
         }
         throw new IllegalArgumentException();
+    }
+
+    private float squared(float value) {
+        float result = (float) Math.abs(Math.pow(value, 2));
+        return value > 0 ? result : -result;
     }
 
 }
