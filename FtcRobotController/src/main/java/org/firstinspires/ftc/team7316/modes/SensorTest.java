@@ -38,9 +38,6 @@ public class SensorTest extends OpMode {
     public void loop() {
         Scheduler.instance.loop();
 
-        telemetry.addData("red", colorSensor.red());
-        telemetry.addData("green", colorSensor.green());
-        telemetry.addData("blue", colorSensor.blue());
-        telemetry.addData("the command", threshold.shouldRemove());
+        telemetry.addData("touch", Hardware.instance.touchSensor.isPressed());
     }
 }

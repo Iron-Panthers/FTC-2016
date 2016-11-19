@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
  * Created by Maxim on 10/18/2016.
  */
 public enum Alliance {
-    RED(30), BLUE(17);
+    RED(4), BLUE(8);
 
     public final int threshold;
 
@@ -19,7 +19,7 @@ public enum Alliance {
      * @param sensor the sensor to check if good good
      * @return is good good or not is good good
      */
-    public boolean isGoodGood(ColorSensor sensor) {
+    public boolean shouldPressLeftServo(ColorSensor sensor) {
         switch (this) {
             case RED:
                 return sensor.red() >= threshold;
