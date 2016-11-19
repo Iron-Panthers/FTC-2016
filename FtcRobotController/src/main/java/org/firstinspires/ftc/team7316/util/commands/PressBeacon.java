@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.team7316.util.auto;
+package org.firstinspires.ftc.team7316.util.commands;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -15,22 +15,18 @@ import org.firstinspires.ftc.team7316.util.Scheduler;
 public class PressBeacon implements Loopable {
 
     public static final long wait = 1000;
-    public static final long leftUp = 0, leftDown = 0, rightUp = 0, rightDown = 0;
 
     private Alliance alliance;
     private ColorSensor sensor;
     private Servo left, right;
-    private boolean sensorIsOnRight;
     private ElapsedTime pressedTime;
 
-    public PressBeacon(Alliance alliance, ColorSensor sensor, Servo left, Servo right, boolean sensorIsOnRight) {
+    public PressBeacon(Alliance alliance, ColorSensor sensor, Servo left, Servo right) { //sensor should be on the left
 
         this.alliance = alliance;
         this.sensor = sensor;
         this.left = left;
         this.right = right;
-
-        this.sensorIsOnRight = sensorIsOnRight;
         this.pressedTime = new ElapsedTime();
     }
 
@@ -41,10 +37,10 @@ public class PressBeacon implements Loopable {
             @Override
             public void run() {
                 pressedTime.reset();
-                if (alliance.isGoodGood(sensor) && sensorIsOnRight) { // If the right sensor is good
-                    right.setPosition(Constants.RIGHT_ON);
-                } else {
+                if (alliance.shouldPressLeftServo(sensor)) { // If the left servo should be pressed
                     left.setPosition(Constants.LEFT_ON);
+                } else {
+                    right.setPosition(Constants.RIGHT_ON);
                 }
             }
         }));

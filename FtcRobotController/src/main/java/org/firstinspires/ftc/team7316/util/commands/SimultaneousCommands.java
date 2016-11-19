@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.team7316.util.auto;
+package org.firstinspires.ftc.team7316.util.commands;
 
 import org.firstinspires.ftc.team7316.util.Loopable;
 
@@ -12,7 +12,7 @@ public class SimultaneousCommands implements Loopable {
 
     private ArrayList<Loopable> cmds;
 
-    public SimultaneousCommands(Loopable[] cmds) {
+    public SimultaneousCommands(Loopable... cmds) {
         this.cmds = new ArrayList<Loopable>(Arrays.asList(cmds));
     }
 
@@ -25,7 +25,7 @@ public class SimultaneousCommands implements Loopable {
 
     @Override
     public void loop() {
-        for (int i = cmds.size()-1; i >= 0; i++) {
+        for (int i = cmds.size()-1; i >= 0; i--) {
             Loopable cmd = cmds.get(i);
             cmd.loop();
 

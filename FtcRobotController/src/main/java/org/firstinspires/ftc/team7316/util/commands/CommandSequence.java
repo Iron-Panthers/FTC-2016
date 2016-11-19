@@ -1,9 +1,6 @@
-package org.firstinspires.ftc.team7316.util.auto;
+package org.firstinspires.ftc.team7316.util.commands;
 
 import org.firstinspires.ftc.team7316.util.Loopable;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 /**
  * Created by andrew on 10/28/16.
@@ -12,12 +9,13 @@ public class CommandSequence implements Loopable {
     private Loopable[] cmds;
     private int index = 0;
 
-    public CommandSequence(Loopable[] cmds) {
+    public CommandSequence(Loopable... cmds) {
         this.cmds = cmds;
     }
 
     @Override
     public void init() {
+        index = 0;
         cmds[0].init();
     }
 

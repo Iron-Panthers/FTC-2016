@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.team7316.util.auto;
+package org.firstinspires.ftc.team7316.util.commands;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
@@ -20,6 +20,10 @@ public class TurnGyro implements Loopable {
     protected double power;
     protected float deltaBearing;
     protected float startBearing;
+
+    private float deltaOffset = 0;
+
+    //This doesn't really work
 
 
     public TurnGyro(float deltaBearing, double power, DcMotor leftMotor, DcMotor rightMotor, GyroSensor gyro) { //+power = clockwise
