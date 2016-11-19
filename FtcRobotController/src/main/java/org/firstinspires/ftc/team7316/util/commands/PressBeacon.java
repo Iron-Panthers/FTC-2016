@@ -15,6 +15,7 @@ import org.firstinspires.ftc.team7316.util.Scheduler;
 public class PressBeacon implements Loopable {
 
     public static final long wait = 1000;
+    public static final long leftUp = 0, leftDown = 0, rightUp = 0, rightDown = 0;
 
     private Alliance alliance;
     private ColorSensor sensor;
