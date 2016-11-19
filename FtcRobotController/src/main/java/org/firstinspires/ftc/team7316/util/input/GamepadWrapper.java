@@ -20,6 +20,8 @@ public class GamepadWrapper {
     public ButtonWrapper left_bumper, right_bumper;
     public TriggerWrapper leftTriggerWrapper, rightTriggerWrapper;
 
+    private static final double STICK_DEADZONE = 0.1;
+
     public GamepadWrapper(Gamepad gamepad) {
         this.gamepad = gamepad;
 
