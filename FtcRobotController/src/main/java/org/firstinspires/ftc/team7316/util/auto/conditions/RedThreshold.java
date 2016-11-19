@@ -2,6 +2,8 @@ package org.firstinspires.ftc.team7316.util.auto.conditions;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
+import org.firstinspires.ftc.team7316.util.commands.conditions.Conditional;
+
 /**
  * Created by andrew on 11/15/16.
  */

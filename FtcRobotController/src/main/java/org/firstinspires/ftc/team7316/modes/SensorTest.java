@@ -27,7 +27,7 @@ public class SensorTest extends OpMode {
 
     @Override
     public void init() {
-        gamepadWrapper = new GamepadWrapper(gamepad1);
+        //gamepadWrapper = new GamepadWrapper(gamepad1);
 
         colorSensor = hardwareMap.colorSensor.get("color");
         ods = hardwareMap.opticalDistanceSensor.get("light");
