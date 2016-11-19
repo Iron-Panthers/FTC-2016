@@ -3,9 +3,13 @@ package org.firstinspires.ftc.team7316.modes;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 
+import org.firstinspires.ftc.team7316.util.Constants;
 import org.firstinspires.ftc.team7316.util.Scheduler;
-import org.firstinspires.ftc.team7316.util.commands.AutoCodes;
+import org.firstinspires.ftc.team7316.util.commands.CommandSequence;
+import org.firstinspires.ftc.team7316.util.commands.LineFollow;
+import org.firstinspires.ftc.team7316.util.commands.LineFollowUntilCondition;
 import org.firstinspires.ftc.team7316.util.commands.TurnGyro;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
@@ -16,6 +20,9 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 @Autonomous(name = "PantherAuto")
 public class AutoMode extends OpMode {
 
+    private DcMotor leftMotor, rightMotor;
+    private OpticalDistanceSensor ods;
+
     @Override
     public void init() {
         Scheduler.instance.clear();
@@ -23,7 +30,11 @@ public class AutoMode extends OpMode {
         Hardware.setHardwareMap(hardwareMap);
         Hardware.setTelemetry(telemetry);
 
-        Scheduler.instance.addTask(AutoCodes.beaconPressTest());
+        leftMotor = Hardware.instance.leftDriveMotor;
+        rightMotor = Hardware.instance.rightDriveMotor;
+        ods = Hardware.instance.lightSensor;
+
+        Scheduler.instance.addTask(new LineFollow(leftMotor, rightMotor, ods, 0.2));
     }
 
     @Override
@@ -32,6 +43,7 @@ public class AutoMode extends OpMode {
         Hardware.log(Hardware.tag, "Left Motor: " + Hardware.instance.leftDriveMotor.getCurrentPosition());
         Hardware.log(Hardware.tag, "Right Motor: " + Hardware.instance.rightDriveMotor.getCurrentPosition());
         Hardware.log(Hardware.tag, "gyro: " + Hardware.instance.gyroSensor.getHeading());
+        Hardware.log(Hardware.tag, "ultrasonic: " + Hardware.instance.distanceSensor.getUltrasonicLevel());
     }
 }
 

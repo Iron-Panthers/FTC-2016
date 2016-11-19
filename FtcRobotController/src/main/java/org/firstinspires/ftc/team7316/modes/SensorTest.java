@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.LightSensor;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 
 import org.firstinspires.ftc.team7316.util.Scheduler;
 import org.firstinspires.ftc.team7316.util.auto.conditions.RedThreshold;
@@ -22,22 +23,23 @@ public class SensorTest extends OpMode {
 
     ColorSensor colorSensor;
     GamepadWrapper gamepadWrapper;
-    RedThreshold threshold;
+    OpticalDistanceSensor ods;
 
     @Override
     public void init() {
-        gamepadWrapper = new GamepadWrapper(gamepad1);
+        //gamepadWrapper = new GamepadWrapper(gamepad1);
 
         colorSensor = hardwareMap.colorSensor.get("color");
-
-        threshold = new RedThreshold(0.5, colorSensor, true);
-        colorSensor.enableLed(false);
+        ods = hardwareMap.opticalDistanceSensor.get("light");
     }
 
     @Override
     public void loop() {
         Scheduler.instance.loop();
 
-        telemetry.addData("touch", Hardware.instance.touchSensor.isPressed());
+        telemetry.addData("red", colorSensor.red());
+        telemetry.addData("green", colorSensor.green());
+        telemetry.addData("blue", colorSensor.blue());
+        telemetry.addData("ods", ods.getLightDetected());
     }
 }
