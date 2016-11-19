@@ -19,6 +19,7 @@ public class CatapultWrapper implements ButtonListener, Loopable {
     private DcMotor motor;
     private Conditional primedState;
     private Loopable currentCommand;
+    public boolean isPrimed = false;
 
     public CatapultWrapper(DcMotor motor, Conditional primedState) {
         this.motor = motor;
@@ -32,9 +33,11 @@ public class CatapultWrapper implements ButtonListener, Loopable {
         if (currentCommand == null) {  // Is the motor in use?
             if (primedState.shouldRemove()) {  // Is the shooter currently primed?
                 currentCommand = new RunMotorForTime(motor, 1, 1);
+                this.isPrimed = false;
                 Scheduler.instance.addTask(currentCommand);
             } else {
                 currentCommand = new RunMotorUntilConditional(motor, primedState, 1);
+                this.isPrimed = true;
                 Scheduler.instance.addTask(currentCommand);
             }
         }
