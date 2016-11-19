@@ -54,12 +54,20 @@ public class TwoButtonToggleWrapper implements Loopable {
 
         if (!this.button1Last && currentButton1)
         {
-            this.button1Value = !this.button1Value;
+            if (this.button2Value == true) {
+                this.button1Value = false;
+            } else {
+                this.button1Value = !this.button1Value;
+            }
             this.button2Value = false;
         }
         else if (!this.button2Last && currentButton2)
         {
-            this.button2Value = !this.button2Value;
+            if (this.button1Value == true) {
+                this.button2Value = false;
+            } else {
+                this.button2Value = !this.button2Value;
+            }
             this.button1Value = false;
         }
 

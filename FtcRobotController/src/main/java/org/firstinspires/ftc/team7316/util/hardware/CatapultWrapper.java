@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.team7316.util.hardware;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.team7316.util.Loopable;
@@ -12,19 +14,21 @@ import org.firstinspires.ftc.team7316.util.input.ButtonListener;
 /**
  * Created by Maxim on 11/8/2016.
  */
-public class Catapult implements ButtonListener, Loopable {
+public class CatapultWrapper implements ButtonListener, Loopable {
 
     private DcMotor motor;
     private Conditional primedState;
     private Loopable currentCommand;
 
-    public Catapult(DcMotor motor, Conditional primedState) {
+    public CatapultWrapper(DcMotor motor, Conditional primedState) {
         this.motor = motor;
         this.primedState = primedState;
     }
 
     @Override
     public void onPressed() {
+        Hardware.log("currentcommand", currentCommand instanceof RunMotorForTime);
+        Hardware.log("conditional", primedState.shouldRemove());
         if (currentCommand == null) {  // Is the motor in use?
             if (primedState.shouldRemove()) {  // Is the shooter currently primed?
                 currentCommand = new RunMotorForTime(motor, 1, 1);

@@ -2,20 +2,18 @@ package org.firstinspires.ftc.team7316.modes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.LightSensor;
 
-import org.firstinspires.ftc.robotcore.external.Const;
 import org.firstinspires.ftc.team7316.util.Constants;
 import org.firstinspires.ftc.team7316.util.Scheduler;
+import org.firstinspires.ftc.team7316.util.commands.conditions.OpticalDistanceSensorThreshold;
+import org.firstinspires.ftc.team7316.util.commands.conditions.ServoPositionConditional;
+import org.firstinspires.ftc.team7316.util.hardware.CatapultWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.DcMotorThreeStateWrapper;
-import org.firstinspires.ftc.team7316.util.hardware.DcMotorToggleWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.DcMotorWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
+import org.firstinspires.ftc.team7316.util.hardware.IntakeDrive;
 import org.firstinspires.ftc.team7316.util.hardware.ServoWrapper;
-import org.firstinspires.ftc.team7316.util.input.GamepadButton;
 import org.firstinspires.ftc.team7316.util.input.GamepadWrapper;
-import org.firstinspires.ftc.team7316.util.input.ToggleButtonWrapper;
 import org.firstinspires.ftc.team7316.util.input.TwoButtonToggleWrapper;
 
 /*
@@ -39,9 +37,9 @@ public class DriveMode extends OpMode {
 
     private DcMotorWrapper leftDrive, rightDrive;
     private DcMotorThreeStateWrapper intakeDrive;
-    private DcMotorWrapper catapultDrive;
+    private CatapultWrapper catapultDrive;
 
-    private ServoWrapper leftPusher, rightPusher;
+    private ServoWrapper leftPusher, rightPusher, intakeRelease;
 
     private TwoButtonToggleWrapper aAndBToggle;
 
@@ -60,12 +58,19 @@ public class DriveMode extends OpMode {
         rightDrive = new DcMotorWrapper(Hardware.instance.rightDriveMotor, gpWrapperDriver.right_axis_y);
 
         aAndBToggle = new TwoButtonToggleWrapper(gpWrapperNotDriver.a_button, gpWrapperNotDriver.b_button);
-        intakeDrive = new DcMotorThreeStateWrapper(Hardware.instance.intakeMotor, 1.0, 0, -1.0, aAndBToggle);
 
-        catapultDrive = new DcMotorWrapper(Hardware.instance.catapultMotor, gpWrapperDriver.r_trigger);
+        intakeDrive = new IntakeDrive(Hardware.instance.intakeMotor, 0.5, 0, -1.0, aAndBToggle,
+                new ServoPositionConditional(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE, true));
+
+        catapultDrive = new CatapultWrapper(
+                Hardware.instance.catapultMotor,
+                new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false)
+        );
+        gpWrapperNotDriver.rightTriggerWrapper.addListener(catapultDrive);
 
         rightPusher = new ServoWrapper(Hardware.instance.rightBeaconServo, gpWrapperNotDriver.right_bumper, Constants.RIGHT_ON, Constants.RIGHT_OFF);
         leftPusher = new ServoWrapper(Hardware.instance.leftBeaconServo, gpWrapperNotDriver.left_bumper, Constants.LEFT_ON, Constants.LEFT_OFF);
+        intakeRelease = new ServoWrapper(Hardware.instance.intakeUpServo, gpWrapperNotDriver.dp_left, Constants.INTAKE_SERVO_LOCKED, Constants.INTAKE_SERVO_RELEASE);
 
         Scheduler.instance.addTask(leftDrive);
         Scheduler.instance.addTask(rightDrive);
@@ -74,10 +79,13 @@ public class DriveMode extends OpMode {
         Scheduler.instance.addTask(catapultDrive);
         Scheduler.instance.addTask(rightPusher);
         Scheduler.instance.addTask(leftPusher);
+        Scheduler.instance.addTask(intakeRelease);
+        Scheduler.instance.addTask(catapultDrive);
     }
 
     @Override
     public void loop() {
         Scheduler.instance.loop();
+        Hardware.log("odslevel", Hardware.instance.catapultSensor);
     }
 }
