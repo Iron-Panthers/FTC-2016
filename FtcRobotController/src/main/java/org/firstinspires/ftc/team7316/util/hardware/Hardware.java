@@ -32,6 +32,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
     need to zip tie down the wire across the intake ramp √
     need to zip tie down the wire to up intake servo √
     need to write up intake servo code √
+    motor and joystick deadzones
 */
 
 public class Hardware {
@@ -61,8 +62,8 @@ public class Hardware {
     public Servo leftBeaconServo, rightBeaconServo, intakeUpServo;
     public OpticalDistanceSensor catapultSensor, lightSensor;
     public GyroSensor gyroSensor;
-    private ColorSensor colorSensor;
-    private TouchSensor touchSensor;
+    public ColorSensor colorSensor;
+    public TouchSensor touchSensor;
 
     public double jankDelta = 0;
     public double jankSum = 0;

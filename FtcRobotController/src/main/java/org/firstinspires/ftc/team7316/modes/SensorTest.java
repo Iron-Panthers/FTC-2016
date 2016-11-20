@@ -26,10 +26,10 @@ public class SensorTest extends OpMode {
 
     @Override
     public void init() {
-        gamepadWrapper = new GamepadWrapper(gamepad1);
+        //gamepadWrapper = new GamepadWrapper(gamepad1);
 
         colorSensor = hardwareMap.colorSensor.get("color");
-        ods = hardwareMap.opticalDistanceSensor.get("cat");
+        ods = hardwareMap.opticalDistanceSensor.get("light");
     }
 
     @Override
@@ -39,9 +39,6 @@ public class SensorTest extends OpMode {
         telemetry.addData("red", colorSensor.red());
         telemetry.addData("green", colorSensor.green());
         telemetry.addData("blue", colorSensor.blue());
-        telemetry.addData("alpha", colorSensor.alpha());
-        telemetry.addData("argb", Integer.toHexString(colorSensor.argb()));
         telemetry.addData("ods", ods.getLightDetected());
-
     }
 }

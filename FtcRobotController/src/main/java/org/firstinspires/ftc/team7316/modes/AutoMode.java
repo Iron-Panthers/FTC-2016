@@ -5,7 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.team7316.util.Scheduler;
-import org.firstinspires.ftc.team7316.util.commands.DriveDistanceAccurate;
+import org.firstinspires.ftc.team7316.util.commands.AutoCodes;
+import org.firstinspires.ftc.team7316.util.commands.LineFollow;
+import org.firstinspires.ftc.team7316.util.commands.TurnGyro;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
 /**
@@ -15,9 +17,6 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 @Autonomous(name = "PantherAuto")
 public class AutoMode extends OpMode {
 
-    private DcMotor leftMotor;
-    private DcMotor rightMotor;
-
     @Override
     public void init() {
         Scheduler.instance.clear();
@@ -25,11 +24,7 @@ public class AutoMode extends OpMode {
         Hardware.setHardwareMap(hardwareMap);
         Hardware.setTelemetry(telemetry);
 
-        leftMotor = Hardware.instance.leftDriveMotor;
-        rightMotor = Hardware.instance.rightDriveMotor;
-
-        Scheduler.instance.addTask(new DriveDistanceAccurate(11287, -0.6, Hardware.instance.leftDriveMotor));
-        Scheduler.instance.addTask(new DriveDistanceAccurate(11287, -0.6, Hardware.instance.rightDriveMotor));
+        Scheduler.instance.addTask(new LineFollow(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensor, 0.2));
     }
 
     @Override
@@ -37,6 +32,7 @@ public class AutoMode extends OpMode {
         Scheduler.instance.loop();
         Hardware.log(Hardware.tag, "Left Motor: " + Hardware.instance.leftDriveMotor.getCurrentPosition());
         Hardware.log(Hardware.tag, "Right Motor: " + Hardware.instance.rightDriveMotor.getCurrentPosition());
+        Hardware.log(Hardware.tag, "gyro: " + Hardware.instance.gyroSensor.getHeading());
     }
 }
 
