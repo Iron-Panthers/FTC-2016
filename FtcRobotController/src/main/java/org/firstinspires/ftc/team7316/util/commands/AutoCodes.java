@@ -42,7 +42,7 @@ public class AutoCodes {
             Conditional odsCondition = new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false);
             Loopable armCatapult = new RunMotorUntilConditional(Hardware.instance.catapultMotor, odsCondition, 1);
 
-            SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurate(11287, 0.5);
+            SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurate(Constants.distanceToTicks(7.07), 0.5);
 
             Loopable turnToLine = new SetBearingGyro(0, 0.2, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
 

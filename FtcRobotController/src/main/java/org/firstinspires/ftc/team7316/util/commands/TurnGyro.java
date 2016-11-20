@@ -19,12 +19,15 @@ public class TurnGyro implements Loopable {
 
     protected double power;
     protected float deltaBearing;
-    protected float startBearing;
 
-    private float deltaOffset = 0;
-
-    //This doesn't really work
-
+    /**
+     *
+     * @param deltaBearing never input a negative value for this
+     * @param power don't turn in the inefficient direction, it will cause problems (deltaBearing < 180)
+     * @param leftMotor
+     * @param rightMotor
+     * @param gyro
+     */
 
     public TurnGyro(float deltaBearing, double power, DcMotor leftMotor, DcMotor rightMotor, GyroSensor gyro) { //+power = clockwise
         this.deltaBearing = deltaBearing;
@@ -36,7 +39,7 @@ public class TurnGyro implements Loopable {
 
     @Override
     public void init() {
-        this.startBearing = this.gyro.getHeading();
+        this.gyro.resetZAxisIntegrator();
     }
 
 
@@ -44,7 +47,15 @@ public class TurnGyro implements Loopable {
     public void loop() {
         this.leftMotor.setPower(this.power);
         this.rightMotor.setPower(-this.power);
-        this.remainingBearing = this.deltaBearing - Math.abs(this.gyro.getHeading() - this.startBearing);
+        if (this.power > 0) {
+            this.remainingBearing = this.deltaBearing - Math.abs(this.gyro.getHeading());
+        } else {
+            if (this.gyro.getHeading() < 180) {
+                this.remainingBearing = this.deltaBearing - Math.abs(this.gyro.getHeading());
+            } else {
+                this.remainingBearing = this.deltaBearing - Math.abs(360 - this.gyro.getHeading());
+            }
+        }
     }
 
 
