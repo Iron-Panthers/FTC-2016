@@ -14,7 +14,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
  * Created by wayne on 9/27/16.
 */
 
-@Autonomous(name = "AutoMode")
+@Autonomous(name = "Double Shoot and Beacon")
 public class AutoMode extends OpMode {
 
     @Override
@@ -24,7 +24,7 @@ public class AutoMode extends OpMode {
         Hardware.setHardwareMap(hardwareMap);
         Hardware.setTelemetry(telemetry);
 
-        Scheduler.instance.addTask(new TurnGyro(90, 0.2, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor));
+        Scheduler.instance.addTask(AutoCodes.doubleShootAndBeaconFromRed());
     }
 
     @Override

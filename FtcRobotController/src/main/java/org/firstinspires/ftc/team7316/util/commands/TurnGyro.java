@@ -49,21 +49,19 @@ public class TurnGyro implements Loopable {
     public void loop() {
         this.leftMotor.setPower(this.power);
         this.rightMotor.setPower(-this.power);
-        if (this.power > 0) {
-            this.remainingBearing = this.deltaBearing - Math.abs(this.gyro.getHeading());
-        } else {
-            if (this.gyro.getHeading() < 180) {
-                this.remainingBearing = this.deltaBearing - Math.abs(this.gyro.getHeading());
-            } else {
-                this.remainingBearing = this.deltaBearing - Math.abs(360 - this.gyro.getHeading());
-            }
-        }
     }
 
 
     @Override
     public boolean shouldRemove() {
-        return this.remainingBearing < 0;
+        if (this.power > 0) { // if turning clockwise
+           return this.gyro.getHeading() >= this.deltaBearing;
+        } else { // if turning ccw
+            if (gyro.getHeading() < 180) {
+                return false;
+            }
+            return this.gyro.getHeading() <= (360 - this.deltaBearing);
+        }
     }
 
     @Override

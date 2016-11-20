@@ -4,16 +4,12 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.team7316.util.Constants;
-import org.firstinspires.ftc.team7316.util.Loopable;
 import org.firstinspires.ftc.team7316.util.Scheduler;
-import org.firstinspires.ftc.team7316.util.commands.LineFollow;
 import org.firstinspires.ftc.team7316.util.commands.LineFollowUntilCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ButtonCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ButtonPressCondition;
-import org.firstinspires.ftc.team7316.util.commands.conditions.ButtonReleaseCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.CatapultPositionConditional;
 import org.firstinspires.ftc.team7316.util.commands.conditions.Conditional;
-import org.firstinspires.ftc.team7316.util.commands.conditions.MultipleCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.OpticalDistanceSensorThreshold;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ServoPositionConditional;
 import org.firstinspires.ftc.team7316.util.hardware.CatapultWrapper;
@@ -23,7 +19,6 @@ import org.firstinspires.ftc.team7316.util.hardware.DcMotorWrapperWithConditiona
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 import org.firstinspires.ftc.team7316.util.hardware.IntakeDrive;
 import org.firstinspires.ftc.team7316.util.hardware.ServoWrapper;
-import org.firstinspires.ftc.team7316.util.input.ButtonListener;
 import org.firstinspires.ftc.team7316.util.input.GamepadWrapper;
 import org.firstinspires.ftc.team7316.util.input.RunCommandOnPress;
 import org.firstinspires.ftc.team7316.util.input.TwoButtonToggleWrapper;
@@ -47,6 +42,7 @@ public class DriveMode extends OpMode {
     private GamepadWrapper gpWrapperDriver;
     private GamepadWrapper gpWrapperNotDriver;
 
+    private DcMotorWrapper manualCatapultDrive;
     private DcMotorWrapperWithConditional leftDrive, rightDrive;
     private DcMotorThreeStateWrapper intakeDrive;
     private CatapultWrapper catapultDrive;
@@ -83,8 +79,9 @@ public class DriveMode extends OpMode {
 
         catapultDrive = new CatapultWrapper(
                 Hardware.instance.catapultMotor,
-                new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false)
+                new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.3, false)
         );
+        manualCatapultDrive = new DcMotorWrapper(Hardware.instance.catapultMotor, gpWrapperNotDriver.right_axis_y);
         gpWrapperNotDriver.rightTriggerWrapper.addListener(catapultDrive);
 
         servoPositionConditional = new ServoPositionConditional(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE, true);
@@ -100,6 +97,7 @@ public class DriveMode extends OpMode {
         Scheduler.instance.addTask(aAndBToggle);
         Scheduler.instance.addTask(intakeDrive);
         Scheduler.instance.addTask(catapultDrive);
+        Scheduler.instance.addTask(manualCatapultDrive);
         Scheduler.instance.addTask(rightPusher);
         Scheduler.instance.addTask(leftPusher);
         Scheduler.instance.addTask(intakeRelease);
