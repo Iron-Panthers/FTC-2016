@@ -14,7 +14,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
  * Created by wayne on 9/27/16.
 */
 
-@Autonomous(name = "CloseBeaconFarStartRed")
+@Autonomous(name = "AutoMode")
 public class AutoMode extends OpMode {
 
     @Override

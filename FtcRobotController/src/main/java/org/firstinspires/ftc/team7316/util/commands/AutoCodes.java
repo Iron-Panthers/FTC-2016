@@ -11,12 +11,22 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
 /**
  * Created by andrew on 11/2/16.
+ * All the sequential commands to run
  */
 public class AutoCodes {
 
     public static SimultaneousCommands robotDriveDistanceAccurate(double distance, double power) {
         DriveDistanceAccurate leftMotor = new DriveDistanceAccurate(distance, power, Hardware.instance.leftDriveMotor);
         DriveDistanceAccurate rightMotor = new DriveDistanceAccurate(distance, power, Hardware.instance.rightDriveMotor);
+        Loopable[] both = {leftMotor, rightMotor};
+
+        SimultaneousCommands bothDrive = new SimultaneousCommands(both);
+        return bothDrive;
+    }
+
+    public static SimultaneousCommands robotDriveTime(double time, double power) {
+        RunMotorForTime leftMotor = new RunMotorForTime(Hardware.instance.leftDriveMotor, power, time);
+        RunMotorForTime rightMotor = new RunMotorForTime(Hardware.instance.rightDriveMotor, power, time);
         Loopable[] both = {leftMotor, rightMotor};
 
         SimultaneousCommands bothDrive = new SimultaneousCommands(both);
@@ -82,7 +92,7 @@ public class AutoCodes {
 
     public static CommandSequence simpleShoot() {
 
-        SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurate(Constants.distanceToTicks(1), 0.5);
+        SimultaneousCommands driveToLine = AutoCodes.robotDriveTime(0.45, 0.3);
 
         Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
 
@@ -92,6 +102,27 @@ public class AutoCodes {
         Loopable shootCatapult = new RunMotorForTime(Hardware.instance.catapultMotor, 1, 1);
 
         Loopable[] cmds = {driveToLine, setServoPosition, armCatapult, shootCatapult};
+
+        return new CommandSequence(cmds);
+
+    }
+
+    public static CommandSequence doubleShoot() {
+
+        SimultaneousCommands driveToLine = AutoCodes.robotDriveTime(0.45, 0.3);
+
+        Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
+
+        Conditional odsCondition = new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false);
+        Loopable armCatapult = new RunMotorUntilConditional(Hardware.instance.catapultMotor, odsCondition, 1);
+
+        Loopable shootCatapult = new RunMotorForTime(Hardware.instance.catapultMotor, 1, 1);
+
+        Loopable runIntake = new RunMotorForTime(Hardware.instance.intakeMotor, 0.5, 6);
+
+        SimultaneousCommands driveToBall = AutoCodes.robotDriveTime(3, 0.5);
+
+        Loopable[] cmds = {driveToLine, setServoPosition, armCatapult, shootCatapult, armCatapult, runIntake, shootCatapult, driveToBall};
 
         return new CommandSequence(cmds);
 
