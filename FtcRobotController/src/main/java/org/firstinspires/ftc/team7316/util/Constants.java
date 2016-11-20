@@ -17,7 +17,7 @@ public class Constants {
 
     public static double distanceToTicks(double dist) {
         double inches = dist*12;
-        double revs = dist/DISTANCE_PER_REV;
+        double revs = inches/DISTANCE_PER_REV;
         double ticks = revs*ENCODER_TICK_PER_REV;
         return ticks;
     }

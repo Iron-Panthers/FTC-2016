@@ -13,8 +13,6 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
  * Created by andrew on 11/2/16.
  */
 public class AutoCodes {
-    private static CommandSequence closeBeaconCloseStartRed;
-    private static CommandSequence beaconPressTest;
 
     public static SimultaneousCommands robotDriveDistanceAccurate(double distance, double power) {
         DriveDistanceAccurate leftMotor = new DriveDistanceAccurate(distance, power, Hardware.instance.leftDriveMotor);
@@ -34,56 +32,91 @@ public class AutoCodes {
         return bothDrive;
     }
 
+    public static CommandSequence closeBeaconFarStartBlue() {
+
+        SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurate(Constants.distanceToTicks(4.2), 0.5);
+
+        Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
+
+        Conditional odsCondition = new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false);
+        Loopable armCatapult = new RunMotorUntilConditional(Hardware.instance.catapultMotor, odsCondition, 1);
+
+        Conditional odsCondition2 = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensor, 0.2, false);
+        Loopable turnToLine = new TurnUntilConditional(40, 0.1, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, odsCondition2);
+
+        Conditional buttonCondition = new ButtonCondition(Hardware.instance.touchSensor);
+        Loopable followLine = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensor, 0.15, buttonCondition);
+
+        Loopable wait = new Wait(Constants.COLOR_SENSOR_DELAY);
+
+        Loopable pressBeacon = new PressBeacon(Alliance.BLUE, Hardware.instance.colorSensor, Hardware.instance.leftBeaconServo, Hardware.instance.rightBeaconServo);
+
+        Loopable[] cmds = {driveToLine, setServoPosition, armCatapult, turnToLine, followLine, wait, pressBeacon};
+
+        return new CommandSequence(cmds);
+    }
+
     public static CommandSequence closeBeaconFarStartRed() {
-        if (AutoCodes.closeBeaconCloseStartRed == null) {
 
-            Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
+        SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurate(Constants.distanceToTicks(4.2), 0.5);
 
-            Conditional odsCondition = new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false);
-            Loopable armCatapult = new RunMotorUntilConditional(Hardware.instance.catapultMotor, odsCondition, 1);
+        Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
 
-            SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurate(Constants.distanceToTicks(7.07), 0.5);
+        Conditional odsCondition = new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false);
+        Loopable armCatapult = new RunMotorUntilConditional(Hardware.instance.catapultMotor, odsCondition, 1);
 
-            Loopable turnToLine = new TurnGyro(40, 0.2, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
+        Conditional odsCondition2 = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensor, 0.2, false);
+        Loopable turnToLine = new TurnUntilConditional(40, -0.1, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, odsCondition2);
 
-            Conditional buttonCondition = new ButtonCondition(Hardware.instance.touchSensor);
-            Loopable followLine = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensor, 0.15, buttonCondition);
+        Conditional buttonCondition = new ButtonCondition(Hardware.instance.touchSensor);
+        Loopable followLine = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensor, 0.15, buttonCondition);
 
-            Loopable wait = new Wait(Constants.COLOR_SENSOR_DELAY);
+        Loopable wait = new Wait(Constants.COLOR_SENSOR_DELAY);
 
-            Loopable pressBeacon = new PressBeacon(Alliance.RED, Hardware.instance.colorSensor, Hardware.instance.leftBeaconServo, Hardware.instance.rightBeaconServo);
+        Loopable pressBeacon = new PressBeacon(Alliance.BLUE, Hardware.instance.colorSensor, Hardware.instance.leftBeaconServo, Hardware.instance.rightBeaconServo);
 
-            Loopable[] cmds = {setServoPosition, armCatapult, driveToLine, turnToLine, followLine, wait, pressBeacon};
+        Loopable[] cmds = {driveToLine, setServoPosition, armCatapult, turnToLine, followLine, wait, pressBeacon};
 
-            AutoCodes.closeBeaconCloseStartRed =  new CommandSequence(cmds);
-        }
+        return new CommandSequence(cmds);
+    }
 
-        return AutoCodes.closeBeaconCloseStartRed;
+    public static CommandSequence simpleShoot() {
+
+        SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurate(Constants.distanceToTicks(1), 0.5);
+
+        Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
+
+        Conditional odsCondition = new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false);
+        Loopable armCatapult = new RunMotorUntilConditional(Hardware.instance.catapultMotor, odsCondition, 1);
+
+        Loopable shootCatapult = new RunMotorForTime(Hardware.instance.catapultMotor, 1, 1);
+
+        Loopable[] cmds = {driveToLine, setServoPosition, armCatapult, shootCatapult};
+
+        return new CommandSequence(cmds);
+
     }
 
     public static CommandSequence beaconPressTest() {
-        if (AutoCodes.beaconPressTest == null) {
 
-            Loopable setIntakePosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
-            Loopable setLeftPresser = new SetServoPosition(Hardware.instance.leftBeaconServo, Constants.LEFT_OFF);
-            Loopable setRightPresser = new SetServoPosition(Hardware.instance.rightBeaconServo, Constants.RIGHT_OFF);
+        Loopable setIntakePosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
+        Loopable setLeftPresser = new SetServoPosition(Hardware.instance.leftBeaconServo, Constants.LEFT_OFF);
+        Loopable setRightPresser = new SetServoPosition(Hardware.instance.rightBeaconServo, Constants.RIGHT_OFF);
 
-            Conditional odsCondition = new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false);
-            Loopable armCatapult = new RunMotorUntilConditional(Hardware.instance.catapultMotor, odsCondition, 1);
+        Conditional odsCondition = new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false);
+        Loopable armCatapult = new RunMotorUntilConditional(Hardware.instance.catapultMotor, odsCondition, 1);
 
-            Conditional buttonCondition = new ButtonCondition(Hardware.instance.touchSensor);
-            Loopable followLine = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensor, 0.15, buttonCondition);
+        Conditional buttonCondition = new ButtonCondition(Hardware.instance.touchSensor);
+        Loopable followLine = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensor, 0.15, buttonCondition);
 
-            Loopable wait = new Wait(Constants.COLOR_SENSOR_DELAY);
+        Loopable wait = new Wait(Constants.COLOR_SENSOR_DELAY);
 
-            Loopable pressBeacon = new PressBeacon(Alliance.RED, Hardware.instance.colorSensor, Hardware.instance.leftBeaconServo, Hardware.instance.rightBeaconServo);
+        Loopable pressBeacon = new PressBeacon(Alliance.RED, Hardware.instance.colorSensor, Hardware.instance.leftBeaconServo, Hardware.instance.rightBeaconServo);
 
-            Loopable[] cmds = {setIntakePosition, setLeftPresser, setRightPresser, armCatapult, followLine, wait, pressBeacon};
+        Loopable[] cmds = {setIntakePosition, setLeftPresser, setRightPresser, armCatapult, followLine, wait, pressBeacon};
 
-            AutoCodes.beaconPressTest =  new CommandSequence(cmds);
-        }
+        return new CommandSequence(cmds);
 
-        return AutoCodes.beaconPressTest;
     }
 
 }
