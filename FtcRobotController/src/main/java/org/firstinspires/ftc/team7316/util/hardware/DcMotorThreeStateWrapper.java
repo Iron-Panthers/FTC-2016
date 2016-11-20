@@ -12,9 +12,9 @@ import org.firstinspires.ftc.team7316.util.input.TwoButtonToggleWrapper;
  */
 public class DcMotorThreeStateWrapper implements Loopable {
 
-    private TwoButtonToggleWrapper buttons;
-    private DcMotor motor;
-    private double forwardPower, neutralPower, reversePower;
+    protected TwoButtonToggleWrapper buttons;
+    protected DcMotor motor;
+    protected double forwardPower, neutralPower, reversePower;
 
     public DcMotorThreeStateWrapper(DcMotor motor, double forwardPower, double neutralPower, double reversePower, TwoButtonToggleWrapper buttons) {
         this.motor = motor;
