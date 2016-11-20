@@ -15,7 +15,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 import org.firstinspires.ftc.team7316.util.input.GamepadWrapper;
 
 /**
- * Created by andrew on 10/11/16.
+ * Created by wayne on 10/11/16.
  */
 @TeleOp(name = "SensorTest")
 public class SensorTest extends OpMode {

@@ -6,13 +6,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
  * Created by Maxim on 10/18/2016.
  */
 public enum Alliance {
-    RED(4), BLUE(8);
-
-    public final int threshold;
-
-    Alliance(int threshold) {
-        this.threshold = threshold;
-    }
+    RED, BLUE;
 
     /**
      * Check if good good
@@ -22,9 +16,9 @@ public enum Alliance {
     public boolean shouldPressLeftServo(ColorSensor sensor) {
         switch (this) {
             case RED:
-                return sensor.red() >= threshold;
+                return sensor.red() - sensor.blue() >= Constants.COLOR_DIFFERENCE;
             case BLUE:
-                return sensor.blue() >= threshold;
+                return sensor.blue() - sensor.red() >= Constants.COLOR_DIFFERENCE;
         }
         throw new IllegalArgumentException("Something wrong happened in enum Alliance even though nothing wrong should have happened");
     }

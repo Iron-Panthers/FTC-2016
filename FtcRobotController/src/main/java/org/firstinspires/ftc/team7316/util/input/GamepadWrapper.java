@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.team7316.util.Scheduler;
 
 /**
- * Created by andrew on 9/15/16.
+ * Created by wayne on 9/15/16.
  */
 public class GamepadWrapper {
 

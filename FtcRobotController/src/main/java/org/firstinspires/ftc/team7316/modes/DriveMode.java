@@ -6,18 +6,26 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.team7316.util.Constants;
 import org.firstinspires.ftc.team7316.util.Loopable;
 import org.firstinspires.ftc.team7316.util.Scheduler;
-import org.firstinspires.ftc.team7316.util.commands.SetServoPosition;
+import org.firstinspires.ftc.team7316.util.commands.LineFollow;
+import org.firstinspires.ftc.team7316.util.commands.LineFollowUntilCondition;
+import org.firstinspires.ftc.team7316.util.commands.conditions.ButtonCondition;
+import org.firstinspires.ftc.team7316.util.commands.conditions.ButtonPressCondition;
+import org.firstinspires.ftc.team7316.util.commands.conditions.ButtonReleaseCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.CatapultPositionConditional;
 import org.firstinspires.ftc.team7316.util.commands.conditions.Conditional;
+import org.firstinspires.ftc.team7316.util.commands.conditions.MultipleCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.OpticalDistanceSensorThreshold;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ServoPositionConditional;
 import org.firstinspires.ftc.team7316.util.hardware.CatapultWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.DcMotorThreeStateWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.DcMotorWrapper;
+import org.firstinspires.ftc.team7316.util.hardware.DcMotorWrapperWithConditional;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 import org.firstinspires.ftc.team7316.util.hardware.IntakeDrive;
 import org.firstinspires.ftc.team7316.util.hardware.ServoWrapper;
+import org.firstinspires.ftc.team7316.util.input.ButtonListener;
 import org.firstinspires.ftc.team7316.util.input.GamepadWrapper;
+import org.firstinspires.ftc.team7316.util.input.RunCommandOnPress;
 import org.firstinspires.ftc.team7316.util.input.TwoButtonToggleWrapper;
 
 /*
@@ -39,7 +47,7 @@ public class DriveMode extends OpMode {
     private GamepadWrapper gpWrapperDriver;
     private GamepadWrapper gpWrapperNotDriver;
 
-    private DcMotorWrapper leftDrive, rightDrive;
+    private DcMotorWrapperWithConditional leftDrive, rightDrive;
     private DcMotorThreeStateWrapper intakeDrive;
     private CatapultWrapper catapultDrive;
 
@@ -50,6 +58,7 @@ public class DriveMode extends OpMode {
     private ServoPositionConditional servoPositionConditional;
     private CatapultPositionConditional catapultPositionConditional;
 
+    private RunCommandOnPress runLineFollow;
 
     @Override
     public void init() {
@@ -61,8 +70,14 @@ public class DriveMode extends OpMode {
         Hardware.setHardwareMap(hardwareMap);
         Hardware.setTelemetry(telemetry);
 
-        leftDrive = new DcMotorWrapper(Hardware.instance.leftDriveMotor, gpWrapperDriver.left_axis_y);
-        rightDrive = new DcMotorWrapper(Hardware.instance.rightDriveMotor, gpWrapperDriver.right_axis_y);
+        ButtonPressCondition xDown = new ButtonPressCondition(gpWrapperDriver.x_button);
+
+        leftDrive = new DcMotorWrapperWithConditional(Hardware.instance.leftDriveMotor, gpWrapperDriver.left_axis_y, xDown);
+        rightDrive = new DcMotorWrapperWithConditional(Hardware.instance.rightDriveMotor, gpWrapperDriver.right_axis_y, xDown );
+
+        Conditional buttonTriggered = new ButtonCondition(Hardware.instance.touchSensor);
+        LineFollowUntilCondition lineFollowCommand = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensor, 0.15, buttonTriggered);
+        runLineFollow = new RunCommandOnPress(gpWrapperDriver.x_button, lineFollowCommand);
 
         aAndBToggle = new TwoButtonToggleWrapper(gpWrapperNotDriver.a_button, gpWrapperNotDriver.b_button);
 
@@ -89,11 +104,11 @@ public class DriveMode extends OpMode {
         Scheduler.instance.addTask(leftPusher);
         Scheduler.instance.addTask(intakeRelease);
         Scheduler.instance.addTask(catapultDrive);
+        Scheduler.instance.addTask(runLineFollow);
     }
 
     @Override
     public void loop() {
         Scheduler.instance.loop();
-        Hardware.log("odslevel", Hardware.instance.lightSensor);
     }
 }

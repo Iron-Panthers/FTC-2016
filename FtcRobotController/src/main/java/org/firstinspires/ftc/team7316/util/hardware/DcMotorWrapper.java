@@ -38,7 +38,7 @@ public class DcMotorWrapper implements Loopable {
 
     @Override
     public void terminate() {
-
+        motor.setPower(0);
     }
 
 }

@@ -10,7 +10,7 @@ import org.firstinspires.ftc.team7316.util.Scheduler;
 import org.firstinspires.ftc.team7316.util.input.ButtonWrapper;
 
 /**
- * Created by andrew on 9/20/16.
+ * Created by wayne on 9/20/16.
  */
 public class ServoWrapper implements Loopable {
 

@@ -32,18 +32,12 @@ public class PressBeacon implements Loopable {
 
     @Override
     public void init() {
-        // Delay the sensor
-        Scheduler.instance.addTask(new DelayedStart(Constants.COLOR_SENSOR_DELAY, new Runnable() {
-            @Override
-            public void run() {
-                pressedTime.reset();
-                if (alliance.shouldPressLeftServo(sensor)) { // If the left servo should be pressed
-                    left.setPosition(Constants.LEFT_ON);
-                } else {
-                    right.setPosition(Constants.RIGHT_ON);
-                }
-            }
-        }));
+        if (alliance.shouldPressLeftServo(sensor)) { // If the left servo should be pressed
+            left.setPosition(Constants.LEFT_ON);
+        } else {
+            right.setPosition(Constants.RIGHT_ON);
+        }
+        this.pressedTime.reset();
     }
 
     @Override
