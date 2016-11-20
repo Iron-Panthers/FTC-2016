@@ -73,12 +73,12 @@ public class DriveMode extends OpMode {
         gpWrapperNotDriver.rightTriggerWrapper.addListener(catapultDrive);
 
         servoPositionConditional = new ServoPositionConditional(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE, true);
-        catapultPositionConditional = new CatapultPositionConditional(catapultDrive, true, servoPositionConditional);
-        intakeDrive = new IntakeDrive(Hardware.instance.intakeMotor, 0.5, 0, -1.0, aAndBToggle, catapultPositionConditional);
+        catapultPositionConditional = new CatapultPositionConditional(catapultDrive, true);
+        intakeDrive = new IntakeDrive(Hardware.instance.intakeMotor, 0.5, 0, -1.0, aAndBToggle, catapultPositionConditional, servoPositionConditional);
 
         rightPusher = new ServoWrapper(Hardware.instance.rightBeaconServo, gpWrapperNotDriver.right_bumper, Constants.RIGHT_ON, Constants.RIGHT_OFF);
         leftPusher = new ServoWrapper(Hardware.instance.leftBeaconServo, gpWrapperNotDriver.left_bumper, Constants.LEFT_ON, Constants.LEFT_OFF);
-        intakeRelease = new ServoWrapper(Hardware.instance.intakeUpServo, gpWrapperNotDriver.dp_left, Constants.INTAKE_SERVO_RELEASE, Constants.INTAKE_SERVO_LOCKED);
+        intakeRelease = new ServoWrapper(Hardware.instance.intakeUpServo, gpWrapperNotDriver.dpLeftWrapper, Constants.INTAKE_SERVO_RELEASE, Constants.INTAKE_SERVO_LOCKED);
 
         Scheduler.instance.addTask(leftDrive);
         Scheduler.instance.addTask(rightDrive);
@@ -94,9 +94,6 @@ public class DriveMode extends OpMode {
     @Override
     public void loop() {
         Scheduler.instance.loop();
-        Hardware.log("odslevel", Hardware.instance.catapultSensor);
-        Hardware.log("cat pos", catapultDrive.isPrimed);
-        Hardware.log("servo pos", servoPositionConditional.shouldRemove());
-        Hardware.log("cat conditional", catapultPositionConditional.shouldRemove());
+        Hardware.log("odslevel", Hardware.instance.lightSensor);
     }
 }
