@@ -9,20 +9,18 @@ public class CatapultPositionConditional implements Conditional {
 
     private CatapultWrapper catapultWrapper;
     private boolean wantArmedState;
-    private ServoPositionConditional intakeDown;
 
-    public CatapultPositionConditional(CatapultWrapper catapultWrapper, boolean wantArmedState, ServoPositionConditional intakeDown) {
+    public CatapultPositionConditional(CatapultWrapper catapultWrapper, boolean wantArmedState) {
         this.catapultWrapper = catapultWrapper;
         this.wantArmedState = wantArmedState;
-        this.intakeDown = intakeDown;
     }
 
     @Override
     public boolean shouldRemove() {
         if (wantArmedState) {
-            return catapultWrapper.isPrimed && intakeDown.shouldRemove();
+            return catapultWrapper.isPrimed;
         } else {
-            return !catapultWrapper.isPrimed && intakeDown.shouldRemove();
+            return !catapultWrapper.isPrimed;
         }
     }
 

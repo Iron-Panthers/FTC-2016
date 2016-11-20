@@ -16,9 +16,10 @@ public class GamepadWrapper {
     public AxisWrapper r_trigger;
 
     public ButtonWrapper a_button, b_button, x_button, y_button;
-    public ButtonWrapper dp_up, dp_down, dp_right, dp_left;
+    public ButtonWrapper dp_up, dp_down, dp_right;
     public ButtonWrapper left_bumper, right_bumper;
     public TriggerWrapper leftTriggerWrapper, rightTriggerWrapper;
+    public ToggleButtonWrapper dpLeftWrapper;
 
     private static final double STICK_DEADZONE = 0.1;
 
@@ -35,7 +36,7 @@ public class GamepadWrapper {
         this.x_button = new ButtonWrapper(GamepadButton.X_BUTTON, this);
         this.y_button = new ButtonWrapper(GamepadButton.Y_BUTTON, this);
 
-        this.dp_left = new ButtonWrapper(GamepadButton.DPAD_LEFT, this);
+        this.dpLeftWrapper = new ToggleButtonWrapper(GamepadButton.DPAD_LEFT, this);
         this.dp_right = new ButtonWrapper(GamepadButton.DPAD_RIGHT, this);
         this.dp_down = new ButtonWrapper(GamepadButton.DPAD_DOWN, this);
         this.dp_up = new ButtonWrapper(GamepadButton.DPAD_UP, this);
@@ -52,7 +53,7 @@ public class GamepadWrapper {
         Scheduler.instance.addTask(b_button);
         Scheduler.instance.addTask(x_button);
         Scheduler.instance.addTask(y_button);
-        Scheduler.instance.addTask(dp_left);
+        Scheduler.instance.addTask(dpLeftWrapper);
         Scheduler.instance.addTask(dp_right);
         Scheduler.instance.addTask(dp_down);
         Scheduler.instance.addTask(dp_up);
