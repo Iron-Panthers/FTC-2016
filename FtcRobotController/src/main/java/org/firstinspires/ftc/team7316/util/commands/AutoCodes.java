@@ -76,7 +76,7 @@ public class AutoCodes {
         Loopable armCatapult = new RunMotorUntilConditional(Hardware.instance.catapultMotor, odsCondition, 1);
 
         Conditional odsCondition2 = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensor, 0.2, false);
-        Loopable turnToLine = new TurnUntilConditional(40, -0.1, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, odsCondition2);
+        Loopable turnToLine = new TurnUntilConditional(45, 0.1, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, odsCondition2);
 
         Conditional buttonCondition = new ButtonCondition(Hardware.instance.touchSensor);
         Loopable followLine = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensor, 0.15, buttonCondition);
@@ -85,14 +85,14 @@ public class AutoCodes {
 
         Loopable pressBeacon = new PressBeacon(Alliance.BLUE, Hardware.instance.colorSensor, Hardware.instance.leftBeaconServo, Hardware.instance.rightBeaconServo);
 
-        Loopable[] cmds = {driveToLine, setServoPosition, armCatapult, turnToLine, followLine, wait, pressBeacon};
+        Loopable[] cmds = {driveToLine, setServoPosition, armCatapult, turnToLine};//, followLine, wait, pressBeacon};
 
         return new CommandSequence(cmds);
     }
 
     public static CommandSequence simpleShoot() {
 
-        SimultaneousCommands driveToLine = AutoCodes.robotDriveTime(0.45, 0.3);
+        SimultaneousCommands driveToLine = AutoCodes.robotDriveTime(0.4, 0.3);
 
         Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
 
@@ -120,7 +120,7 @@ public class AutoCodes {
 
         Loopable runIntake = new RunMotorForTime(Hardware.instance.intakeMotor, 0.5, 6);
 
-        SimultaneousCommands driveToBall = AutoCodes.robotDriveTime(3, 0.5);
+        SimultaneousCommands driveToBall = AutoCodes.robotDriveTime(2.7, 0.5);
 
         Loopable[] cmds = {driveToLine, setServoPosition, armCatapult, shootCatapult, armCatapult, runIntake, shootCatapult, driveToBall};
 

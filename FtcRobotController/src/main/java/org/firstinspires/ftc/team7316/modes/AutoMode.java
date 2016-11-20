@@ -24,7 +24,7 @@ public class AutoMode extends OpMode {
         Hardware.setHardwareMap(hardwareMap);
         Hardware.setTelemetry(telemetry);
 
-        Scheduler.instance.addTask(AutoCodes.closeBeaconFarStartRed());
+        Scheduler.instance.addTask(new TurnGyro(90, 0.2, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor));
     }
 
     @Override

@@ -20,6 +20,8 @@ public class TurnGyro implements Loopable {
     protected double power;
     protected float deltaBearing;
 
+    private final float CORRECTION_PERCENT_GYRO = 0.8f;
+
     /**
      *
      * @param deltaBearing never input a negative value for this
@@ -30,7 +32,7 @@ public class TurnGyro implements Loopable {
      */
 
     public TurnGyro(float deltaBearing, double power, DcMotor leftMotor, DcMotor rightMotor, GyroSensor gyro) { //+power = clockwise
-        this.deltaBearing = deltaBearing;
+        this.deltaBearing = deltaBearing*CORRECTION_PERCENT_GYRO;
         this.power = power;
         this.leftMotor = leftMotor;
         this.rightMotor = rightMotor;
