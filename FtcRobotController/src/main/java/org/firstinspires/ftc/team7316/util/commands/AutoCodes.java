@@ -34,7 +34,7 @@ public class AutoCodes {
         return bothDrive;
     }
 
-    public static CommandSequence closeBeaconCloseStartRed() {
+    public static CommandSequence closeBeaconFarStartRed() {
         if (AutoCodes.closeBeaconCloseStartRed == null) {
 
             Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
@@ -44,7 +44,7 @@ public class AutoCodes {
 
             SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurate(Constants.distanceToTicks(7.07), 0.5);
 
-            Loopable turnToLine = new SetBearingGyro(0, 0.2, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
+            Loopable turnToLine = new TurnGyro(40, 0.2, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
 
             Conditional buttonCondition = new ButtonCondition(Hardware.instance.touchSensor);
             Loopable followLine = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensor, 0.15, buttonCondition);

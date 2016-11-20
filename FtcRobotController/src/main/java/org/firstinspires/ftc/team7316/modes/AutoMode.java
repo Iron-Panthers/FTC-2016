@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.team7316.util.Scheduler;
 import org.firstinspires.ftc.team7316.util.commands.AutoCodes;
 import org.firstinspires.ftc.team7316.util.commands.LineFollow;
-import org.firstinspires.ftc.team7316.util.commands.SetBearingGyro;
 import org.firstinspires.ftc.team7316.util.commands.TurnGyro;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
@@ -15,7 +14,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
  * Created by wayne on 9/27/16.
 */
 
-@Autonomous(name = "PantherAuto")
+@Autonomous(name = "CloseBeaconFarStartRed")
 public class AutoMode extends OpMode {
 
     @Override
@@ -25,7 +24,7 @@ public class AutoMode extends OpMode {
         Hardware.setHardwareMap(hardwareMap);
         Hardware.setTelemetry(telemetry);
 
-        Scheduler.instance.addTask(new SetBearingGyro(90, 0.2, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor));
+        Scheduler.instance.addTask(AutoCodes.closeBeaconFarStartRed());
     }
 
     @Override
