@@ -10,5 +10,7 @@ public class Constants {
     public static final double PRESSER_SERVO_TRAVEL_TIME = 32; // seconds
     public static final double COLOR_SENSOR_DELAY = 0.5; // seconds
     public static final double COLOR_DIFFERENCE = 2;
+    public static final float JOYSTICK_DRIVE_DEADZONE = 0.07f;
+    public static final float DRIVER_MOTOR_DEADZONE = 0.1f;
 
 }
