@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.team7316.util.commands;
 
+import org.firstinspires.ftc.robotcore.external.matrices.ColumnMajorMatrixF;
 import org.firstinspires.ftc.team7316.util.Alliance;
 import org.firstinspires.ftc.team7316.util.Constants;
 import org.firstinspires.ftc.team7316.util.Loopable;
@@ -44,15 +45,14 @@ public class AutoCodes {
 
     public static CommandSequence closeBeaconFarStartBlue() {
 
-        SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurate(Constants.distanceToTicks(4.2), 0.5);
+        SimultaneousCommands driveToLine = AutoCodes.robotDriveTime(2.5, 0.5);
 
         Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
 
         Conditional odsCondition = new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false);
         Loopable armCatapult = new RunMotorUntilConditional(Hardware.instance.catapultMotor, odsCondition, 1);
 
-        Conditional odsCondition2 = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensor, 0.2, false);
-        Loopable turnToLine = new TurnUntilConditional(40, 0.1, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, odsCondition2);
+        Loopable turnToLine = new TurnGyro(45, 0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
 
         Conditional buttonCondition = new ButtonCondition(Hardware.instance.touchSensor);
         Loopable followLine = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensor, 0.15, buttonCondition);
@@ -89,25 +89,24 @@ public class AutoCodes {
         return new CommandSequence(cmds);
     }
 
-    public static CommandSequence closeBeaconFarStartRedNoBeacon() {
-
-        SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurate(Constants.distanceToTicks(4.2), 0.5);
-
-        Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
-
-        Conditional odsCondition = new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false);
-        Loopable armCatapult = new RunMotorUntilConditional(Hardware.instance.catapultMotor, odsCondition, 1);
-
-        Loopable turnToLine = new TurnGyro(45, -0.1, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
-
+    public static CommandSequence followLineAndBeacon(Alliance alliance) {
         Conditional buttonCondition = new ButtonCondition(Hardware.instance.touchSensor);
         Loopable followLine = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensor, 0.15, buttonCondition);
 
         Loopable wait = new Wait(Constants.COLOR_SENSOR_DELAY);
 
-        Loopable pressBeacon = new PressBeacon(Alliance.RED, Hardware.instance.colorSensor, Hardware.instance.leftBeaconServo, Hardware.instance.rightBeaconServo);
+        Loopable pressBeacon = new PressBeacon(alliance, Hardware.instance.colorSensor, Hardware.instance.leftBeaconServo, Hardware.instance.rightBeaconServo);
 
-        Loopable[] cmds = {driveToLine, setServoPosition, armCatapult, turnToLine};
+        Loopable[] cmds = {followLine, wait, pressBeacon};
+
+        return new CommandSequence(cmds);
+    }
+
+    public static CommandSequence closeBeaconFarStartRedNoBeacon() {
+
+        Loopable turnToLine = new TurnGyro(45, 0.25, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
+
+        Loopable[] cmds = {turnToLine};
 
         return new CommandSequence(cmds);
     }
@@ -131,7 +130,7 @@ public class AutoCodes {
 
     public static CommandSequence doubleShoot() {
 
-        SimultaneousCommands driveToLine = AutoCodes.robotDriveTime(0.45, 0.3);
+        SimultaneousCommands driveToLine = AutoCodes.robotDriveTime(0.4, 0.3);
 
         Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
 
@@ -148,6 +147,21 @@ public class AutoCodes {
 
         return new CommandSequence(cmds);
 
+    }
+
+    public static CommandSequence doubleShootAndBeaconFromRed() {
+
+        CommandSequence shootAndCap = doubleShoot();
+
+        TurnGyro turnLeft = new TurnGyro(45, -0.25, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
+
+        SimultaneousCommands driveNearLine = AutoCodes.robotDriveTime(1.5, 0.5);
+
+        CommandSequence followLineAndBeacon = followLineAndBeacon(Alliance.RED);
+
+        Loopable[] cmds = {shootAndCap, turnLeft, driveNearLine, followLineAndBeacon};
+
+        return new CommandSequence(cmds);
     }
 
     public static CommandSequence beaconPressTest() {
