@@ -24,7 +24,7 @@ public class AutoMode extends OpMode {
         Hardware.setHardwareMap(hardwareMap);
         Hardware.setTelemetry(telemetry);
 
-        Scheduler.instance.addTask(AutoCodes.singleShootAndBeaconFromRed());
+        Scheduler.instance.addTask(AutoCodes.midStartRedBothBeacons());
     }
 
     @Override

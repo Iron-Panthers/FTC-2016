@@ -68,27 +68,19 @@ public class AutoCodes {
         return new CommandSequence(cmds);
     }
 
-    public static CommandSequence closeBeaconFarStartBlue() {
+    public static CommandSequence midStartRedBothBeacons() {
 
-        SimultaneousCommands driveToLine = AutoCodes.robotDriveTime(2.35, 0.5);
+        CommandSequence toBlueFirst = AutoCodes.closeBeaconFarStartRed();
 
-        Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
-        Loopable setLeftServoPosition = new SetServoPosition(Hardware.instance.leftBeaconServo, Constants.LEFT_OFF);
-        Loopable setRightServoPosition = new SetServoPosition(Hardware.instance.rightBeaconServo, Constants.RIGHT_OFF);
+        SimultaneousCommands backwards = AutoCodes.robotDriveTime(0.25, -0.4);
 
-        Conditional odsCondition = new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false);
-        Loopable armCatapult = new RunMotorUntilConditional(Hardware.instance.catapultMotor, odsCondition, 1);
+        Loopable turnToOtherLine = new TurnGyro(90, 0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
 
-        Loopable turnToLine = new TurnGyro(40, 0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
+        SimultaneousCommands toOtherLine = AutoCodes.robotDriveTime(1.5, -0.4);
 
-        Conditional buttonCondition = new ButtonCondition(Hardware.instance.touchSensor);
-        Loopable followLine = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensor, 0.15, buttonCondition);
+        Loopable turnBack = new TurnGyro(90, -0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
 
-        Loopable wait = new Wait(Constants.COLOR_SENSOR_DELAY);
-
-        Loopable pressBeacon = new PressBeacon(Alliance.BLUE, Hardware.instance.colorSensor, Hardware.instance.leftBeaconServo, Hardware.instance.rightBeaconServo);
-
-        Loopable[] cmds = {driveToLine, setServoPosition, setLeftServoPosition, setRightServoPosition, armCatapult, turnToLine, followLine, wait, pressBeacon};
+        Loopable[] cmds = {toBlueFirst, backwards, turnBack, toOtherLine, turnBack, AutoCodes.followLineAndBeacon(Alliance.RED)};
 
         return new CommandSequence(cmds);
     }
