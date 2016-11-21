@@ -45,14 +45,16 @@ public class AutoCodes {
 
     public static CommandSequence closeBeaconFarStartBlue() {
 
-        SimultaneousCommands driveToLine = AutoCodes.robotDriveTime(2.5, 0.5);
+        SimultaneousCommands driveToLine = AutoCodes.robotDriveTime(2.35, 0.5);
 
         Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
+        Loopable setLeftServoPosition = new SetServoPosition(Hardware.instance.leftBeaconServo, Constants.LEFT_OFF);
+        Loopable setRightServoPosition = new SetServoPosition(Hardware.instance.rightBeaconServo, Constants.RIGHT_OFF);
 
         Conditional odsCondition = new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false);
         Loopable armCatapult = new RunMotorUntilConditional(Hardware.instance.catapultMotor, odsCondition, 1);
 
-        Loopable turnToLine = new TurnGyro(45, 0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
+        Loopable turnToLine = new TurnGyro(40, 0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
 
         Conditional buttonCondition = new ButtonCondition(Hardware.instance.touchSensor);
         Loopable followLine = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensor, 0.15, buttonCondition);
@@ -61,21 +63,48 @@ public class AutoCodes {
 
         Loopable pressBeacon = new PressBeacon(Alliance.BLUE, Hardware.instance.colorSensor, Hardware.instance.leftBeaconServo, Hardware.instance.rightBeaconServo);
 
-        Loopable[] cmds = {driveToLine, setServoPosition, armCatapult, turnToLine, followLine, wait, pressBeacon};
+        Loopable[] cmds = {driveToLine, setServoPosition, setLeftServoPosition, setRightServoPosition, armCatapult, turnToLine, followLine, wait, pressBeacon};
+
+        return new CommandSequence(cmds);
+    }
+
+    public static CommandSequence closeBeaconFarStartBlue() {
+
+        SimultaneousCommands driveToLine = AutoCodes.robotDriveTime(2.35, 0.5);
+
+        Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
+        Loopable setLeftServoPosition = new SetServoPosition(Hardware.instance.leftBeaconServo, Constants.LEFT_OFF);
+        Loopable setRightServoPosition = new SetServoPosition(Hardware.instance.rightBeaconServo, Constants.RIGHT_OFF);
+
+        Conditional odsCondition = new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false);
+        Loopable armCatapult = new RunMotorUntilConditional(Hardware.instance.catapultMotor, odsCondition, 1);
+
+        Loopable turnToLine = new TurnGyro(40, 0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
+
+        Conditional buttonCondition = new ButtonCondition(Hardware.instance.touchSensor);
+        Loopable followLine = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensor, 0.15, buttonCondition);
+
+        Loopable wait = new Wait(Constants.COLOR_SENSOR_DELAY);
+
+        Loopable pressBeacon = new PressBeacon(Alliance.BLUE, Hardware.instance.colorSensor, Hardware.instance.leftBeaconServo, Hardware.instance.rightBeaconServo);
+
+        Loopable[] cmds = {driveToLine, setServoPosition, setLeftServoPosition, setRightServoPosition, armCatapult, turnToLine, followLine, wait, pressBeacon};
 
         return new CommandSequence(cmds);
     }
 
     public static CommandSequence closeBeaconFarStartRed() {
 
-        SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurate(Constants.distanceToTicks(4.2), 0.5);
+        SimultaneousCommands driveToLine = AutoCodes.robotDriveTime(2.2, 0.5);
 
         Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
+        Loopable setLeftServoPosition = new SetServoPosition(Hardware.instance.leftBeaconServo, Constants.LEFT_OFF);
+        Loopable setRightServoPosition = new SetServoPosition(Hardware.instance.rightBeaconServo, Constants.RIGHT_OFF);
 
         Conditional odsCondition = new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false);
         Loopable armCatapult = new RunMotorUntilConditional(Hardware.instance.catapultMotor, odsCondition, 1);
 
-        Loopable turnToLine = new TurnGyro(45, -0.1, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
+        Loopable turnToLine = new TurnGyro(40, -0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
 
         Conditional buttonCondition = new ButtonCondition(Hardware.instance.touchSensor);
         Loopable followLine = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensor, 0.15, buttonCondition);
@@ -84,7 +113,7 @@ public class AutoCodes {
 
         Loopable pressBeacon = new PressBeacon(Alliance.RED, Hardware.instance.colorSensor, Hardware.instance.leftBeaconServo, Hardware.instance.rightBeaconServo);
 
-        Loopable[] cmds = {driveToLine, setServoPosition, armCatapult, turnToLine, followLine, wait, pressBeacon};
+        Loopable[] cmds = {driveToLine, setServoPosition, setLeftServoPosition, setRightServoPosition, armCatapult, turnToLine, followLine, wait, pressBeacon};
 
         return new CommandSequence(cmds);
     }
@@ -122,7 +151,9 @@ public class AutoCodes {
 
         Loopable shootCatapult = new RunMotorForTime(Hardware.instance.catapultMotor, 1, 1);
 
-        Loopable[] cmds = {driveToLine, setServoPosition, armCatapult, shootCatapult};
+        SimultaneousCommands driveToBall = AutoCodes.robotDriveTime(2.7, 0.5);
+
+        Loopable[] cmds = {driveToLine, setServoPosition, armCatapult, shootCatapult, driveToBall};
 
         return new CommandSequence(cmds);
 
@@ -149,9 +180,9 @@ public class AutoCodes {
 
     }
 
-    public static CommandSequence doubleShootAndBeaconFromRed() {
+    public static CommandSequence singleShootAndBeaconFromRed() {
 
-        CommandSequence shootAndCap = doubleShoot();
+        CommandSequence shootAndCap = simpleShoot();
 
         TurnGyro turnLeft = new TurnGyro(45, -0.25, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
 

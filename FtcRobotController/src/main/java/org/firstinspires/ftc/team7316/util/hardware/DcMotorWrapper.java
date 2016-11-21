@@ -11,8 +11,8 @@ import org.firstinspires.ftc.team7316.util.input.AxisWrapper;
  */
 public class DcMotorWrapper implements Loopable {
 
-    private DcMotor motor;
-    private AxisWrapper axis;
+    protected DcMotor motor;
+    protected AxisWrapper axis;
 
     public DcMotorWrapper(DcMotor motor, AxisWrapper axis) {
         this.motor = motor;

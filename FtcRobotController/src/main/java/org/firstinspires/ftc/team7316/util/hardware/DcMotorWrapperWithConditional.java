@@ -12,6 +12,7 @@ import org.firstinspires.ftc.team7316.util.input.AxisWrapper;
 public class DcMotorWrapperWithConditional extends DcMotorWrapper implements Loopable {
 
     private Conditional conditional;
+    private boolean lastVal;
 
     public DcMotorWrapperWithConditional(DcMotor motor, AxisWrapper axis, Conditional conditional) { //disables when conditional is true
         super(motor, axis);
@@ -23,5 +24,10 @@ public class DcMotorWrapperWithConditional extends DcMotorWrapper implements Loo
         if (!conditional.shouldRemove()) {
             super.loop();
         }
+        if (conditional.shouldRemove() && !lastVal) {
+            motor.setPower(0);
+        }
+
+        lastVal = conditional.shouldRemove();
     }
 }

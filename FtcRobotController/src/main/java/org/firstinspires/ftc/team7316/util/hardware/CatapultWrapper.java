@@ -9,6 +9,7 @@ import org.firstinspires.ftc.team7316.util.Scheduler;
 import org.firstinspires.ftc.team7316.util.commands.RunMotorForTime;
 import org.firstinspires.ftc.team7316.util.commands.RunMotorUntilConditional;
 import org.firstinspires.ftc.team7316.util.commands.conditions.Conditional;
+import org.firstinspires.ftc.team7316.util.input.AxisWrapper;
 import org.firstinspires.ftc.team7316.util.input.ButtonListener;
 
 /**
@@ -28,8 +29,7 @@ public class CatapultWrapper implements ButtonListener, Loopable {
 
     @Override
     public void onPressed() {
-        Hardware.log("currentcommand", currentCommand instanceof RunMotorForTime);
-        Hardware.log("conditional", primedState.shouldRemove());
+
         if (currentCommand == null) {  // Is the motor in use?
             if (primedState.shouldRemove()) {  // Is the shooter currently primed?
                 currentCommand = new RunMotorForTime(motor, 1, 1);
