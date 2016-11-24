@@ -72,15 +72,15 @@ public class AutoCodes {
 
         CommandSequence toBlueFirst = AutoCodes.closeBeaconFarStartRed();
 
-        SimultaneousCommands backwards = AutoCodes.robotDriveTime(0.25, -0.4);
+        SimultaneousCommands backwards = AutoCodes.robotDriveTime(0.55, -0.3);
 
-        Loopable turnToOtherLine = new TurnGyro(90, 0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
+        Loopable turnTowardsOtherLine = new TurnGyro(90, 0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
 
-        SimultaneousCommands toOtherLine = AutoCodes.robotDriveTime(1.5, -0.4);
+        SimultaneousCommands driveToOtherLine = AutoCodes.robotDriveTime(2.45, 0.3);
 
-        Loopable turnBack = new TurnGyro(90, -0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
+        Loopable turnBack = new TurnGyro(100, -0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
 
-        Loopable[] cmds = {toBlueFirst, backwards, turnBack, toOtherLine, turnBack, AutoCodes.followLineAndBeacon(Alliance.RED)};
+        Loopable[] cmds = {toBlueFirst, backwards, turnTowardsOtherLine, driveToOtherLine, turnBack, AutoCodes.followLineAndBeacon(Alliance.RED)};
 
         return new CommandSequence(cmds);
     }

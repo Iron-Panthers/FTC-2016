@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.team7316.modes;
+package org.firstinspires.ftc.team7316.modes.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -32,5 +32,6 @@ public class SensorTest extends OpMode {
 
         Hardware.log("left encoder", Hardware.instance.leftDriveMotor.getCurrentPosition());
         Hardware.log("right encoder", Hardware.instance.rightDriveMotor.getCurrentPosition());
+        Hardware.log("cat ods", Hardware.instance.catapultSensor.getLightDetected());
     }
 }

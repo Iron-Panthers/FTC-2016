@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.team7316.modes;
+package org.firstinspires.ftc.team7316.modes.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -80,6 +80,7 @@ public class DriveMode extends OpMode {
                 Hardware.instance.catapultMotor,
                 new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false)
         );
+        gpWrapperNotDriver.rightTriggerWrapper.addListener(catapultDrive);
 
         servoPositionConditional = new ServoPositionConditional(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE, true);
         catapultPositionConditional = new CatapultPositionConditional(catapultDrive, true);

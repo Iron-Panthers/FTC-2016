@@ -19,7 +19,7 @@ public class TwoButtonToggleWrapper implements Loopable {
     }
 
     private ButtonWrapper button1, button2;
-    private boolean button1Value, button2Value;
+    public boolean button1Value, button2Value;
     private boolean button1Last, button2Last;
 
     public TwoButtonToggleWrapper(ButtonWrapper forwardButton, ButtonWrapper backwardButton) {

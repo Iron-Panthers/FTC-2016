@@ -41,6 +41,8 @@ public class IntakeDrive extends DcMotorThreeStateWrapper {
                     motor.setPower(forwardPower);
                 } else {
                     motor.setPower(neutralPower);
+                    buttons.button1Value = false;
+                    buttons.button2Value = false;
                 }
                 break;
             case BACKWARD:
@@ -48,6 +50,8 @@ public class IntakeDrive extends DcMotorThreeStateWrapper {
                     motor.setPower(reversePower);
                 } else {
                     motor.setPower(neutralPower);
+                    buttons.button1Value = false;
+                    buttons.button2Value = false;
                 }
                 break;
         }

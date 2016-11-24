@@ -23,9 +23,9 @@ public class LineFollow implements Loopable {
     private double errorToRightRatio = 0;
 
     private int counter = 0;
-    private final double p = 0.8; //ratio of error to turn
+    private final double p = 1; //ratio of error to turn
     private final double i = 0; //ration of sum of errors to turn
-    private final double d = 2; //ratio of delta to turn
+    private final double d = 1; //ratio of delta to turn
     private double deltaError = 0;
     private double lastError = 0;
     private double errorSum = 0;
