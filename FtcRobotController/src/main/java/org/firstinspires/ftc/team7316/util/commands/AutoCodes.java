@@ -162,7 +162,7 @@ public class AutoCodes {
 
         Loopable shootCatapult = new RunMotorForTime(Hardware.instance.catapultMotor, 1, 1);
 
-        Loopable runIntake = new RunMotorForTime(Hardware.instance.intakeMotor, 0.5, 6);
+        Loopable runIntake = new RunMotorForTime(Hardware.instance.intakeMotor, 0.5, 3);
 
         SimultaneousCommands driveToBall = AutoCodes.robotDriveTime(2.7, 0.5);
 

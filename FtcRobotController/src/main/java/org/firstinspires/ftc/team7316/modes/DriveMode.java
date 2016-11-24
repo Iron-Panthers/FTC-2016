@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.team7316.util.Constants;
 import org.firstinspires.ftc.team7316.util.Scheduler;
 import org.firstinspires.ftc.team7316.util.commands.LineFollowUntilCondition;
-import org.firstinspires.ftc.team7316.util.commands.conditions.AxisThresholdCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ButtonCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ButtonPressCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.CatapultPositionConditional;
