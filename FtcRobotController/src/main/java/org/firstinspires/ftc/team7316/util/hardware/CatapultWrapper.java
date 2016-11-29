@@ -1,15 +1,12 @@
 package org.firstinspires.ftc.team7316.util.hardware;
 
-import android.util.Log;
-
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.team7316.util.Loopable;
 import org.firstinspires.ftc.team7316.util.Scheduler;
-import org.firstinspires.ftc.team7316.util.commands.RunMotorForTime;
-import org.firstinspires.ftc.team7316.util.commands.RunMotorUntilConditional;
+import org.firstinspires.ftc.team7316.util.commands.drive.RunMotorForTime;
+import org.firstinspires.ftc.team7316.util.commands.drive.RunMotorUntilConditional;
 import org.firstinspires.ftc.team7316.util.commands.conditions.Conditional;
-import org.firstinspires.ftc.team7316.util.input.AxisWrapper;
 import org.firstinspires.ftc.team7316.util.input.ButtonListener;
 
 /**

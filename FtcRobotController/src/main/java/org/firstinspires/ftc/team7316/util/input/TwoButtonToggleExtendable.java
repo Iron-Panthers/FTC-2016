@@ -1,10 +1,8 @@
 package org.firstinspires.ftc.team7316.util.input;
 
-import com.qualcomm.robotcore.hardware.Gamepad;
-
 import org.firstinspires.ftc.team7316.util.Loopable;
 import org.firstinspires.ftc.team7316.util.Scheduler;
-import org.firstinspires.ftc.team7316.util.commands.ExternallyTerminatedLoopable;
+import org.firstinspires.ftc.team7316.util.commands.flow.ExternallyTerminatedLoopable;
 
 /**
  * A two button toggle that can be extended

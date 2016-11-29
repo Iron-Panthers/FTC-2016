@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.team7316.util.commands;
+package org.firstinspires.ftc.team7316.util.commands.flow;
 
 import org.firstinspires.ftc.team7316.util.Loopable;
 
