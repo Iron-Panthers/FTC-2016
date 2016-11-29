@@ -170,6 +170,14 @@ public class AutoCodes {
 
     }
 
+    public static CommandSequence doubleShootAndCap() {
+        CommandSequence doubleShoot = doubleShoot();
+
+        SimultaneousCommands driveToBall = AutoCodes.robotDriveTime(2.7, 0.5);
+
+        return new CommandSequence(doubleShoot, driveToBall);
+    }
+
     public static CommandSequence redDoubleShootDoubleBeacon() {
         //double shoot
 
