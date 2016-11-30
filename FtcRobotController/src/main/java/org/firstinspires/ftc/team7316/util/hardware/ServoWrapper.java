@@ -16,6 +16,7 @@ public class ServoWrapper implements Loopable {
 
     private Servo servo;
     private ButtonWrapper button;
+    private boolean prevState = false;
     private double on, off, defaultPos;
 
     public ServoWrapper(Servo servo, ButtonWrapper button, double on, double off) {
@@ -41,11 +42,15 @@ public class ServoWrapper implements Loopable {
 
     @Override
     public void loop() {
-        if (button.isPressed()) {
-            servo.setPosition(on);
-        } else {
-            servo.setPosition(off);
+        if (button.isPressed() != this.prevState) {
+            if (button.isPressed()) {
+                servo.setPosition(on);
+            } else {
+                servo.setPosition(off);
+            }
         }
+
+        this.prevState = button.isPressed();
     }
 
     @Override
