@@ -66,7 +66,7 @@ public class DriveMode extends OpMode {
 
         Conditional buttonTriggered = new ButtonCondition(Hardware.instance.touchSensor);
         LineFollowUntilCondition lineFollowCommand = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensor, 0.15, buttonTriggered);
-        runLineFollow = new RunCommandOnPress(gpWrapperDriver.x_button, lineFollowCommand);
+        gpWrapperDriver.x_button.addListener(lineFollowCommand);
 
         aAndBToggle = new TwoButtonToggleWrapper(gpWrapperNotDriver.a_button, gpWrapperNotDriver.b_button);
 
