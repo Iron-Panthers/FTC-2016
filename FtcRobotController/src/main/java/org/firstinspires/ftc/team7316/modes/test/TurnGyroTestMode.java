@@ -20,6 +20,7 @@ public class TurnGyroTestMode extends OpMode {
         Hardware.setHardwareMap(hardwareMap);
         Hardware.setTelemetry(telemetry);
         command = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 150);
+        Scheduler.instance.addTask(command);
     }
 
     @Override

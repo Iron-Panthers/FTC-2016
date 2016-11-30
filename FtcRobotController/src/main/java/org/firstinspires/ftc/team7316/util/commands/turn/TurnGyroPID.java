@@ -12,7 +12,7 @@ import org.firstinspires.ftc.team7316.util.Loopable;
  */
 public class TurnGyroPID implements Loopable {
 
-    public static final float P = 1, I = 0, D = 0;
+    public static final float P = 0.015f, I = 0, D = 0;
     public static final float ERROR_THRESHOLD = 0, DELTA_THRESHOLD = 10;
     private int turnAngle;
 
@@ -77,8 +77,8 @@ public class TurnGyroPID implements Loopable {
      * Positive angles mean to the right, while negative angles mean to the left.
      * @return the error
      */
-    private int error() {
-        return (gyro.getHeading() + 540 - target) % 360;
-    }
+        private int error() {
+            return (gyro.getHeading() + 540 - target) % 360 - 180;
+        }
 
 }
