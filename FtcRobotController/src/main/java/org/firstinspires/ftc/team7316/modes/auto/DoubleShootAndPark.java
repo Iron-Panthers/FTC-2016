@@ -11,8 +11,8 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 /**
  * Created by andrew on 11/20/16.
  */
-@Autonomous(name = "Double Shoot")
-public class DoubleShoot extends OpMode {
+@Autonomous(name = "Double Shoot and Park")
+public class DoubleShootAndPark extends OpMode {
     @Override
     public void init() {
         Scheduler.instance.clear();
@@ -20,7 +20,7 @@ public class DoubleShoot extends OpMode {
         Hardware.setHardwareMap(hardwareMap);
         Hardware.setTelemetry(telemetry);
 
-        Scheduler.instance.addTask(AutoCodes.doubleShoot());
+        Scheduler.instance.addTask(AutoCodes.doubleShootAndCap());
     }
 
     @Override

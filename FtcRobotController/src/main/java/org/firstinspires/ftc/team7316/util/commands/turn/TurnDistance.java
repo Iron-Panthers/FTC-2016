@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.team7316.util.commands;
+package org.firstinspires.ftc.team7316.util.commands.turn;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 

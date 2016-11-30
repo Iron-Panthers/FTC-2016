@@ -1,13 +1,20 @@
 package org.firstinspires.ftc.team7316.util.commands;
 
-import org.firstinspires.ftc.robotcore.external.matrices.ColumnMajorMatrixF;
 import org.firstinspires.ftc.team7316.util.Alliance;
 import org.firstinspires.ftc.team7316.util.Constants;
 import org.firstinspires.ftc.team7316.util.Loopable;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ButtonCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.Conditional;
-import org.firstinspires.ftc.team7316.util.commands.conditions.DistanceSensorThreshold;
 import org.firstinspires.ftc.team7316.util.commands.conditions.OpticalDistanceSensorThreshold;
+import org.firstinspires.ftc.team7316.util.commands.drive.DriveDistanceAccurate;
+import org.firstinspires.ftc.team7316.util.commands.drive.DriveUntilCondition;
+import org.firstinspires.ftc.team7316.util.commands.drive.LineFollowUntilCondition;
+import org.firstinspires.ftc.team7316.util.commands.drive.RunMotorForTime;
+import org.firstinspires.ftc.team7316.util.commands.drive.RunMotorUntilConditional;
+import org.firstinspires.ftc.team7316.util.commands.flow.CommandSequence;
+import org.firstinspires.ftc.team7316.util.commands.flow.SimultaneousCommands;
+import org.firstinspires.ftc.team7316.util.commands.flow.Wait;
+import org.firstinspires.ftc.team7316.util.commands.turn.TurnGyro;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
 /**
@@ -161,6 +168,14 @@ public class AutoCodes {
 
         return new CommandSequence(cmds);
 
+    }
+
+    public static CommandSequence doubleShootAndCap() {
+        CommandSequence doubleShoot = doubleShoot();
+
+        SimultaneousCommands driveToBall = AutoCodes.robotDriveTime(2.7, 0.5);
+
+        return new CommandSequence(doubleShoot, driveToBall);
     }
 
     public static CommandSequence redDoubleShootDoubleBeacon() {

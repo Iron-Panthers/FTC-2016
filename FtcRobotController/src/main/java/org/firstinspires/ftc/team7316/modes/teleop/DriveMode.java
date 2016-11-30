@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.team7316.util.Constants;
 import org.firstinspires.ftc.team7316.util.Scheduler;
-import org.firstinspires.ftc.team7316.util.commands.LineFollowUntilCondition;
+import org.firstinspires.ftc.team7316.util.commands.drive.LineFollowUntilCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ButtonCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ButtonPressCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.CatapultPositionConditional;
@@ -14,7 +14,6 @@ import org.firstinspires.ftc.team7316.util.commands.conditions.OpticalDistanceSe
 import org.firstinspires.ftc.team7316.util.commands.conditions.ServoPositionConditional;
 import org.firstinspires.ftc.team7316.util.hardware.CatapultWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.DcMotorThreeStateWrapper;
-import org.firstinspires.ftc.team7316.util.hardware.DcMotorWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.DcMotorWrapperWithConditional;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 import org.firstinspires.ftc.team7316.util.hardware.IntakeDrive;
