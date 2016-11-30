@@ -16,18 +16,27 @@ public class ServoWrapper implements Loopable {
 
     private Servo servo;
     private ButtonWrapper button;
-    private double on, off;
+    private double on, off, defaultPos;
 
     public ServoWrapper(Servo servo, ButtonWrapper button, double on, double off) {
         this.servo = servo;
         this.button = button;
         this.on = on;
         this.off = off;
+        this.defaultPos = this.off;
+    }
+
+    public ServoWrapper(Servo servo, ButtonWrapper button, double on, double off, double defaultPos) {
+        this.servo = servo;
+        this.button = button;
+        this.on = on;
+        this.off = off;
+        this.defaultPos = defaultPos;
     }
 
     @Override
     public void init() {
-
+        servo.setPosition(this.defaultPos);
     }
 
     @Override

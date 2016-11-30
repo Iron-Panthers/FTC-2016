@@ -1,11 +1,15 @@
 package org.firstinspires.ftc.team7316.util.commands;
 
+import com.qualcomm.robotcore.hardware.Servo;
+
 import org.firstinspires.ftc.team7316.util.Alliance;
 import org.firstinspires.ftc.team7316.util.Constants;
 import org.firstinspires.ftc.team7316.util.Loopable;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ButtonCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.Conditional;
+import org.firstinspires.ftc.team7316.util.commands.conditions.MultipleCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.OpticalDistanceSensorThreshold;
+import org.firstinspires.ftc.team7316.util.commands.conditions.ServoPositionConditional;
 import org.firstinspires.ftc.team7316.util.commands.drive.DriveDistanceAccurate;
 import org.firstinspires.ftc.team7316.util.commands.drive.DriveUntilCondition;
 import org.firstinspires.ftc.team7316.util.commands.drive.LineFollowUntilCondition;
@@ -30,6 +34,14 @@ public class AutoCodes {
 
         SimultaneousCommands bothDrive = new SimultaneousCommands(both);
         return bothDrive;
+    }
+
+    public static Conditional servoPositionRange(Servo servo, double lowVal, double highVal) {
+        Conditional lowerThreshold = new ServoPositionConditional(servo, lowVal, false);
+        Conditional upperThreshold = new ServoPositionConditional(servo, highVal, true);
+
+        Conditional both = new MultipleCondition(true, lowerThreshold, upperThreshold);
+        return both;
     }
 
     public static SimultaneousCommands robotDriveTime(double time, double power) {

@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.team7316.util.Constants;
 import org.firstinspires.ftc.team7316.util.Scheduler;
+import org.firstinspires.ftc.team7316.util.commands.AutoCodes;
 import org.firstinspires.ftc.team7316.util.commands.drive.LineFollowUntilCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ButtonCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ButtonPressCondition;
@@ -49,7 +50,7 @@ public class DriveMode extends OpMode {
 
     private TwoButtonToggleWrapper aAndBToggle;
 
-    private ServoPositionConditional servoPositionConditional;
+    private Conditional servoPositionConditional;
     private CatapultPositionConditional catapultPositionConditional;
 
     private RunCommandOnPress runLineFollow;
@@ -81,13 +82,13 @@ public class DriveMode extends OpMode {
         );
         gpWrapperNotDriver.rightTriggerWrapper.addListener(catapultDrive);
 
-        servoPositionConditional = new ServoPositionConditional(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE, true);
+        servoPositionConditional = AutoCodes.servoPositionRange(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_LOCKED - 0.05, Constants.INTAKE_SERVO_LOCKED + 0.05);
         catapultPositionConditional = new CatapultPositionConditional(catapultDrive, true);
         intakeDrive = new IntakeDrive(Hardware.instance.intakeMotor, 0.5, 0, -1.0, aAndBToggle, catapultPositionConditional, servoPositionConditional);
 
         rightPusher = new ServoWrapper(Hardware.instance.rightBeaconServo, gpWrapperNotDriver.right_bumper, Constants.RIGHT_ON, Constants.RIGHT_OFF);
         leftPusher = new ServoWrapper(Hardware.instance.leftBeaconServo, gpWrapperNotDriver.left_bumper, Constants.LEFT_ON, Constants.LEFT_OFF);
-        intakeRelease = new ServoWrapper(Hardware.instance.intakeUpServo, gpWrapperNotDriver.dpLeftWrapper, Constants.INTAKE_SERVO_RELEASE, Constants.INTAKE_SERVO_LOCKED);
+        intakeRelease = new ServoWrapper(Hardware.instance.intakeUpServo, gpWrapperNotDriver.dpLeftWrapper, Constants.INTAKE_SERVO_RELEASE, Constants.INTAKE_SERVO_DONT_STORE, Constants.INTAKE_SERVO_LOCKED);
 
         Scheduler.instance.addTask(leftDrive);
         Scheduler.instance.addTask(rightDrive);
