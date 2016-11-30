@@ -26,7 +26,7 @@ public class TurnUntilConditional extends TurnGyro {
 
     @Override
     public boolean shouldRemove() {
-        return super.shouldRemove() || conditional.shouldRemove();
+        return super.shouldRemove() || conditional.state();
     }
 
 

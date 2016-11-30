@@ -18,7 +18,7 @@ public class DistanceSensorThreshold implements Conditional {
     }
 
     @Override
-    public boolean shouldRemove() {
+    public boolean state() {
         if (this.wantedLess) {
             return distanceSensor.getUltrasonicLevel() < this.threshold;
         } else {

@@ -18,7 +18,7 @@ public class ServoPositionConditional implements Conditional {
     }
 
     @Override
-    public boolean shouldRemove() {
+    public boolean state() {
         if (this.wantedLess) {
             return servo.getPosition() <= this.threshold;
         } else {

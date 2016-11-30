@@ -23,7 +23,7 @@ public class TriggerWrapper extends ButtonWrapper {
      * @return If the trigger is sufficiently pressed
      */
     @Override
-    public boolean isPressed() {
+    public boolean state() {
         return getCurrentValue() > threshold;
     }
 

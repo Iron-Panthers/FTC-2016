@@ -30,7 +30,7 @@ public class DcMotorToggleWrapper implements Loopable {
 
     @Override
     public void loop() {
-        if (button.isPressed()) {
+        if (button.state()) {
             this.motor.setPower(highPower);
         } else {
             this.motor.setPower(lowPower);

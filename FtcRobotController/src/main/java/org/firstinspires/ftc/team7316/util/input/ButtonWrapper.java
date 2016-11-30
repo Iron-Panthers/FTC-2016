@@ -1,17 +1,19 @@
 package org.firstinspires.ftc.team7316.util.input;
 
+import org.firstinspires.ftc.team7316.util.Listenable;
 import org.firstinspires.ftc.team7316.util.Loopable;
 import org.firstinspires.ftc.team7316.util.Scheduler;
+import org.firstinspires.ftc.team7316.util.commands.conditions.Conditional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A wrapper for a button.
+ * Make sure to call super.loop() if
  */
-public class ButtonWrapper implements Loopable {
+public class ButtonWrapper extends Listenable {
 
-    private List<ButtonListener> listeners;
     private GamepadButton gamepadInput;
     private GamepadWrapper gpSource;
 
@@ -20,15 +22,6 @@ public class ButtonWrapper implements Loopable {
     public ButtonWrapper(GamepadButton gamepadInput, GamepadWrapper gpSource) {
         this.gamepadInput = gamepadInput;
         this.gpSource  = gpSource;
-        this.listeners = new ArrayList<>();
-    }
-
-    public void addListener(ButtonListener listener) {
-        this.listeners.add(listener);
-    }
-
-    public boolean isPressed() {
-        return gpSource.buttonState(gamepadInput);
     }
 
     @Override
@@ -37,18 +30,8 @@ public class ButtonWrapper implements Loopable {
     }
 
     @Override
-    public void loop() {
-        boolean currentValue = isPressed();
-        if (currentValue && !lastValue) { // Rising edge
-            for (ButtonListener listener: listeners) {
-                listener.onPressed();
-            }
-        } else if (!currentValue && lastValue) { // Falling edge
-            for (ButtonListener listener: listeners) {
-                listener.onReleased();
-            }
-        }
-        lastValue = currentValue;
+    protected void subLoop() {
+
     }
 
     @Override
@@ -59,5 +42,10 @@ public class ButtonWrapper implements Loopable {
     @Override
     public void terminate() {
 
+    }
+
+    @Override
+    public boolean state() {
+        return gpSource.buttonState(gamepadInput);
     }
 }

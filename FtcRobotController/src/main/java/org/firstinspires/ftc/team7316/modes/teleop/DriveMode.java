@@ -9,11 +9,9 @@ import org.firstinspires.ftc.team7316.util.commands.AutoCodes;
 import org.firstinspires.ftc.team7316.util.commands.conditions.InvertedConditional;
 import org.firstinspires.ftc.team7316.util.commands.drive.LineFollowUntilCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ButtonCondition;
-import org.firstinspires.ftc.team7316.util.commands.conditions.ButtonPressCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.CatapultPositionConditional;
 import org.firstinspires.ftc.team7316.util.commands.conditions.Conditional;
 import org.firstinspires.ftc.team7316.util.commands.conditions.OpticalDistanceSensorThreshold;
-import org.firstinspires.ftc.team7316.util.commands.conditions.ServoPositionConditional;
 import org.firstinspires.ftc.team7316.util.hardware.CatapultWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.DcMotorThreeStateWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.DcMotorWrapperWithConditional;
@@ -21,7 +19,6 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 import org.firstinspires.ftc.team7316.util.hardware.IntakeDrive;
 import org.firstinspires.ftc.team7316.util.hardware.ServoWrapper;
 import org.firstinspires.ftc.team7316.util.input.GamepadWrapper;
-import org.firstinspires.ftc.team7316.util.input.RunCommandOnPress;
 import org.firstinspires.ftc.team7316.util.input.TwoButtonToggleWrapper;
 
 /*
@@ -54,8 +51,6 @@ public class DriveMode extends OpMode {
     private Conditional servoPositionConditional;
     private CatapultPositionConditional catapultPositionConditional;
 
-    private RunCommandOnPress runLineFollow;
-
     @Override
     public void init() {
         Scheduler.instance.clear();
@@ -66,10 +61,8 @@ public class DriveMode extends OpMode {
         Hardware.setHardwareMap(hardwareMap);
         Hardware.setTelemetry(telemetry);
 
-        ButtonPressCondition xDown = new ButtonPressCondition(gpWrapperDriver.x_button);
-
-        leftDrive = new DcMotorWrapperWithConditional(Hardware.instance.leftDriveMotor, gpWrapperDriver.left_axis_y, xDown);
-        rightDrive = new DcMotorWrapperWithConditional(Hardware.instance.rightDriveMotor, gpWrapperDriver.right_axis_y, xDown );
+        leftDrive = new DcMotorWrapperWithConditional(Hardware.instance.leftDriveMotor, gpWrapperDriver.left_axis_y, gpWrapperDriver.x_button);
+        rightDrive = new DcMotorWrapperWithConditional(Hardware.instance.rightDriveMotor, gpWrapperDriver.right_axis_y, gpWrapperDriver.x_button );
 
         Conditional buttonTriggered = new ButtonCondition(Hardware.instance.touchSensor);
         LineFollowUntilCondition lineFollowCommand = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensor, 0.15, buttonTriggered);
@@ -79,7 +72,8 @@ public class DriveMode extends OpMode {
 
         catapultDrive = new CatapultWrapper(
                 Hardware.instance.catapultMotor,
-                new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false)
+                new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false),
+                gpWrapperNotDriver.left_axis_y
         );
         gpWrapperNotDriver.rightTriggerWrapper.addListener(catapultDrive);
 
@@ -100,7 +94,6 @@ public class DriveMode extends OpMode {
         Scheduler.instance.addTask(leftPusher);
         Scheduler.instance.addTask(intakeRelease);
         Scheduler.instance.addTask(catapultDrive);
-        Scheduler.instance.addTask(runLineFollow);
     }
 
     @Override

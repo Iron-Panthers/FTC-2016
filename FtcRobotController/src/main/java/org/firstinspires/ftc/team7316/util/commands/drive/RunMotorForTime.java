@@ -23,13 +23,12 @@ public class RunMotorForTime implements Loopable {
 
     @Override
     public void init() {
-        motor.setPower(power);
         time.reset();
     }
 
     @Override
     public void loop() {
-
+        motor.setPower(power);
     }
 
     @Override

@@ -7,6 +7,7 @@ import org.firstinspires.ftc.team7316.util.Scheduler;
 import org.firstinspires.ftc.team7316.util.commands.drive.RunMotorForTime;
 import org.firstinspires.ftc.team7316.util.commands.drive.RunMotorUntilConditional;
 import org.firstinspires.ftc.team7316.util.commands.conditions.Conditional;
+import org.firstinspires.ftc.team7316.util.input.AxisWrapper;
 import org.firstinspires.ftc.team7316.util.input.ButtonListener;
 
 /**
@@ -17,18 +18,21 @@ public class CatapultWrapper implements ButtonListener, Loopable {
     private DcMotor motor;
     private Conditional primedState;
     private Loopable currentCommand;
+    private AxisWrapper override;
+    private double overrideThreshold = 0.1;
     public boolean isPrimed = false;
 
-    public CatapultWrapper(DcMotor motor, Conditional primedState) {
+    public CatapultWrapper(DcMotor motor, Conditional primedState, AxisWrapper override) {
         this.motor = motor;
         this.primedState = primedState;
+        this.override = override;
     }
 
     @Override
     public void onPressed() {
 
         if (currentCommand == null) {  // Is the motor in use?
-            if (primedState.shouldRemove()) {  // Is the shooter currently primed?
+            if (primedState.state()) {  // Is the shooter currently primed?
                 currentCommand = new RunMotorForTime(motor, 1, 1);
                 this.isPrimed = false;
                 Scheduler.instance.addTask(currentCommand);
@@ -52,6 +56,14 @@ public class CatapultWrapper implements ButtonListener, Loopable {
 
     @Override
     public void loop() {
+        if (Math.abs(override.value()) > this.overrideThreshold) {
+            this.motor.setPower(override.value());
+        } else {
+            if (currentCommand == null) {
+                this.motor.setPower(0);
+            }
+        }
+
         if (currentCommand != null && currentCommand.shouldRemove()) {
             currentCommand = null; // Clear the lock
         }

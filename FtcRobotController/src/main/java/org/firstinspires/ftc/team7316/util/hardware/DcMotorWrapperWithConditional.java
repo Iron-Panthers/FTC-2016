@@ -21,13 +21,13 @@ public class DcMotorWrapperWithConditional extends DcMotorWrapper implements Loo
 
     @Override
     public void loop() {
-        if (!conditional.shouldRemove()) {
+        if (!conditional.state()) {
             super.loop();
         }
-        if (conditional.shouldRemove() && !lastVal) {
+        if (conditional.state() && !lastVal) {
             motor.setPower(0);
         }
 
-        lastVal = conditional.shouldRemove();
+        lastVal = conditional.state();
     }
 }

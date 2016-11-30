@@ -14,7 +14,7 @@ public class ButtonReleaseCondition implements Conditional {
     }
     
     @Override
-    public boolean shouldRemove() {
-        return !this.button.isPressed();
+    public boolean state() {
+        return !this.button.state();
     }
 }

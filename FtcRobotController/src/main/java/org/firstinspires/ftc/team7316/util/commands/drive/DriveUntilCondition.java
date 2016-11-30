@@ -23,7 +23,7 @@ public class DriveUntilCondition extends DriveDistance implements Loopable {
 
     @Override
     public boolean shouldRemove() {
-        return condition.shouldRemove();
+        return condition.state();
     }
 
 
