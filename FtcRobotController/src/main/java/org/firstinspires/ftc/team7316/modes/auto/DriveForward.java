@@ -27,12 +27,10 @@ public class DriveForward extends OpMode {
     @Override
     public void loop() {
         Scheduler.instance.loop();
-        Hardware.instance.leftDriveMotor.setPower(0.5);
-        Hardware.instance.rightDriveMotor.setPower(0.5);
 
         Hardware.log(Hardware.tag, "Left Motor: " + Hardware.instance.leftDriveMotor.getCurrentPosition());
         Hardware.log(Hardware.tag, "Right Motor: " + Hardware.instance.rightDriveMotor.getCurrentPosition());
         Hardware.log(Hardware.tag, "gyro: " + Hardware.instance.gyroSensor.getHeading());
-        Hardware.log(Hardware.tag, "7 ft to ticks" + Constants.distanceToTicks(5.5));
+        Hardware.log(Hardware.tag, "5.5 ft to ticks" + Constants.distanceToTicks(5.5));
     }
 }

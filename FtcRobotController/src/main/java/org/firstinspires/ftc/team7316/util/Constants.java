@@ -12,7 +12,7 @@ public class Constants {
     public static final double COLOR_DIFFERENCE = 2;
     public static final float JOYSTICK_DRIVE_DEADZONE = 0.07f;
     public static final float DRIVER_MOTOR_DEADZONE = 0.25f;
-    public static final int ENCODER_TICK_PER_REV = 1440;
+    public static final int ENCODER_TICK_PER_REV = 1120;
     public static final double DISTANCE_PER_REV = 4*Math.PI;
 
     public static double distanceToTicks(double dist) {
