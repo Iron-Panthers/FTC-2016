@@ -49,8 +49,8 @@ public class TwoButtonToggleWrapper implements Loopable {
 
     @Override
     public void loop() {
-        boolean currentButton1 = button1.isPressed();
-        boolean currentButton2 = button2.isPressed();
+        boolean currentButton1 = button1.state();
+        boolean currentButton2 = button2.state();
 
         if (!this.button1Last && currentButton1)
         {

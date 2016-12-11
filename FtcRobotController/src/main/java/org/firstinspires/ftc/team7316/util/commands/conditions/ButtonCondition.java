@@ -13,7 +13,7 @@ public class ButtonCondition implements Conditional {
     }
 
     @Override
-    public boolean shouldRemove() {
+    public boolean state() {
         return this.sensor.isPressed();
     }
 }

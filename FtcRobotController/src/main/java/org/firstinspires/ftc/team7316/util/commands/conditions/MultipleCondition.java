@@ -14,14 +14,14 @@ public class MultipleCondition implements Conditional {
     }
 
     @Override
-    public boolean shouldRemove() {
+    public boolean state() {
         for ( Conditional condition : this.conditions) {
             if (useAnd) {
-                if (!condition.shouldRemove()) {
+                if (!condition.state()) {
                     return false;
                 }
             } else {
-                if (condition.shouldRemove()) {
+                if (condition.state()) {
                     return true;
                 }
             }

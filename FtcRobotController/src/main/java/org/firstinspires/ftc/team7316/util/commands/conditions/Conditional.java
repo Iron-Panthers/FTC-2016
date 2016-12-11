@@ -5,6 +5,6 @@ package org.firstinspires.ftc.team7316.util.commands.conditions;
  */
 public interface Conditional {
 
-    boolean shouldRemove();
+    boolean state();
 
 }

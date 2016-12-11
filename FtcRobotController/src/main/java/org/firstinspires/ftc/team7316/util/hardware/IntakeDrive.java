@@ -37,7 +37,7 @@ public class IntakeDrive extends DcMotorThreeStateWrapper {
                 motor.setPower(neutralPower);
                 break;
             case FORWARD:
-                if (catapultDown.shouldRemove() && intakeDown.shouldRemove()) {
+                if (catapultDown.state() && intakeDown.state()) {
                     motor.setPower(forwardPower);
                 } else {
                     motor.setPower(neutralPower);
@@ -46,7 +46,7 @@ public class IntakeDrive extends DcMotorThreeStateWrapper {
                 }
                 break;
             case BACKWARD:
-                if (intakeDown.shouldRemove()) {
+                if (intakeDown.state()) {
                     motor.setPower(reversePower);
                 } else {
                     motor.setPower(neutralPower);

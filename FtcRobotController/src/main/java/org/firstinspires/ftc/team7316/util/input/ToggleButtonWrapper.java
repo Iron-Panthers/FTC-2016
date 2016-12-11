@@ -6,7 +6,7 @@ import org.firstinspires.ftc.team7316.util.Scheduler;
 /**
  * Created by andrew on 9/15/16.
  */
-public class ToggleButtonWrapper extends ButtonWrapper implements Loopable {
+public class ToggleButtonWrapper extends ButtonWrapper {
 
     private boolean value = false;
 
@@ -15,7 +15,7 @@ public class ToggleButtonWrapper extends ButtonWrapper implements Loopable {
     }
 
     @Override
-    public boolean isPressed() {
+    public boolean state() {
         return value;
     }
 
@@ -28,7 +28,7 @@ public class ToggleButtonWrapper extends ButtonWrapper implements Loopable {
     public void loop() {
         //according to ftc forums don't need to debounce
 
-        boolean currentValue = super.isPressed();
+        boolean currentValue = super.state();
         if (currentValue && !lastValue) {
             value = !value;
         }

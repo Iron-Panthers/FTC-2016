@@ -16,7 +16,7 @@ public class CatapultPositionConditional implements Conditional {
     }
 
     @Override
-    public boolean shouldRemove() {
+    public boolean state() {
         if (wantArmedState) {
             return catapultWrapper.isPrimed;
         } else {

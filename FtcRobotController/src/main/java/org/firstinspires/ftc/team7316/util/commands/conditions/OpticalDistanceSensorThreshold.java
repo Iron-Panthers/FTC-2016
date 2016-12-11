@@ -18,7 +18,7 @@ public class OpticalDistanceSensorThreshold implements Conditional {
     }
 
     @Override
-    public boolean shouldRemove() {
+    public boolean state() {
         if (this.wantedLess) {
             return sensor.getLightDetected() < this.threshold;
         } else {

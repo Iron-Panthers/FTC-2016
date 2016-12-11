@@ -32,7 +32,7 @@ public class RunMotorUntilConditional implements Loopable {
 
     @Override
     public boolean shouldRemove() {
-        return terminalCondition.shouldRemove();
+        return terminalCondition.state();
     }
 
     @Override

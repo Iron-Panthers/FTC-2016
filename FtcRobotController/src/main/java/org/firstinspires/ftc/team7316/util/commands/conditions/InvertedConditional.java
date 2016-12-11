@@ -12,7 +12,7 @@ public class InvertedConditional implements Conditional {
     }
 
     @Override
-    public boolean shouldRemove() {
-        return !conditional.shouldRemove();
+    public boolean state() {
+        return !conditional.state();
     }
 }
