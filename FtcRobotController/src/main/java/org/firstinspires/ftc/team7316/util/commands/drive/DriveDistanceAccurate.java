@@ -17,12 +17,14 @@ public class DriveDistanceAccurate implements Loopable {
     private DcMotor motor;
     private double changeNegative = 1;
     private final double decreaseRate = 0.93;
-    private final double decreaseStart = 2000;
+    private double decreaseStart = 0.15;
     private final double minPower = 0.1;
 
     public DriveDistanceAccurate (double distance, double power, DcMotor motor) {
         this.distanceDelta = distance;
         this.wantedPower = Math.abs(power);
+        this.decreaseStart *= distance;
+
         this.motor = motor;
 
         if (power < 0) {

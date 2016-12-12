@@ -19,6 +19,7 @@ import org.firstinspires.ftc.team7316.util.commands.flow.CommandSequence;
 import org.firstinspires.ftc.team7316.util.commands.flow.SimultaneousCommands;
 import org.firstinspires.ftc.team7316.util.commands.flow.Wait;
 import org.firstinspires.ftc.team7316.util.commands.turn.TurnGyro;
+import org.firstinspires.ftc.team7316.util.commands.turn.TurnGyroPID;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
 /**
@@ -165,7 +166,7 @@ public class AutoCodes {
 
     public static CommandSequence doubleShoot() {
 
-        SimultaneousCommands driveToLine = AutoCodes.robotDriveTime(0.4, 0.3);
+        SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurate(0.3, 0.3);
 
         Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
 
@@ -195,23 +196,23 @@ public class AutoCodes {
 
         //reset servos
 
-        TurnGyro turnTowardsLine = new TurnGyro(17, -0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
+        TurnGyroPID turnTowardsLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -15);
 
         SimultaneousCommands driveToLine = AutoCodes.robotDriveTime(3.6, 0.4);
 
-        TurnGyro turnAlongLine = new TurnGyro(16, -0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
+        TurnGyroPID turnAlongLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -15);
 
         //arm capatult
 
         //follow line and press
 
-        SimultaneousCommands backwards = AutoCodes.robotDriveTime(0.55, -0.3);
+        SimultaneousCommands backwards = AutoCodes.robotDriveDistanceAccurate(0.8, -0.3);
 
-        Loopable turnTowardsOtherLine = new TurnGyro(90, 0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
+        Loopable turnTowardsOtherLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -90);
 
-        SimultaneousCommands driveToOtherLine = AutoCodes.robotDriveTime(2.45, 0.3);
+        SimultaneousCommands driveToOtherLine = AutoCodes.robotDriveDistanceAccurate(4, 0.3);
 
-        Loopable turnBack = new TurnGyro(100, 0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor);
+        Loopable turnBack = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 90);
 
         //follow line and press
 

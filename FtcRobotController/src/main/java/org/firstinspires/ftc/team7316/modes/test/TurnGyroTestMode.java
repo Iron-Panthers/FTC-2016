@@ -10,7 +10,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 /**
  * Created by Maxim on 11/29/2016.
  */
-@TeleOp(name="turngyrotstmd")
+@TeleOp(name="TurnGyroTest")
 public class TurnGyroTestMode extends OpMode {
 
     TurnGyroPID command;
@@ -19,7 +19,7 @@ public class TurnGyroTestMode extends OpMode {
     public void init() {
         Hardware.setHardwareMap(hardwareMap);
         Hardware.setTelemetry(telemetry);
-        command = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 150);
+        command = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 90);
         Scheduler.instance.addTask(command);
     }
 
