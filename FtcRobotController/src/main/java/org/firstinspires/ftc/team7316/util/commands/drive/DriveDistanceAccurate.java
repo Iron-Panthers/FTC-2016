@@ -17,7 +17,7 @@ public class DriveDistanceAccurate implements Loopable {
     private DcMotor motor;
     private double changeNegative = 1;
     private final double decreaseRate = 0.93;
-    private double decreaseStart = 0.15;
+    private double decreaseStart = 0.2;
     private final double minPower = 0.1;
 
     public DriveDistanceAccurate (double distance, double power, DcMotor motor) {

@@ -13,7 +13,7 @@ import org.firstinspires.ftc.team7316.util.Loopable;
 public class TurnGyroPID implements Loopable {
 
     public static final float P = 0.015f, I = 0, D = 0;
-    public static final float ERROR_THRESHOLD = 0, DELTA_THRESHOLD = 10;
+    public static final float ERROR_THRESHOLD = 10, DELTA_THRESHOLD = 10;
     private int turnAngle;
 
     private DcMotor left, right;
@@ -63,7 +63,7 @@ public class TurnGyroPID implements Loopable {
 
     @Override
     public boolean shouldRemove() {
-        return Math.abs(error() - target) <= ERROR_THRESHOLD && Math.abs(deltaError) <= DELTA_THRESHOLD;
+        return Math.abs(error()) <= ERROR_THRESHOLD && Math.abs(deltaError) <= DELTA_THRESHOLD;
     }
 
     @Override

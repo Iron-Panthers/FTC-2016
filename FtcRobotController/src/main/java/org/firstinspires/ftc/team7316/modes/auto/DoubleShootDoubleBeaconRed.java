@@ -25,6 +25,7 @@ public class DoubleShootDoubleBeaconRed extends OpMode {
 
     @Override
     public void loop() {
+        Hardware.log("coder ", Hardware.instance.leftDriveMotor.getCurrentPosition());
         Scheduler.instance.loop();
     }
 }
