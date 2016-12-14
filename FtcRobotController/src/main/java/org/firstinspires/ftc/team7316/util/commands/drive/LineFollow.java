@@ -15,25 +15,25 @@ public class LineFollow implements Loopable {
 
     private LightSensor sensor;
 
-    private final double wantedLight = 0.4; //FIX THESE NUMBERS WITH TESTING
-    private final double minLight = 0.1;
-    private final double maxLight = 0.99;
+    private final double wantedLight = 0.25; //FIX THESE NUMBERS WITH TESTING
+    private final double minLight = 0.03;
+    private final double maxLight = 0.5;
 
     private double errorToLeftRatio = 0;
     private double errorToRightRatio = 0;
 
     private int counter = 0;
-    private final double p = 0.55; //ratio of error to turn
+    private final double p = 0.8; //ratio of error to turn
     private final double i = 0; //ration of sum of errors to turn
-    private final double d = 0.8; //ratio of delta to turn
+    private final double d = 1.1; //ratio of delta to turn
     private double deltaError = 0;
     private double lastError = 0;
     private double errorSum = 0;
     private int sumCounts = 0;
     private double wantedPower;
 
-    private double minPower = -0.1; //-1 to maxPower
-    private double maxPower = 0.4; //minPower to 1
+    private double minPower = -0.4; //-1 to maxPower
+    private double maxPower = 0.3; //minPower to 1
 
     public LineFollow (DcMotor leftMotor, DcMotor rightMotor, LightSensor sensor, double wantedPower) {
         sensor.enableLed(true);
