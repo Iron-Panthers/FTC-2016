@@ -12,9 +12,11 @@ import org.firstinspires.ftc.team7316.util.Loopable;
  */
 public class TurnGyroPID implements Loopable {
 
-    public static final float P = 0.015f, I = 0, D = 0;
-    public static final float ERROR_THRESHOLD = 5, DELTA_THRESHOLD = 10;
-    private static final double maxPower = 0.5;
+    public static final float P = 0.01f, I = 0, D = 0;
+    public static final float ERROR_THRESHOLD = 3, DELTA_THRESHOLD = 0;
+    private static final double maxPower = 0.4;
+    private static final double minPower = 0.2;
+    public double power = 0;
     private int turnAngle;
 
     private DcMotor left, right;
@@ -44,7 +46,8 @@ public class TurnGyroPID implements Loopable {
         lastError = error();
         deltaError = 0;
         timer.reset();
-        target = gyro.getHeading() + turnAngle;
+        gyro.resetZAxisIntegrator();
+        target = turnAngle;
     }
 
     @Override
@@ -54,10 +57,13 @@ public class TurnGyroPID implements Loopable {
         deltaError = (error - lastError) / deltaTime;
         sumError += deltaError;
 
-        double power = P*error + I*sumError + D*deltaError;
+        power = P*error + I*sumError + D*deltaError;
 
         if (Math.abs(power) > maxPower) {
-            power = (power > 0 ? 0.5 : -0.5);
+            power = (power > 0 ? maxPower : -maxPower);
+        }
+        if (Math.abs(power) < minPower) {
+            power = (power > 0 ? minPower : -minPower);
         }
 
         left.setPower(-power);

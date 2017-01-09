@@ -79,7 +79,7 @@ public class DriveMode extends OpMode {
 
         servoPositionConditional = new InvertedConditional(AutoCodes.servoPositionRange(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_LOCKED - 0.05, Constants.INTAKE_SERVO_LOCKED + 0.05));
         catapultPositionConditional = new CatapultPositionConditional(catapultDrive, true);
-        intakeDrive = new IntakeDrive(Hardware.instance.intakeMotor, 0.5, 0, -1.0, aAndBToggle, catapultPositionConditional, servoPositionConditional);
+        intakeDrive = new IntakeDrive(Hardware.instance.intakeMotor, Constants.INTAKE_IN_SPEED, 0, -1.0, aAndBToggle, catapultPositionConditional, servoPositionConditional);
 
         rightPusher = new ServoWrapper(Hardware.instance.rightBeaconServo, gpWrapperNotDriver.right_bumper, Constants.RIGHT_ON, Constants.RIGHT_OFF);
         leftPusher = new ServoWrapper(Hardware.instance.leftBeaconServo, gpWrapperNotDriver.left_bumper, Constants.LEFT_ON, Constants.LEFT_OFF);

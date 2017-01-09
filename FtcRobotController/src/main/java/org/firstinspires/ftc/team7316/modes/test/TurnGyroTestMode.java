@@ -19,7 +19,7 @@ public class TurnGyroTestMode extends OpMode {
     public void init() {
         Hardware.setHardwareMap(hardwareMap);
         Hardware.setTelemetry(telemetry);
-        command = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 90);
+        command = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -90);
         Scheduler.instance.addTask(command);
     }
 
@@ -27,8 +27,7 @@ public class TurnGyroTestMode extends OpMode {
     public void loop() {
         Scheduler.instance.loop();
         Hardware.log("error", command.lastError);
-        Hardware.log("sum", command.sumError);
-        Hardware.log("delta", command.deltaError);
+        Hardware.log("power", command.power);
         Hardware.log("angle", Hardware.instance.gyroSensor.getHeading());
 
     }
