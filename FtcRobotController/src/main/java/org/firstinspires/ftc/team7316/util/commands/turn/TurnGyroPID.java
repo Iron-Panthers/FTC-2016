@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.team7316.util.Loopable;
+import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
 /**
  * Turn the robot a specific distance using PID. Stops when the correction speed is under a threshold and
@@ -71,6 +72,8 @@ public class TurnGyroPID implements Loopable {
 
         lastError = error;
         timer.reset();
+
+        Hardware.log(Hardware.tag, power);
     }
 
     @Override
@@ -89,7 +92,7 @@ public class TurnGyroPID implements Loopable {
      * Positive angles mean to the right, while negative angles mean to the left.
      * @return the error
      */
-        private int error() {
+    private int error() {
             return (gyro.getHeading() + 540 - target) % 360 - 180;
         }
 

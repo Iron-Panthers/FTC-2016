@@ -19,6 +19,7 @@ import org.firstinspires.ftc.team7316.util.commands.drive.RunMotorUntilCondition
 import org.firstinspires.ftc.team7316.util.commands.flow.CommandSequence;
 import org.firstinspires.ftc.team7316.util.commands.flow.SimultaneousCommands;
 import org.firstinspires.ftc.team7316.util.commands.flow.Wait;
+import org.firstinspires.ftc.team7316.util.commands.turn.TurnAccurate;
 import org.firstinspires.ftc.team7316.util.commands.turn.TurnGyro;
 import org.firstinspires.ftc.team7316.util.commands.turn.TurnGyroPID;
 import org.firstinspires.ftc.team7316.util.commands.turn.TurnUntilConditional;
@@ -197,7 +198,7 @@ public class AutoCodes {
     }
 
     public static CommandSequence doubleShootAndCap() {
-        SimultaneousCommands driveToBall = AutoCodes.robotDriveTime(2.7, 0.9);
+        SimultaneousCommands driveToBall = AutoCodes.robotDriveDistanceAccurate(4, 0.9);
 
         return new CommandSequence(AutoCodes.doubleShoot(), driveToBall);
     }
@@ -324,9 +325,9 @@ public class AutoCodes {
 
         SimultaneousCommands backwards = AutoCodes.robotDriveDistanceAccurate(0.635, -0.3);
 
-        Loopable turnTowardsOtherLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -88);
+        Loopable turnTowardsOtherLine = new TurnAccurate(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -88, 0.4);
 
-        SimultaneousCommands driveToOtherLine = AutoCodes.robotDriveDistanceAccurate(3.9, 0.3);
+        SimultaneousCommands driveToOtherLine = AutoCodes.robotDriveDistanceAccurate(4.25, 0.3);
 
         Conditional onLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensor, 0.2, false);
         TurnUntilConditional turnBack = new TurnUntilConditional(90, 0.45, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, onLine);
@@ -334,7 +335,7 @@ public class AutoCodes {
         //follow line and press
 
         SimultaneousCommands backUp = AutoCodes.robotDriveDistanceAccurate(1, -0.25);
-        Loopable turnTowardsCenter = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 125);
+        Loopable turnTowardsCenter = new TurnAccurate(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 117, 0.4);
         SimultaneousCommands moveTowardsCenter = AutoCodes.robotDriveDistanceAccurate(0.75, 0.25);
 
         //double shoot
