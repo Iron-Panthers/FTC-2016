@@ -3,6 +3,7 @@ package org.firstinspires.ftc.team7316.util.commands.drive;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.LightSensor;
 
+import org.firstinspires.ftc.team7316.util.Alliance;
 import org.firstinspires.ftc.team7316.util.Loopable;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
@@ -12,6 +13,8 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 public class LineFollow implements Loopable {
     private DcMotor leftMotor;
     private DcMotor rightMotor;
+
+    private int invert = 1;
 
     private LightSensor sensor;
 
@@ -60,6 +63,35 @@ public class LineFollow implements Loopable {
 
     }
 
+    public LineFollow (DcMotor leftMotor, DcMotor rightMotor, LightSensor sensor, double wantedPower, Alliance color) {
+        sensor.enableLed(true);
+
+        this.leftMotor = leftMotor;
+        this.rightMotor = rightMotor;
+
+        this.wantedPower = wantedPower;
+
+        this.sensor = sensor;
+
+        double minError = this.error(minLight);
+        double maxError = this.error(maxLight);
+
+        double minErrorSlope = (maxPower - wantedPower)/minError;
+        double maxErrorSlope = (minPower - wantedPower)/maxError;
+
+        errorToLeftRatio = (minErrorSlope + maxErrorSlope)/2;
+
+        minErrorSlope = (minPower - wantedPower)/minError;
+        maxErrorSlope = (maxPower - wantedPower)/maxError;
+
+        errorToRightRatio = (minErrorSlope + maxErrorSlope)/2;
+
+        if (color == Alliance.RED) {
+            this.invert = -1;
+        }
+
+    }
+
     @Override
     public void init() {
     }
@@ -68,8 +100,8 @@ public class LineFollow implements Loopable {
     public void loop() {
         double error = error(this.sensor.getLightDetected());
 
-        this.leftMotor.setPower(leftPower(error));
-        this.rightMotor.setPower(rightPower(error));
+        this.leftMotor.setPower(leftPower(invert*error));
+        this.rightMotor.setPower(rightPower(invert*error));
     }
 
     @Override

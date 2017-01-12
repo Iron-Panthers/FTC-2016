@@ -56,7 +56,8 @@ public class Hardware {
     private static final String TOUCH_SENSOR_NAME = "touch";
     private static final String INTAKE_UP_SERVO_NAME = "inUp";
 
-    public DcMotor leftDriveMotor, rightDriveMotor;
+    public DcMotor leftDriveMotor;
+    public BoostedMotor rightDriveMotor;
     public DcMotor catapultMotor;
     public DcMotor intakeMotor;
     public Servo leftBeaconServo, rightBeaconServo, intakeUpServo;
@@ -74,8 +75,9 @@ public class Hardware {
         leftDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftDriveMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        rightDriveMotor = map.dcMotor.get(RIGHT_DRIVE_MOTOR_NAME);
-        rightDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        DcMotor rightMotor = map.dcMotor.get(RIGHT_DRIVE_MOTOR_NAME);
+        rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightDriveMotor = new BoostedMotor(rightMotor, 1);
 
         //leftCatcherServo = map.servo.get(LEFT_CATCHER_SERVO_NAME);
         //rightCatcherServo = map.servo.get(RIGHT_CATCHER_SERVO_NAME);
