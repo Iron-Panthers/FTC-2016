@@ -372,7 +372,7 @@ public class AutoCodes {
         //follow line and press
 
         SimultaneousCommands backUp = AutoCodes.robotDriveDistanceAccurate(1, -0.25);
-        Loopable turnTowardsCenter = new TurnAccurate(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -117, 0.4);
+        Loopable turnTowardsCenter = new TurnAccurate(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -125, 0.4);
         SimultaneousCommands moveTowardsCenter = AutoCodes.robotDriveDistanceAccurate(0.75, 0.25);
 
         //double shoot
