@@ -39,52 +39,17 @@ public class LineFollow implements Loopable {
     private double maxPower = 0.3; //minPower to 1
 
     public LineFollow (DcMotor leftMotor, DcMotor rightMotor, LightSensor sensor, double wantedPower) {
-        sensor.enableLed(true);
-
-        this.leftMotor = leftMotor;
-        this.rightMotor = rightMotor;
-
-        this.wantedPower = wantedPower;
-
-        this.sensor = sensor;
-
-        double minError = this.error(minLight);
-        double maxError = this.error(maxLight);
-
-        double minErrorSlope = (maxPower - wantedPower)/minError;
-        double maxErrorSlope = (minPower - wantedPower)/maxError;
-
-        errorToLeftRatio = (minErrorSlope + maxErrorSlope)/2;
-
-        minErrorSlope = (minPower - wantedPower)/minError;
-        maxErrorSlope = (maxPower - wantedPower)/maxError;
-
-        errorToRightRatio = (minErrorSlope + maxErrorSlope)/2;
-
+        this(leftMotor, rightMotor, sensor, wantedPower, Alliance.BLUE);
     }
 
     public LineFollow (DcMotor leftMotor, DcMotor rightMotor, LightSensor sensor, double wantedPower, Alliance color) {
-        sensor.enableLed(true);
+
+        this.sensor = sensor;
 
         this.leftMotor = leftMotor;
         this.rightMotor = rightMotor;
 
         this.wantedPower = wantedPower;
-
-        this.sensor = sensor;
-
-        double minError = this.error(minLight);
-        double maxError = this.error(maxLight);
-
-        double minErrorSlope = (maxPower - wantedPower)/minError;
-        double maxErrorSlope = (minPower - wantedPower)/maxError;
-
-        errorToLeftRatio = (minErrorSlope + maxErrorSlope)/2;
-
-        minErrorSlope = (minPower - wantedPower)/minError;
-        maxErrorSlope = (maxPower - wantedPower)/maxError;
-
-        errorToRightRatio = (minErrorSlope + maxErrorSlope)/2;
 
         if (color == Alliance.RED) {
             this.invert = -1;
@@ -94,6 +59,22 @@ public class LineFollow implements Loopable {
 
     @Override
     public void init() {
+
+        sensor.enableLed(true);
+
+        double minError = this.error(minLight);
+        double maxError = this.error(maxLight);
+
+        double minErrorSlope = (maxPower - wantedPower)/minError;
+        double maxErrorSlope = (minPower - wantedPower)/maxError;
+
+        errorToLeftRatio = (minErrorSlope + maxErrorSlope)/2;
+
+        minErrorSlope = (minPower - wantedPower)/minError;
+        maxErrorSlope = (maxPower - wantedPower)/maxError;
+
+        errorToRightRatio = (minErrorSlope + maxErrorSlope)/2;
+
     }
 
     @Override

@@ -37,6 +37,7 @@ public class LineFollowUntilCondition extends LineFollow implements ButtonListen
 
     @Override
     public void onPressed() {
+        needRemove = false;
         Scheduler.instance.addTask(this);
     }
 
