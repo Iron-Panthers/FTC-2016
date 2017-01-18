@@ -7,6 +7,8 @@ import org.firstinspires.ftc.team7316.util.Constants;
 import org.firstinspires.ftc.team7316.util.Scheduler;
 import org.firstinspires.ftc.team7316.util.commands.AutoCodes;
 import org.firstinspires.ftc.team7316.util.commands.conditions.InvertedConditional;
+import org.firstinspires.ftc.team7316.util.commands.drive.LineFollowDoubleSensor;
+import org.firstinspires.ftc.team7316.util.commands.drive.LineFollowDoubleSensorUntilCondition;
 import org.firstinspires.ftc.team7316.util.commands.drive.LineFollowUntilCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ButtonCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.CatapultPositionConditional;
@@ -65,7 +67,7 @@ public class DriveMode extends OpMode {
         rightDrive = new DcMotorWrapperWithConditional(Hardware.instance.rightDriveMotor, gpWrapperDriver.right_axis_y, gpWrapperDriver.x_button );
 
         Conditional buttonTriggered = new ButtonCondition(Hardware.instance.touchSensor);
-        LineFollowUntilCondition lineFollowCommand = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensor, 0.15, buttonTriggered);
+        LineFollowDoubleSensorUntilCondition lineFollowCommand = new LineFollowDoubleSensorUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensorLeft, Hardware.instance.lightSensorRight, 0.15, buttonTriggered);
         gpWrapperDriver.x_button.addListener(lineFollowCommand);
 
         aAndBToggle = new TwoButtonToggleWrapper(gpWrapperNotDriver.a_button, gpWrapperNotDriver.b_button);
