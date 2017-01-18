@@ -80,7 +80,7 @@ public class Hardware {
         rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightDriveMotor = new BoostedMotor(rightMotor, 1.1);*/
         rightDriveMotor = map.dcMotor.get(RIGHT_DRIVE_MOTOR_NAME);
-        rightDriveMotor.setMode(DcMotorWrapper.RunMode.RUN_WITHOUT_ENCODER);
+        rightDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //leftCatcherServo = map.servo.get(LEFT_CATCHER_SERVO_NAME);
         //rightCatcherServo = map.servo.get(RIGHT_CATCHER_SERVO_NAME);
