@@ -58,7 +58,7 @@ public class Hardware {
     private static final String INTAKE_UP_SERVO_NAME = "inUp";
 
     public DcMotor leftDriveMotor;
-    public BoostedMotor rightDriveMotor;
+    public DcMotor rightDriveMotor; //boosted motor
     public DcMotor catapultMotor;
     public DcMotor intakeMotor;
     public Servo leftBeaconServo, rightBeaconServo, intakeUpServo;
@@ -76,9 +76,11 @@ public class Hardware {
         leftDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftDriveMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        DcMotor rightMotor = map.dcMotor.get(RIGHT_DRIVE_MOTOR_NAME);
+        /*DcMotor rightMotor = map.dcMotor.get(RIGHT_DRIVE_MOTOR_NAME);
         rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightDriveMotor = new BoostedMotor(rightMotor, 1.1);
+        rightDriveMotor = new BoostedMotor(rightMotor, 1.1);*/
+        rightDriveMotor = map.dcMotor.get(RIGHT_DRIVE_MOTOR_NAME);
+        rightDriveMotor.setMode(DcMotorWrapper.RunMode.RUN_WITHOUT_ENCODER);
 
         //leftCatcherServo = map.servo.get(LEFT_CATCHER_SERVO_NAME);
         //rightCatcherServo = map.servo.get(RIGHT_CATCHER_SERVO_NAME);
