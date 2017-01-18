@@ -47,6 +47,7 @@ public class Hardware {
     private static final String RIGHT_DRIVE_MOTOR_NAME = "mdr";
     private static final String INTAKE_MOTOR_NAME = "im";
     private static final String CATAPULT_MOTOR_NAME = "cm";
+    private static final String CAP_BALL_MOTOR_NAME = "cpm";
     private static final String LEFT_BEACON_SERVO_NAME = "leftServo";
     private static final String RIGHT_BEACON_SERVO_NAME = "rightServo";
     private static final String CATAPULT_SENSOR_NAME = "cat";
@@ -63,6 +64,7 @@ public class Hardware {
     public Servo leftBeaconServo, rightBeaconServo, intakeUpServo;
     public OpticalDistanceSensor catapultSensor, lightSensor;
     public GyroSensor gyroSensor;
+    public DcMotor capBallMotor;
     public ColorSensor colorSensor;
     public TouchSensor touchSensor;
 
@@ -101,6 +103,8 @@ public class Hardware {
         intakeUpServo = map.servo.get(INTAKE_UP_SERVO_NAME);
 
         touchSensor = map.touchSensor.get(TOUCH_SENSOR_NAME);
+
+        capBallMotor = map.dcMotor.get(CAP_BALL_MOTOR_NAME);
     }
 
     public static void setHardwareMap(HardwareMap map) {

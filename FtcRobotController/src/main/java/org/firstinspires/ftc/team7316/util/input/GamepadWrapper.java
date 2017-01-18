@@ -87,7 +87,7 @@ public class GamepadWrapper {
             case R_STICK_X: return gamepad.right_stick_x;
             case R_STICK_Y: return deadzone(squared(-gamepad.right_stick_y));
             case L_TRIGGER: return gamepad.left_trigger;
-            case R_TRIGGER: return gamepad.left_trigger;
+            case R_TRIGGER: return gamepad.right_trigger;
         }
         throw new IllegalArgumentException();
     }
