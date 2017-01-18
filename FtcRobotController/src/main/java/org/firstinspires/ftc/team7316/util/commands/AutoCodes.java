@@ -89,7 +89,7 @@ public class AutoCodes {
 
     public static CommandSequence followLineThenBeacon(Alliance alliance) {
         Conditional buttonCondition = new ButtonCondition(Hardware.instance.touchSensor);
-        Loopable followLine = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensor, 0.15, buttonCondition, alliance);
+        Loopable followLine = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensorLeft, 0.15, buttonCondition, alliance);
 
         Loopable wait = new Wait(Constants.COLOR_SENSOR_DELAY);
 
@@ -280,10 +280,10 @@ public class AutoCodes {
 
         TurnGyroPID turnTowardsLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 24);
 
-        Conditional hitLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensor, 0.3, false);
+        Conditional hitLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.3, false);
         SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurateOrConditonal(7, 0.9, hitLine);
 
-        Conditional offLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensor, 0.15, true);
+        Conditional offLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.15, true);
         SimultaneousCommands driveABitMore = AutoCodes.robotDriveUntilCondition(offLine, 0.2);
 
         TurnUntilConditional turnAlongLine = new TurnUntilConditional(25, 0.5, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, offLine);
@@ -298,7 +298,7 @@ public class AutoCodes {
 
         SimultaneousCommands driveToOtherLine = AutoCodes.robotDriveDistanceAccurate(4.1, 0.3);
 
-        Conditional onLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensor, 0.2, false);
+        Conditional onLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.2, false);
         TurnUntilConditional turnBack = new TurnUntilConditional(90, 0.45, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, onLine);
 
         //follow line and press
@@ -309,7 +309,7 @@ public class AutoCodes {
     }
 
     public static CommandSequence blueDoubleBeaconDoubleShoot() {
-        Conditional hitLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensor, 0.3, false);
+        Conditional hitLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.3, false);
         SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurateOrConditonal(4.8, 0.3, hitLine);
 
         //SimultaneousCommands driveBackFromLine = AutoCodes.robotDriveUntilCondition(hitLine, -0.2);
@@ -317,7 +317,7 @@ public class AutoCodes {
         //arm catapult
         //reset servos
 
-        /*Conditional offLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensor, 0.08, true);
+        /*Conditional offLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.08, true);
         Loopable rotateALittle = new TurnUntilConditional(30, 0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, offLine);*/
         Loopable rotateUntilLine = new TurnUntilConditional(50, 0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, hitLine);
 
@@ -329,7 +329,7 @@ public class AutoCodes {
 
         SimultaneousCommands driveToOtherLine = AutoCodes.robotDriveDistanceAccurate(4.25, 0.3);
 
-        Conditional onLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensor, 0.2, false);
+        Conditional onLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.2, false);
         TurnUntilConditional turnBack = new TurnUntilConditional(90, 0.45, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, onLine);
 
         //follow line and press
@@ -346,7 +346,7 @@ public class AutoCodes {
     }
 
     public static CommandSequence redDoubleBeaconDoubleShoot() {
-        Conditional hitLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensor, 0.3, false);
+        Conditional hitLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.3, false);
         SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurateOrConditonal(5, 0.3, hitLine);
 
         //SimultaneousCommands driveBackFromLine = AutoCodes.robotDriveUntilCondition(hitLine, -0.2);
@@ -354,7 +354,7 @@ public class AutoCodes {
         //arm catapult
         //reset servos
 
-        /*Conditional offLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensor, 0.08, true);
+        /*Conditional offLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.08, true);
         Loopable rotateALittle = new TurnUntilConditional(30, 0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, offLine);*/
         Loopable rotateUntilLine = new TurnUntilConditional(50, -0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, hitLine);
 
@@ -366,7 +366,7 @@ public class AutoCodes {
 
         SimultaneousCommands driveToOtherLine = AutoCodes.robotDriveDistanceAccurate(4.25, 0.3);
 
-        Conditional onLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensor, 0.2, false);
+        Conditional onLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.2, false);
         TurnUntilConditional turnBack = new TurnUntilConditional(90, -0.45, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, onLine);
 
         //follow line and press

@@ -53,16 +53,17 @@ public class Hardware {
     private static final String CATAPULT_SENSOR_NAME = "cat";
     private static final String GYRO_SENSOR_NAME = "gyro";
     private static final String COLOR_SENSOR_NAME = "color";
-    private static final String LIGHT_SENSOR_NAME = "light";
+    private static final String LIGHT_SENSOR_NAME_RIGHT = "lir";
+    private static final String LIGHT_SENSOR_NAME_LEFT = "lil";
     private static final String TOUCH_SENSOR_NAME = "touch";
     private static final String INTAKE_UP_SERVO_NAME = "inUp";
 
     public DcMotor leftDriveMotor;
-    public BoostedMotor rightDriveMotor;
+    public DcMotor rightDriveMotor; //boosted motor
     public DcMotor catapultMotor;
     public DcMotor intakeMotor;
     public Servo leftBeaconServo, rightBeaconServo, intakeUpServo;
-    public OpticalDistanceSensor catapultSensor, lightSensor;
+    public OpticalDistanceSensor catapultSensor, lightSensorLeft, lightSensorRight;
     public GyroSensor gyroSensor;
     public DcMotor capBallMotor;
     public ColorSensor colorSensor;
@@ -77,9 +78,11 @@ public class Hardware {
         leftDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftDriveMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        DcMotor rightMotor = map.dcMotor.get(RIGHT_DRIVE_MOTOR_NAME);
+        /*DcMotor rightMotor = map.dcMotor.get(RIGHT_DRIVE_MOTOR_NAME);
         rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightDriveMotor = new BoostedMotor(rightMotor, 1);
+        rightDriveMotor = new BoostedMotor(rightMotor, 1.1);*/
+        rightDriveMotor = map.dcMotor.get(RIGHT_DRIVE_MOTOR_NAME);
+        rightDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //leftCatcherServo = map.servo.get(LEFT_CATCHER_SERVO_NAME);
         //rightCatcherServo = map.servo.get(RIGHT_CATCHER_SERVO_NAME);
@@ -95,7 +98,8 @@ public class Hardware {
         leftBeaconServo = map.servo.get(LEFT_BEACON_SERVO_NAME);
         rightBeaconServo = map.servo.get(RIGHT_BEACON_SERVO_NAME);
 
-        lightSensor = map.opticalDistanceSensor.get(LIGHT_SENSOR_NAME);
+        lightSensorLeft = map.opticalDistanceSensor.get(LIGHT_SENSOR_NAME_LEFT);
+        lightSensorRight = map.opticalDistanceSensor.get(LIGHT_SENSOR_NAME_RIGHT);
         gyroSensor = map.gyroSensor.get(GYRO_SENSOR_NAME);
         colorSensor = map.colorSensor.get(COLOR_SENSOR_NAME);
         //distanceSensor = map.ultrasonicSensor.get(DISTANCE_SENSOR_NAME);

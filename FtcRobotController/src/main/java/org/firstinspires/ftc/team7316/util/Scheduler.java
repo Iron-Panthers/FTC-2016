@@ -13,7 +13,7 @@ public class Scheduler {
     private ArrayList<Loopable> tasks = new ArrayList<Loopable>();
     private HashMap<Loopable, Boolean> hasInitialized = new HashMap<>();
 
-    public Scheduler () {}
+    private Scheduler () {}
 
     public void addTask(Loopable task) {
         tasks.add(task);
