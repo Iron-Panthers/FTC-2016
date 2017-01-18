@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.LightSensor;
 
 import org.firstinspires.ftc.team7316.util.Alliance;
 import org.firstinspires.ftc.team7316.util.Loopable;
+import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
 /**
  * Created by andrew on 1/13/17.
@@ -80,6 +81,9 @@ public class LineFollowDoubleSensor implements Loopable {
     @Override
     public void loop() {
         double error = 0;
+
+        Hardware.log(Hardware.tag, "Left: " + leftLightSensor.getLightDetected());
+        Hardware.log(Hardware.tag, "Right: " + rightLightSensor.getLightDetected());
 
         //check which state we are in
         if (state == State.NOTCLAMPED) { //this state will use the difference in the sensors as the error
