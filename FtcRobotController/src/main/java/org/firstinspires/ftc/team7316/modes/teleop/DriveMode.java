@@ -4,20 +4,25 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.team7316.util.Constants;
+import org.firstinspires.ftc.team7316.util.Loopable;
 import org.firstinspires.ftc.team7316.util.Scheduler;
 import org.firstinspires.ftc.team7316.util.commands.AutoCodes;
+import org.firstinspires.ftc.team7316.util.commands.conditions.EncoderCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.InvertedConditional;
+import org.firstinspires.ftc.team7316.util.commands.conditions.MultipleCondition;
 import org.firstinspires.ftc.team7316.util.commands.drive.LineFollowUntilCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ButtonCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.CatapultPositionConditional;
 import org.firstinspires.ftc.team7316.util.commands.conditions.Conditional;
 import org.firstinspires.ftc.team7316.util.commands.conditions.OpticalDistanceSensorThreshold;
+import org.firstinspires.ftc.team7316.util.hardware.CapballWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.CatapultWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.DcMotorThreeStateWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.DcMotorWrapperWithConditional;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 import org.firstinspires.ftc.team7316.util.hardware.IntakeDrive;
 import org.firstinspires.ftc.team7316.util.hardware.ServoWrapper;
+import org.firstinspires.ftc.team7316.util.input.ButtonListener;
 import org.firstinspires.ftc.team7316.util.input.GamepadWrapper;
 import org.firstinspires.ftc.team7316.util.input.TwoButtonToggleWrapper;
 
@@ -43,6 +48,7 @@ public class DriveMode extends OpMode {
     private DcMotorWrapperWithConditional leftDrive, rightDrive;
     private DcMotorThreeStateWrapper intakeDrive;
     private CatapultWrapper catapultDrive;
+    private CapballWrapper capballWrapper;
 
     private ServoWrapper leftPusher, rightPusher, intakeRelease;
 
@@ -85,6 +91,8 @@ public class DriveMode extends OpMode {
         leftPusher = new ServoWrapper(Hardware.instance.leftBeaconServo, gpWrapperNotDriver.left_bumper, Constants.LEFT_ON, Constants.LEFT_OFF);
         intakeRelease = new ServoWrapper(Hardware.instance.intakeUpServo, gpWrapperNotDriver.dpLeftWrapper, Constants.INTAKE_SERVO_RELEASE, Constants.INTAKE_SERVO_DONT_STORE, Constants.INTAKE_SERVO_LOCKED);
 
+        capballWrapper = new CapballWrapper(Hardware.instance.capBallMotor, gpWrapperNotDriver.dp_up, gpWrapperNotDriver.dp_down);
+
         Scheduler.instance.addTask(leftDrive);
         Scheduler.instance.addTask(rightDrive);
         Scheduler.instance.addTask(aAndBToggle);
@@ -94,6 +102,7 @@ public class DriveMode extends OpMode {
         Scheduler.instance.addTask(leftPusher);
         Scheduler.instance.addTask(intakeRelease);
         Scheduler.instance.addTask(catapultDrive);
+        Scheduler.instance.addTask(capballWrapper);
     }
 
     @Override

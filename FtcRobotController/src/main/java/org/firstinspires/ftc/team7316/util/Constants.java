@@ -16,6 +16,7 @@ public class Constants {
     public static final double DISTANCE_PER_REV = 4*Math.PI;
     public static final double INTAKE_IN_SPEED = 0.4;
     public static final int CAP_BALL_TOP_LIMIT = 100000;
+    public static final double CAP_BALL_SPEED = 1;
 
     public static double distanceToTicks(double dist) {
         double inches = dist*12;
