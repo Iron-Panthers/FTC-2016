@@ -269,7 +269,13 @@ public class FtcRobotControllerActivity extends Activity {
 
   protected UpdateUI.Callback createUICallback(UpdateUI updateUI) {
     UpdateUI.Callback result = updateUI.new Callback();
-    result.setStateMonitor(new SoundPlayingRobotMonitor());
+    SoundPlayingRobotMonitor sprm = new SoundPlayingRobotMonitor();
+      sprm.soundRunning = R.raw.xpstart;
+      sprm.soundConnect = R.raw.trump_bingbing;
+      sprm.soundDisconnect = R.raw.trump_bongbong;
+      sprm.soundWarning = R.raw.trump_wrong;
+      sprm.soundError = R.raw.xperror;
+    result.setStateMonitor(sprm);
     return result;
   }
 
