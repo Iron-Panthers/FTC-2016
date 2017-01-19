@@ -41,9 +41,9 @@ public class LineFollowDoubleSensor implements Loopable {
     private final double clampedI = 0;
     private final double clampedD = 1;
 
-    private final double unclampedP = 0;
+    private final double unclampedP = 0.6;
     private final double unclampedI = 0;
-    private final double unclampedD = 0;
+    private final double unclampedD = 2;
 
     private double wantedPower;
 
