@@ -30,9 +30,9 @@ public class CapballWrapper implements Loopable {
     public void loop() {
         Hardware.log(Hardware.tag, "Encoder: " + this.motor.getCurrentPosition());
 
-        if (this.motor.getCurrentPosition() < Constants.CAP_BALL_TOP_LIMIT && downButton.state()) {
+        if (this.motor.getCurrentPosition() > 0 && downButton.state()) {
             this.motor.setPower(-Constants.CAP_BALL_SPEED);
-        } else if (this.motor.getCurrentPosition() > 0 && upButton.state()) {
+        } else if (this.motor.getCurrentPosition() < Constants.CAP_BALL_TOP_LIMIT && upButton.state()) {
             this.motor.setPower(Constants.CAP_BALL_SPEED);
         } else {
             this.motor.setPower(0);
