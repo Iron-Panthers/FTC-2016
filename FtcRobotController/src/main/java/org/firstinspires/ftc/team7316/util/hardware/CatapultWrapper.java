@@ -17,22 +17,24 @@ public class CatapultWrapper implements ButtonListener, Loopable {
 
     private DcMotor motor;
     private Conditional primedState;
+    private Conditional blockCondition;
     private Loopable currentCommand;
     private AxisWrapper override;
     private double overrideThreshold = 0.1;
     public boolean isPrimed = false;
 
-    public CatapultWrapper(DcMotor motor, Conditional primedState, AxisWrapper override) {
+    public CatapultWrapper(DcMotor motor, Conditional primedState, AxisWrapper override, Conditional blockCondition) {
         this.motor = motor;
         this.primedState = primedState;
         this.override = override;
+        this.blockCondition = blockCondition;
     }
 
     @Override
     public void onPressed() {
 
         if (currentCommand == null) {  // Is the motor in use?
-            if (primedState.state()) {  // Is the shooter currently primed?
+            if (primedState.state() && !blockCondition.state()) {  // Is the shooter currently primed?
                 currentCommand = new RunMotorForTime(motor, 1, 1);
                 this.isPrimed = false;
                 Scheduler.instance.addTask(currentCommand);

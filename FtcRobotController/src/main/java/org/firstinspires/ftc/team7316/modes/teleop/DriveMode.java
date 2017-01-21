@@ -9,6 +9,7 @@ import org.firstinspires.ftc.team7316.util.Scheduler;
 import org.firstinspires.ftc.team7316.util.commands.AutoCodes;
 import org.firstinspires.ftc.team7316.util.commands.conditions.EncoderCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.InvertedConditional;
+import org.firstinspires.ftc.team7316.util.commands.conditions.ServoPositionConditional;
 import org.firstinspires.ftc.team7316.util.commands.drive.LineFollowDoubleSensor;
 import org.firstinspires.ftc.team7316.util.commands.drive.LineFollowDoubleSensorUntilCondition;
 import org.firstinspires.ftc.team7316.util.commands.drive.LineFollowUntilCondition;
@@ -72,15 +73,18 @@ public class DriveMode extends OpMode {
         rightDrive = new DcMotorWrapperWithConditional(Hardware.instance.rightDriveMotor, gpWrapperDriver.right_axis_y, gpWrapperDriver.x_button );
 
         Conditional buttonTriggered = new ButtonCondition(Hardware.instance.touchSensor);
-        LineFollowDoubleSensorUntilCondition lineFollowCommand = new LineFollowDoubleSensorUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensorLeft, Hardware.instance.lightSensorRight, 0.15, buttonTriggered);
+        LineFollowUntilCondition lineFollowCommand = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensorLeft, 0.15, buttonTriggered);
         gpWrapperDriver.x_button.addListener(lineFollowCommand);
 
         aAndBToggle = new TwoButtonToggleWrapper(gpWrapperNotDriver.a_button, gpWrapperNotDriver.b_button);
 
+        Conditional holdBallConditional = new ServoPositionConditional(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE + 0.05, true);
+
         catapultDrive = new CatapultWrapper(
                 Hardware.instance.catapultMotor,
                 new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false),
-                gpWrapperNotDriver.left_axis_y
+                gpWrapperNotDriver.left_axis_y,
+                holdBallConditional
         );
         gpWrapperNotDriver.rightTriggerWrapper.addListener(catapultDrive);
 
