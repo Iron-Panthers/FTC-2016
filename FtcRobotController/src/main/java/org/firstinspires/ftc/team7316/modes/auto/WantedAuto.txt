@@ -5,6 +5,6 @@ Red and Blue version of:
     double beacon
 
 Omni-Sided:
-    double shoot
-    wait -> drive to middle
-    wait -> drive to low goal
+    √double shoot
+    √wait -> drive to middle - needs calibration
+    √wait -> drive to low goal - needs calibration too

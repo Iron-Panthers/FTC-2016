@@ -2,6 +2,7 @@ package org.firstinspires.ftc.team7316.util.commands;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.team7316.modes.CommandAuto;
 import org.firstinspires.ftc.team7316.util.Alliance;
 import org.firstinspires.ftc.team7316.util.Constants;
 import org.firstinspires.ftc.team7316.util.Loopable;
@@ -10,6 +11,7 @@ import org.firstinspires.ftc.team7316.util.commands.conditions.Conditional;
 import org.firstinspires.ftc.team7316.util.commands.conditions.MultipleCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.OpticalDistanceSensorThreshold;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ServoPositionConditional;
+import org.firstinspires.ftc.team7316.util.commands.drive.DriveDistance;
 import org.firstinspires.ftc.team7316.util.commands.drive.DriveDistanceAccurate;
 import org.firstinspires.ftc.team7316.util.commands.drive.DriveDistanceOrCondition;
 import org.firstinspires.ftc.team7316.util.commands.drive.DriveUntilCondition;
@@ -386,6 +388,13 @@ public class AutoCodes {
         Loopable[] cmds = {driveToLine, AutoCodes.armCatapult(), AutoCodes.resetServos(), /*rotateALittle,*/ rotateUntilLine, AutoCodes.followLineThenBeacon(Alliance.RED), backwards, turnTowardsOtherLine, driveToOtherLine, turnBack, AutoCodes.followLineThenBeacon(Alliance.RED), backUp, turnTowardsCenter, moveTowardsCenter, AutoCodes.doubleShootAndCap()};
 
         return new CommandSequence(cmds);
+    }
+
+    public static CommandSequence waitAndDrive(double time, float dist, double power) {
+
+        Wait wait = new Wait(time);
+        SimultaneousCommands drive = robotDriveDistanceAccurate(dist, power);
+        return new CommandSequence(wait, drive);
     }
 
 }
