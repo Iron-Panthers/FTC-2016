@@ -27,8 +27,6 @@ import org.firstinspires.ftc.team7316.util.commands.turn.TurnGyroPID;
 import org.firstinspires.ftc.team7316.util.commands.turn.TurnUntilConditional;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
-import java.util.concurrent.locks.Condition;
-
 /**
  * Created by andrew on 11/2/16.
  * All the sequential commands to run
@@ -180,6 +178,9 @@ public class AutoCodes {
 
     }
 
+    /**
+     * Release the intake, arm and fire, intake, and fire again.
+     */
     public static CommandSequence doubleShoot() {
 
         Loopable setServoPosition1 = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
@@ -386,7 +387,5 @@ public class AutoCodes {
 
         return new CommandSequence(cmds);
     }
-
-    public static CommandSequence 
 
 }
