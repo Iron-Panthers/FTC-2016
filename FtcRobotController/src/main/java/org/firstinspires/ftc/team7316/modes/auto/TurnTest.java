@@ -13,7 +13,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 /**
  * Created by andrew on 12/11/16.
  */
-@Autonomous(name = "TurnTest")
+@Autonomous(name = "TurningTest")
 public class TurnTest extends OpMode {
     @Override
     public void init() {

@@ -1,0 +1,10 @@
+What auto codes do we want?
+
+Red and Blue version of:
+    double beacon -> double shot
+    double beacon
+
+Omni-Sided:
+    double shoot
+    wait -> drive to middle
+    wait -> drive to low goal

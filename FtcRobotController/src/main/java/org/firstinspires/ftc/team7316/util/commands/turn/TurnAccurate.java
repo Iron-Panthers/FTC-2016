@@ -15,7 +15,7 @@ public class TurnAccurate implements Loopable {
     public static final float ERROR_THRESHOLD = 3f;
     public static final float decreaseAmount = 0.85f;
     public static final int decreaseStart = 45;
-    private double minPower = 0.25;
+    private double minPower = 0.3;
     public double power = 0;
     private int turnAngle;
 

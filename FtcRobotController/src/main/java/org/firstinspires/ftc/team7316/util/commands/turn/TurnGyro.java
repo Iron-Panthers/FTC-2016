@@ -10,8 +10,8 @@ import org.firstinspires.ftc.team7316.util.Loopable;
  */
 public class TurnGyro implements Loopable {
 
-    private DcMotor leftMotor;
-    private DcMotor rightMotor;
+    protected DcMotor leftMotor;
+    protected DcMotor rightMotor;
 
     private GyroSensor gyro;
 
@@ -20,7 +20,7 @@ public class TurnGyro implements Loopable {
     protected double power;
     protected float deltaBearing;
 
-    private final float CORRECTION_PERCENT_GYRO = 0.8f;
+    private final float CORRECTION_PERCENT_GYRO = 0.85f;
 
     /**
      *
