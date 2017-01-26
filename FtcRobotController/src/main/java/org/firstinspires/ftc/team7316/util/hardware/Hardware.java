@@ -3,6 +3,7 @@ package org.firstinspires.ftc.team7316.util.hardware;
 import android.graphics.Color;
 import android.webkit.CookieManager;
 
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -57,6 +58,8 @@ public class Hardware {
     private static final String LIGHT_SENSOR_NAME_LEFT = "lil";
     private static final String TOUCH_SENSOR_NAME = "touch";
     private static final String INTAKE_UP_SERVO_NAME = "inUp";
+    private static final String FRONT_SIDE_IR_NAME = "fi";
+    private static final String BACK_SIDE_IR_NAME = "bi";
 
     public DcMotor leftDriveMotor;
     public DcMotor rightDriveMotor; //boosted motor
@@ -68,6 +71,7 @@ public class Hardware {
     public DcMotor capBallMotor;
     public ColorSensor colorSensor;
     public TouchSensor touchSensor;
+    public AnalogInput frontSideInfaredSensor, backSideInfaredSensor;
 
     public double jankDelta = 0;
     public double jankSum = 0;
@@ -109,6 +113,9 @@ public class Hardware {
         touchSensor = map.touchSensor.get(TOUCH_SENSOR_NAME);
 
         capBallMotor = map.dcMotor.get(CAP_BALL_MOTOR_NAME);
+
+        frontSideInfaredSensor = map.analogInput.get(FRONT_SIDE_IR_NAME);
+        backSideInfaredSensor = map.analogInput.get(BACK_SIDE_IR_NAME);
     }
 
     public static void setHardwareMap(HardwareMap map) {
