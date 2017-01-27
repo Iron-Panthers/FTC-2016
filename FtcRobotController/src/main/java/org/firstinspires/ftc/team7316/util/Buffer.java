@@ -22,4 +22,8 @@ public class Buffer {
         }
     }
 
+    public double average() {
+        return sum/buffer.length;
+    }
+
 }

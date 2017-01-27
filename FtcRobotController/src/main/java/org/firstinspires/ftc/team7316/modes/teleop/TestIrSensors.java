@@ -7,7 +7,9 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.team7316.util.Buffer;
+import org.firstinspires.ftc.team7316.util.GatedBuffer;
 import org.firstinspires.ftc.team7316.util.Scheduler;
 import org.firstinspires.ftc.team7316.util.hardware.ColorWrapper;
 import org.firstinspires.ftc.team7316.util.hardware.DcMotorWrapper;
@@ -35,10 +37,10 @@ public class TestIrSensors extends OpMode {
     public void loop() {
         Scheduler.instance.loop();
 
-        front.pushValue(Hardware.instance.frontSideInfaredSensor.getVoltage());
-        back.pushValue(Hardware.instance.backSideInfaredSensor.getVoltage());
+        front.pushValue(Hardware.instance.frontSideInfaredSensor.getDistance(DistanceUnit.CM));
+        back.pushValue(Hardware.instance.backSideInfaredSensor.getDistance(DistanceUnit.CM));
 
-        Hardware.log("front sensor", front.sum);
-        Hardware.log("back sensor", back.sum);
+        Hardware.log("front sensor", front.average());
+        Hardware.log("back sensor", back.average());
     }
 }
