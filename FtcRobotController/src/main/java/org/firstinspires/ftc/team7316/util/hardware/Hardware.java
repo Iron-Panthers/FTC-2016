@@ -71,7 +71,7 @@ public class Hardware {
     public DcMotor capBallMotor;
     public ColorSensor colorSensor;
     public TouchSensor touchSensor;
-    public AnalogInput frontSideInfaredSensor, backSideInfaredSensor;
+    public SharpIRSensor frontSideInfaredSensor, backSideInfaredSensor;
 
     public double jankDelta = 0;
     public double jankSum = 0;
@@ -114,8 +114,8 @@ public class Hardware {
 
         capBallMotor = map.dcMotor.get(CAP_BALL_MOTOR_NAME);
 
-        frontSideInfaredSensor = map.analogInput.get(FRONT_SIDE_IR_NAME);
-        backSideInfaredSensor = map.analogInput.get(BACK_SIDE_IR_NAME);
+        frontSideInfaredSensor = new SharpIRSensor(map.analogInput.get(FRONT_SIDE_IR_NAME));
+        backSideInfaredSensor = new SharpIRSensor(map.analogInput.get(BACK_SIDE_IR_NAME));
     }
 
     public static void setHardwareMap(HardwareMap map) {
