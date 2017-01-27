@@ -22,20 +22,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * Created by andrew on 9/15/16.
  */
 
-//MAKE SURE TO CALL setHardwareMap AT LEAST ONCE
-
-/*
-    toggle a b needs to always disable if its the wrong button √
-    need to merge into master √ (sort of, still need to do auto merge)
-    need to reduce intake speed √
-    need to tune line follow
-    need to test auto as one full command sequence
-    need to zip tie down the wire across the intake ramp √
-    need to zip tie down the wire to up intake servo √
-    need to write up intake servo code √
-    motor and joystick deadzones
-*/
-
 public class Hardware {
 
     public static Hardware instance = null;
@@ -77,6 +63,42 @@ public class Hardware {
     public double jankSum = 0;
 
     public Hardware (HardwareMap map) {
+
+        leftDriveMotor = map.dcMotor.get(LEFT_DRIVE_MOTOR_NAME);
+        leftDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftDriveMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        DcMotor rightMotor = map.dcMotor.get(RIGHT_DRIVE_MOTOR_NAME);
+        rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightDriveMotor = new BoostedMotor(rightMotor, 1.05);
+        /*rightDriveMotor = map.dcMotor.get(RIGHT_DRIVE_MOTOR_NAME);
+        rightDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);*/
+
+        //leftCatcherServo = map.servo.get(LEFT_CATCHER_SERVO_NAME);
+        //rightCatcherServo = map.servo.get(RIGHT_CATCHER_SERVO_NAME);
+
+        catapultMotor = map.dcMotor.get(CATAPULT_MOTOR_NAME);
+        catapultMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        catapultSensor = map.opticalDistanceSensor.get(CATAPULT_SENSOR_NAME);
+
+        intakeMotor = map.dcMotor.get(INTAKE_MOTOR_NAME);
+        intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        leftBeaconServo = map.servo.get(LEFT_BEACON_SERVO_NAME);
+        rightBeaconServo = map.servo.get(RIGHT_BEACON_SERVO_NAME);
+
+        lightSensorLeft = map.opticalDistanceSensor.get(LIGHT_SENSOR_NAME_LEFT);
+        lightSensorRight = map.opticalDistanceSensor.get(LIGHT_SENSOR_NAME_RIGHT);
+        gyroSensor = map.gyroSensor.get(GYRO_SENSOR_NAME);
+        colorSensor = map.colorSensor.get(COLOR_SENSOR_NAME);
+        //distanceSensor = map.ultrasonicSensor.get(DISTANCE_SENSOR_NAME);
+
+        intakeUpServo = map.servo.get(INTAKE_UP_SERVO_NAME);
+
+        touchSensor = map.touchSensor.get(TOUCH_SENSOR_NAME);
+
+        capBallMotor = map.dcMotor.get(CAP_BALL_MOTOR_NAME);
 
         frontSideInfaredSensor = new SharpIRSensor(map.analogInput.get(FRONT_SIDE_IR_NAME));
         backSideInfaredSensor = new SharpIRSensor(map.analogInput.get(BACK_SIDE_IR_NAME));
