@@ -10,8 +10,8 @@ import org.firstinspires.ftc.team7316.util.commands.AutoCodes;
 
 public class WaitAndParkCenter extends CommandAuto {
 
-    protected WaitAndParkCenter() {
-        super(AutoCodes.waitAndDrive(0, 0, 1));
+    @Override
+    protected Loopable getTask() {
+        return AutoCodes.waitAndDrive(0, 0, 1);
     }
-
 }

@@ -81,8 +81,13 @@ public class LineFollow implements Loopable {
     public void loop() {
         double error = error(this.sensor.getLightDetected());
 
-        this.leftMotor.setPower(leftPower(invert*error));
-        this.rightMotor.setPower(rightPower(invert*error));
+        if (invert == 1) {
+            this.leftMotor.setPower(leftPower(error));
+            this.rightMotor.setPower(rightPower(error));
+        } else {
+            this.leftMotor.setPower(rightPower(error));
+            this.rightMotor.setPower(leftPower(error));
+        }
     }
 
     @Override
@@ -106,7 +111,7 @@ public class LineFollow implements Loopable {
             c. if error is wantedLight should return wantedPower
             d. if error is maxLight should return 1 motor power
          */
-        return error * errorToLeftRatio * this.p + this.errorSum * errorToLeftRatio * this.i + this.deltaError * errorToLeftRatio * this.d + wantedPower;
+        return (error * errorToLeftRatio * this.p + this.errorSum * errorToLeftRatio * this.i + this.deltaError * errorToLeftRatio * this.d + wantedPower) * (this.invert == -1 ? 1.5 : 1);
     }
 
     private double rightPower(double error) {

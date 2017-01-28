@@ -9,16 +9,12 @@ import org.firstinspires.ftc.team7316.util.Scheduler;
  */
 public abstract class CommandAuto extends BaseOpMode {
 
-    private Loopable task;
-
-    protected CommandAuto(Loopable task) {
-        this.task = task;
-    }
+    protected abstract Loopable getTask();
 
     @Override
     public void init() {
         super.init();
-        Scheduler.instance.addTask(task);
+        Scheduler.instance.addTask(getTask());
     }
 
     @Override

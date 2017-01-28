@@ -82,7 +82,7 @@ public class DriveMode extends OpMode {
 
         catapultDrive = new CatapultWrapper(
                 Hardware.instance.catapultMotor,
-                new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, 0.14, false),
+                new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, Constants.CAP_THRESHOLD, false),
                 gpWrapperNotDriver.left_axis_y,
                 holdBallConditional
         );

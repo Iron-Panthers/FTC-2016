@@ -3,6 +3,7 @@ package org.firstinspires.ftc.team7316.modes.auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.team7316.modes.CommandAuto;
+import org.firstinspires.ftc.team7316.util.Loopable;
 import org.firstinspires.ftc.team7316.util.commands.AutoCodes;
 
 /**
@@ -11,8 +12,8 @@ import org.firstinspires.ftc.team7316.util.commands.AutoCodes;
 @Autonomous(name="Double Shoot")
 public class DoubleShoot extends CommandAuto {
 
-    protected DoubleShoot() {
-        super(AutoCodes.doubleShoot());
+    @Override
+    protected Loopable getTask() {
+        return AutoCodes.doubleShoot();
     }
-
 }

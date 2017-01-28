@@ -12,8 +12,8 @@ import org.firstinspires.ftc.team7316.util.commands.AutoCodes;
 @Autonomous(name="Wait and Park Low Goal")
 public class WaitAndParkLow extends CommandAuto {
 
-    protected WaitAndParkLow() {
-        super(AutoCodes.waitAndDrive(0, 0, 1));
+    @Override
+    protected Loopable getTask() {
+        return AutoCodes.waitAndDrive(0, 0, 1);
     }
-
 }
