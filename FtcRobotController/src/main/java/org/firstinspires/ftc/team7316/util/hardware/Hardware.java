@@ -100,8 +100,9 @@ public class Hardware {
 
         capBallMotor = map.dcMotor.get(CAP_BALL_MOTOR_NAME);
 
-        frontSideInfaredSensor = new SharpIRSensor(map.analogInput.get(FRONT_SIDE_IR_NAME));
-        backSideInfaredSensor = new SharpIRSensor(map.analogInput.get(BACK_SIDE_IR_NAME));
+        // TODO: recalibrate this carp
+        frontSideInfaredSensor = new SharpIRSensor(map.analogInput.get(FRONT_SIDE_IR_NAME), 54.5, 0.488, 0);
+        backSideInfaredSensor = new SharpIRSensor(map.analogInput.get(BACK_SIDE_IR_NAME), 54.5, 0.488, 0);
     }
 
     public static void setHardwareMap(HardwareMap map) {

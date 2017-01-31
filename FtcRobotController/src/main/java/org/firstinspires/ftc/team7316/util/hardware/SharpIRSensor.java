@@ -12,13 +12,27 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  */
 public class SharpIRSensor implements DistanceSensor {
 
+    /*
     private final static double a = 54.5;
     private final static double b = 0.488;
     private final static double c = 0;
+    */
+
+    private final double a, b, c;
 
     private AnalogInput irSensor;
 
-    public SharpIRSensor(AnalogInput irSensor) {
+    /**
+     *
+     * @param irSensor the sensor
+     * @param a exponential coefficient
+     * @param b exponential base
+     * @param c asymptote
+     */
+    public SharpIRSensor(AnalogInput irSensor, double a, double b, double c) {
+        this.a = a;
+        this.b = b;
+        this.c = c;
         this.irSensor = irSensor;
     }
 
