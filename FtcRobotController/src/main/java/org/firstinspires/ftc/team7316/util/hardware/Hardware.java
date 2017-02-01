@@ -17,6 +17,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.team7316.util.Scheduler;
 
 /**
  * Created by andrew on 9/15/16.
@@ -46,7 +47,7 @@ public class Hardware {
     private static final String INTAKE_UP_SERVO_NAME = "inUp";
     private static final String FRONT_SIDE_IR_NAME = "fi";
     private static final String BACK_SIDE_IR_NAME = "bi";
-    private static final String CAP_BALL_SERVO_NAME = "cbm";
+    private static final String CAP_BALL_SERVO_NAME = "cbs";
 
     public DcMotor leftDriveMotor;
     public DcMotor rightDriveMotor; //boosted motor
@@ -101,9 +102,11 @@ public class Hardware {
 
         capBallMotor = map.dcMotor.get(CAP_BALL_MOTOR_NAME);
 
-        // TODO: recalibrate this carp
-        frontSideInfaredSensor = new SharpIRSensor(map.analogInput.get(FRONT_SIDE_IR_NAME), 54.5, 0.488, 0);
-        backSideInfaredSensor = new SharpIRSensor(map.analogInput.get(BACK_SIDE_IR_NAME), 54.5, 0.488, 0);
+        frontSideInfaredSensor = new SharpIRSensor(map.analogInput.get(FRONT_SIDE_IR_NAME), 34.301, 0.48347, -13.799);
+        backSideInfaredSensor = new SharpIRSensor(map.analogInput.get(BACK_SIDE_IR_NAME), 35.286, 0.19009, -15.371);
+
+        Scheduler.instance.addTask(frontSideInfaredSensor);
+        Scheduler.instance.addTask(backSideInfaredSensor);
 
         capBallServo = map.servo.get(CAP_BALL_SERVO_NAME);
     }

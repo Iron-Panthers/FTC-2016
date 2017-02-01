@@ -21,14 +21,14 @@ public class FollowWall implements Loopable {
 
     private SharpIRSensor frontSensor, backSensor;
 
-    private final double distFromWall = 10; //cm
+    private final double distFromWall = 20; //cm
     private final double distBetweenSensors = 40; //cm
     private final double robotWidth = 30; //cm
 
-    private final double p = 0; //ratio of error to turn
+    private final double p = 1  ; //ratio of error to turn
     private final double i = 0; //ration of sum of errors to turn
     private final double d = 0; //ratio of delta to turn
-    private final double k = 0.01; //power decrease ratio
+    private final double k = 0.1; //power decrease ratio
     private final int bufferSize = 40;
 
     private double deltaErrorClose = 0;
@@ -90,8 +90,8 @@ public class FollowWall implements Loopable {
         Hardware.log("CloseE: ", errorClose);
         Hardware.log("FarE: ", errorFar);
 
-        //this.leftMotor.setPower(leftPower);
-        //this.rightMotor.setPower(rightPower);
+        this.leftMotor.setPower(leftPower);
+        this.rightMotor.setPower(rightPower);
     }
 
     @Override
@@ -101,8 +101,8 @@ public class FollowWall implements Loopable {
 
     @Override
     public void terminate() {
-        //this.leftMotor.setPower(0);
-        //this.rightMotor.setPower(0);
+        this.leftMotor.setPower(0);
+        this.rightMotor.setPower(0);
     }
 
     public double errorClose() {

@@ -38,5 +38,11 @@ public class TestIrSensors extends OpMode {
     @Override
     public void loop() {
         Scheduler.instance.loop();
+
+       /* Hardware.log("frontSensorVolt", Hardware.instance.frontSideInfaredSensor.getVoltage());
+        Hardware.log("backSensorVolt", Hardware.instance.backSideInfaredSensor.getVoltage());
+        Hardware.log("frontSensorDist", Hardware.instance.frontSideInfaredSensor.getDistance(DistanceUnit.CM));
+        Hardware.log("backSensorDist", Hardware.instance.backSideInfaredSensor.getDistance(DistanceUnit.CM));*/
+        //Harc
     }
 }

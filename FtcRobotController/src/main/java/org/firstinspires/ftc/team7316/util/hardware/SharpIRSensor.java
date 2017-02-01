@@ -6,11 +6,13 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareDevice;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.team7316.util.Buffer;
+import org.firstinspires.ftc.team7316.util.Loopable;
 
 /**
  * Created by andrew on 1/26/17.
  */
-public class SharpIRSensor implements DistanceSensor {
+public class SharpIRSensor implements DistanceSensor, Loopable {
 
     /*
     private final static double a = 54.5;
@@ -18,30 +20,28 @@ public class SharpIRSensor implements DistanceSensor {
     private final static double c = 0;
     */
 
-    private final double a, b, c;
+    private final double a, h, k;
 
     private AnalogInput irSensor;
+    private Buffer buffer;
 
-    /**
-     *
-     * @param irSensor the sensor
-     * @param a exponential coefficient
-     * @param b exponential base
-     * @param c asymptote
-     */
-    public SharpIRSensor(AnalogInput irSensor, double a, double b, double c) {
-        this.a = a;
-        this.b = b;
-        this.c = c;
+    public SharpIRSensor(AnalogInput irSensor, double a, double h, double k) {
         this.irSensor = irSensor;
+        this.k = k;
+        this.h = h;
+        this.a = a;
     }
 
     @Override
     public double getDistance(DistanceUnit unit) {
         double voltage = this.irSensor.getVoltage();
-        double distance = a * Math.pow(b, voltage) + c;
+        double distance = a / Math.sqrt(voltage - h) + k;
 
-        return distance;
+        return unit.fromCm(distance);
+    }
+
+    public double getVoltage() {
+        return buffer.average();
     }
 
     @Override
@@ -72,6 +72,26 @@ public class SharpIRSensor implements DistanceSensor {
     @Override
     public void close() {
         this.irSensor.close();
+    }
+
+    @Override
+    public void init() {
+        this.buffer = new Buffer(50);
+    }
+
+    @Override
+    public void loop() {
+        buffer.pushValue(irSensor.getVoltage());
+    }
+
+    @Override
+    public boolean shouldRemove() {
+        return false;
+    }
+
+    @Override
+    public void terminate() {
+
     }
 }
 /*
