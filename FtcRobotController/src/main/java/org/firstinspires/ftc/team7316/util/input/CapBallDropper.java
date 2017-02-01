@@ -9,12 +9,12 @@ import org.firstinspires.ftc.team7316.util.hardware.CapballWrapper;
  * Created by Maxim on 1/31/2017.
  */
 
-public class CapBallDropper implements ButtonListener, Loopable {
+public class CapballDropper implements ButtonListener, Loopable {
 
     public static final double OPEN = 1.0, CLOSED = 0.5;
     private Servo servo;
 
-    public CapBallDropper(Servo servo) {
+    public CapballDropper(Servo servo) {
         this.servo = servo;
     }
 

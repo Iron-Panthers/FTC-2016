@@ -4,14 +4,10 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.team7316.util.Constants;
-import org.firstinspires.ftc.team7316.util.Loopable;
 import org.firstinspires.ftc.team7316.util.Scheduler;
 import org.firstinspires.ftc.team7316.util.commands.AutoCodes;
-import org.firstinspires.ftc.team7316.util.commands.conditions.EncoderCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.InvertedConditional;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ServoPositionConditional;
-import org.firstinspires.ftc.team7316.util.commands.drive.LineFollowDoubleSensor;
-import org.firstinspires.ftc.team7316.util.commands.drive.LineFollowDoubleSensorUntilCondition;
 import org.firstinspires.ftc.team7316.util.commands.drive.LineFollowUntilCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ButtonCondition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.CatapultPositionConditional;
@@ -24,8 +20,7 @@ import org.firstinspires.ftc.team7316.util.hardware.DcMotorWrapperWithConditiona
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 import org.firstinspires.ftc.team7316.util.hardware.IntakeDrive;
 import org.firstinspires.ftc.team7316.util.hardware.ServoWrapper;
-import org.firstinspires.ftc.team7316.util.input.ButtonListener;
-import org.firstinspires.ftc.team7316.util.input.CapBallDropper;
+import org.firstinspires.ftc.team7316.util.input.CapballDropper;
 import org.firstinspires.ftc.team7316.util.input.DoubleTap;
 import org.firstinspires.ftc.team7316.util.input.GamepadWrapper;
 import org.firstinspires.ftc.team7316.util.input.TwoButtonToggleWrapper;
@@ -61,7 +56,7 @@ public class DriveMode extends OpMode {
     private Conditional servoPositionConditional;
     private CatapultPositionConditional catapultPositionConditional;
 
-    private CapBallDropper capballDropper;
+    private CapballDropper capballDropper;
 
     @Override
     public void init() {
@@ -101,7 +96,7 @@ public class DriveMode extends OpMode {
         intakeRelease = new ServoWrapper(Hardware.instance.intakeUpServo, gpWrapperNotDriver.dpLeftWrapper, Constants.INTAKE_SERVO_RELEASE, Constants.INTAKE_SERVO_DONT_STORE, Constants.INTAKE_SERVO_LOCKED);
 
         capballWrapper = new CapballWrapper(Hardware.instance.capBallMotor, gpWrapperNotDriver.dp_up, gpWrapperNotDriver.dp_down);
-        capballDropper = new CapBallDropper(Hardware.instance.capBallServo);
+        capballDropper = new CapballDropper(Hardware.instance.capBallServo);
         DoubleTap capBallInput = new DoubleTap(0.5);
         capBallInput.addListener(capballDropper);
         gpWrapperNotDriver.b_button.addListener(capBallInput);
