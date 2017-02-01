@@ -25,6 +25,8 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 import org.firstinspires.ftc.team7316.util.hardware.IntakeDrive;
 import org.firstinspires.ftc.team7316.util.hardware.ServoWrapper;
 import org.firstinspires.ftc.team7316.util.input.ButtonListener;
+import org.firstinspires.ftc.team7316.util.input.CapBallDropper;
+import org.firstinspires.ftc.team7316.util.input.DoubleTap;
 import org.firstinspires.ftc.team7316.util.input.GamepadWrapper;
 import org.firstinspires.ftc.team7316.util.input.TwoButtonToggleWrapper;
 
@@ -58,6 +60,8 @@ public class DriveMode extends OpMode {
 
     private Conditional servoPositionConditional;
     private CatapultPositionConditional catapultPositionConditional;
+
+    private CapBallDropper capballDropper;
 
     @Override
     public void init() {
@@ -97,6 +101,10 @@ public class DriveMode extends OpMode {
         intakeRelease = new ServoWrapper(Hardware.instance.intakeUpServo, gpWrapperNotDriver.dpLeftWrapper, Constants.INTAKE_SERVO_RELEASE, Constants.INTAKE_SERVO_DONT_STORE, Constants.INTAKE_SERVO_LOCKED);
 
         capballWrapper = new CapballWrapper(Hardware.instance.capBallMotor, gpWrapperNotDriver.dp_up, gpWrapperNotDriver.dp_down);
+        capballDropper = new CapBallDropper(Hardware.instance.capBallServo);
+        DoubleTap capBallInput = new DoubleTap(0.5);
+        capBallInput.addListener(capballDropper);
+        gpWrapperNotDriver.b_button.addListener(capBallInput);
 
         Scheduler.instance.addTask(leftDrive);
         Scheduler.instance.addTask(rightDrive);
@@ -108,6 +116,7 @@ public class DriveMode extends OpMode {
         Scheduler.instance.addTask(intakeRelease);
         Scheduler.instance.addTask(catapultDrive);
         Scheduler.instance.addTask(capballWrapper);
+        Scheduler.instance.addTask(capballDropper);
     }
 
     @Override

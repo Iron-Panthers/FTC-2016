@@ -46,12 +46,13 @@ public class Hardware {
     private static final String INTAKE_UP_SERVO_NAME = "inUp";
     private static final String FRONT_SIDE_IR_NAME = "fi";
     private static final String BACK_SIDE_IR_NAME = "bi";
+    private static final String CAP_BALL_SERVO_NAME = "cbm";
 
     public DcMotor leftDriveMotor;
     public DcMotor rightDriveMotor; //boosted motor
     public DcMotor catapultMotor;
     public DcMotor intakeMotor;
-    public Servo leftBeaconServo, rightBeaconServo, intakeUpServo;
+    public Servo leftBeaconServo, rightBeaconServo, intakeUpServo, capBallServo;
     public OpticalDistanceSensor catapultSensor, lightSensorLeft, lightSensorRight;
     public GyroSensor gyroSensor;
     public DcMotor capBallMotor;
@@ -103,6 +104,8 @@ public class Hardware {
         // TODO: recalibrate this carp
         frontSideInfaredSensor = new SharpIRSensor(map.analogInput.get(FRONT_SIDE_IR_NAME), 54.5, 0.488, 0);
         backSideInfaredSensor = new SharpIRSensor(map.analogInput.get(BACK_SIDE_IR_NAME), 54.5, 0.488, 0);
+
+        capBallServo = map.servo.get(CAP_BALL_SERVO_NAME);
     }
 
     public static void setHardwareMap(HardwareMap map) {
