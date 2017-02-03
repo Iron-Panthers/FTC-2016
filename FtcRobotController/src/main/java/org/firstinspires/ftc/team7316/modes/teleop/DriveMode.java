@@ -38,6 +38,8 @@ gamepad2:
 -a button = run intake inward (toggle) √
 -b button = run intake outward (toggle) √
  */
+
+// TODO: SLOW DOWN INTAKE
 @TeleOp(name = "PantherDrive")
 public class DriveMode extends OpMode {
 
@@ -96,10 +98,11 @@ public class DriveMode extends OpMode {
         intakeRelease = new ServoWrapper(Hardware.instance.intakeUpServo, gpWrapperNotDriver.dpLeftWrapper, Constants.INTAKE_SERVO_RELEASE, Constants.INTAKE_SERVO_DONT_STORE, Constants.INTAKE_SERVO_LOCKED);
 
         capballWrapper = new CapballWrapper(Hardware.instance.capBallMotor, gpWrapperNotDriver.dp_up, gpWrapperNotDriver.dp_down);
-        capballDropper = new CapballDropper(Hardware.instance.capBallServo);
         DoubleTap capBallInput = new DoubleTap(0.5);
+        capballDropper = new CapballDropper(Hardware.instance.capBallServo);
+
+        gpWrapperNotDriver.y_button.addListener(capBallInput);
         capBallInput.addListener(capballDropper);
-        gpWrapperNotDriver.b_button.addListener(capBallInput);
 
         Scheduler.instance.addTask(leftDrive);
         Scheduler.instance.addTask(rightDrive);
@@ -110,8 +113,8 @@ public class DriveMode extends OpMode {
         Scheduler.instance.addTask(leftPusher);
         Scheduler.instance.addTask(intakeRelease);
         Scheduler.instance.addTask(catapultDrive);
+        Scheduler.instance.addTask(capBallInput);
         Scheduler.instance.addTask(capballWrapper);
-        Scheduler.instance.addTask(capballDropper);
     }
 
     @Override
