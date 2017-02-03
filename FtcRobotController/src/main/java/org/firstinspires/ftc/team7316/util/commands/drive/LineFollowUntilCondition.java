@@ -29,8 +29,8 @@ public class LineFollowUntilCondition extends LineFollow implements ButtonListen
         this.condition = condition;
     }
 
-    public LineFollowUntilCondition(DcMotor leftDriveMotor, DcMotor rightDriveMotor, LightSensor lightSensor, double wantedPower, Conditional buttonTriggered, double p, double i, double d) {
-        super(leftDriveMotor, rightDriveMotor, lightSensor, wantedPower, Alliance.BLUE, p, i, d);
+    public LineFollowUntilCondition(DcMotor leftDriveMotor, DcMotor rightDriveMotor, LightSensor lightSensor, double wantedPower, Conditional buttonTriggered, double p, double i, double d, double maxPower, double minPower) {
+        super(leftDriveMotor, rightDriveMotor, lightSensor, wantedPower, Alliance.BLUE, p, i, d, minPower, maxPower);
         this.condition = buttonTriggered;
     }
 

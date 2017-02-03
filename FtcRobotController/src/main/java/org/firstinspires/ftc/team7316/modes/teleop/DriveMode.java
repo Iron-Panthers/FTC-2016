@@ -74,7 +74,7 @@ public class DriveMode extends OpMode {
         rightDrive = new DcMotorWrapperWithConditional(Hardware.instance.rightDriveMotor, gpWrapperDriver.right_axis_y, gpWrapperDriver.x_button );
 
         Conditional buttonTriggered = new ButtonCondition(Hardware.instance.touchSensor);
-        LineFollowUntilCondition lineFollowCommand = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensorLeft, 0.15, buttonTriggered, 0.7, 0, 4);
+        LineFollowUntilCondition lineFollowCommand = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensorLeft, 0.15, buttonTriggered, 0.7, 0, 2, .5, -.6);
         gpWrapperDriver.x_button.addListener(lineFollowCommand);
 
         aAndBToggle = new TwoButtonToggleWrapper(gpWrapperNotDriver.a_button, gpWrapperNotDriver.b_button);

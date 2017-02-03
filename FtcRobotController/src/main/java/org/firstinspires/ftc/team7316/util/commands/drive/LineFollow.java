@@ -58,11 +58,13 @@ public class LineFollow implements Loopable {
     }
 
 
-    public LineFollow (DcMotor leftMotor, DcMotor rightMotor, LightSensor sensor, double wantedPower, Alliance color, double p, double i, double d) {
+    public LineFollow (DcMotor leftMotor, DcMotor rightMotor, LightSensor sensor, double wantedPower, Alliance color, double p, double i, double d, double maxPower, double minPower) {
         this(leftMotor, rightMotor, sensor, wantedPower);
         this.p = p;
         this.i = i;
         this.d = d;
+        this.maxPower = maxPower;
+        this.minPower = minPower;
     }
 
     @Override
