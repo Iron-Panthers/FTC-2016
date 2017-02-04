@@ -5,6 +5,7 @@ import android.widget.Button;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.team7316.util.Listenable;
+import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
 /**
  * Created by Maxim on 1/31/2017.
@@ -13,22 +14,23 @@ public class DoubleTap extends Listenable implements ButtonListener {
 
     private ElapsedTime timer;
     private double delay;
-    private boolean state, tappedOnce;
+
+    private boolean secondPress = false;
 
     public DoubleTap(double delay) {
         timer = new ElapsedTime();
         this.delay = delay;
-        this.state = false;
     }
 
     @Override
     public void init() {
-
+        secondPress = false;
     }
 
     @Override
     protected void subLoop() {
-
+        Hardware.log("timer", timer.seconds() < delay);
+        Hardware.log("state", this.state());
     }
 
     @Override
@@ -43,24 +45,27 @@ public class DoubleTap extends Listenable implements ButtonListener {
 
     @Override
     public boolean state() {
-        if (state) {
-            state = false;
-            return true;
-        }
-        return false;
+        return secondPress;
     }
 
     @Override
     public void onPressed() {
-        if (tappedOnce && delay > timer.seconds()) {
-            state = true;
+        if (timer.seconds() <= delay) {
+            this.secondPress = true;
+        } else {
+            timer.reset();
+            this.secondPress = false;
         }
+
+        /*if (timer.seconds() <= delay) {
+            state = true;
+        } else {
+            timer.reset();
+        }*/
     }
 
     @Override
     public void onReleased() {
-        tappedOnce = true;
-        timer.reset();
     }
 
 }

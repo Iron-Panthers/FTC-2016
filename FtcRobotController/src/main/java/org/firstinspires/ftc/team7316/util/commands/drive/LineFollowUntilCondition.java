@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.team7316.util.commands.drive;
 
+import android.graphics.Color;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.LightSensor;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 
 import org.firstinspires.ftc.team7316.util.Alliance;
 import org.firstinspires.ftc.team7316.util.Scheduler;
@@ -24,6 +27,11 @@ public class LineFollowUntilCondition extends LineFollow implements ButtonListen
     public LineFollowUntilCondition(DcMotor leftMotor, DcMotor rightMotor, LightSensor sensor, double wantedPower, Conditional condition, Alliance color) {
         super(leftMotor, rightMotor, sensor, wantedPower, color);
         this.condition = condition;
+    }
+
+    public LineFollowUntilCondition(DcMotor leftDriveMotor, DcMotor rightDriveMotor, LightSensor lightSensor, double wantedPower, Conditional buttonTriggered, double p, double i, double d, double maxPower, double minPower) {
+        super(leftDriveMotor, rightDriveMotor, lightSensor, wantedPower, Alliance.BLUE, p, i, d, minPower, maxPower);
+        this.condition = buttonTriggered;
     }
 
     @Override
