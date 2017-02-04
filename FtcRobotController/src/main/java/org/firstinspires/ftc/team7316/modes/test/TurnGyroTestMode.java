@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.team7316.modes.test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -10,6 +11,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 /**
  * Created by Maxim on 11/29/2016.
  */
+@Disabled
 @TeleOp(name="TurnGyroTest")
 public class TurnGyroTestMode extends OpMode {
 

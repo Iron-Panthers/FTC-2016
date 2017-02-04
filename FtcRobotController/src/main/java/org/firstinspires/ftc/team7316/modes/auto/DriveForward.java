@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.team7316.modes.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.team7316.util.Constants;
@@ -11,7 +12,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 /**
  * Created by andrew on 11/20/16.
  */
-
+@Disabled
 @Autonomous(name = "DriveForward")
 public class DriveForward extends OpMode {
     @Override

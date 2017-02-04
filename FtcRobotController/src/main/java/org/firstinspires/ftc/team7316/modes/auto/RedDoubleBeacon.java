@@ -11,8 +11,8 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
  * Created by wayne on 9/27/16.
 */
 
-@Autonomous(name = "Double Beacon Red")
-public class DoubleBeaconRed extends OpMode {
+@Autonomous(name = "Red Double Beacon")
+public class RedDoubleBeacon extends OpMode {
 
     @Override
     public void init() {
@@ -21,15 +21,12 @@ public class DoubleBeaconRed extends OpMode {
         Hardware.setHardwareMap(hardwareMap);
         Hardware.setTelemetry(telemetry);
 
-        Scheduler.instance.addTask(AutoCodes.redBothBeaconsCloseStart());
+        Scheduler.instance.addTask(AutoCodes.redDoubleBeacon());
     }
 
     @Override
     public void loop() {
         Scheduler.instance.loop();
-        Hardware.log(Hardware.tag, "Left Motor: " + Hardware.instance.leftDriveMotor.getCurrentPosition());
-        Hardware.log(Hardware.tag, "Right Motor: " + Hardware.instance.rightDriveMotor.getCurrentPosition());
-        Hardware.log(Hardware.tag, "gyro: " + Hardware.instance.gyroSensor.getHeading());
     }
 }
 

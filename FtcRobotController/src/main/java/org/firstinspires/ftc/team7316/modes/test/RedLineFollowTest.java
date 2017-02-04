@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.team7316.modes.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.team7316.modes.CommandAuto;
 import org.firstinspires.ftc.team7316.util.Alliance;
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 /**
  * Created by andrew on 1/27/17.
  */
+@Disabled
 @Autonomous(name="red line follow test <---- use this")
 public class RedLineFollowTest extends CommandAuto {
 

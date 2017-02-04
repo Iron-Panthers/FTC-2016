@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.team7316.modes.test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -9,6 +10,7 @@ import org.firstinspires.ftc.team7316.util.commands.drive.DriveDistancePID;
 import org.firstinspires.ftc.team7316.util.commands.flow.SimultaneousCommands;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
+@Disabled
 @TeleOp(name="DriveDistanceTest")
 public class DriveDistanceTestMode extends OpMode {
 

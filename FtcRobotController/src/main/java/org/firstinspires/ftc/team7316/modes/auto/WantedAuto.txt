@@ -1,8 +1,8 @@
 What auto codes do we want?
 
 Red and Blue version of:
-    double beacon -> double shot
-    double beacon
+    √double beacon -> double shot
+    √double beacon
 
 Omni-Sided:
     √double shoot

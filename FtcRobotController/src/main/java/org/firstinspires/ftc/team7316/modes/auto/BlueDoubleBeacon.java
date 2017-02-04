@@ -3,17 +3,15 @@ package org.firstinspires.ftc.team7316.modes.auto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.team7316.util.Constants;
 import org.firstinspires.ftc.team7316.util.Scheduler;
 import org.firstinspires.ftc.team7316.util.commands.AutoCodes;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
 /**
- * Created by andrew on 11/20/16.
+ * Created by andrew on 2/3/17.
  */
-
-@Autonomous(name = "Blue Double Beacon Double Shoot")
-public class BlueDoubleBeaconDoubleShoot extends OpMode {
+@Autonomous(name = "Double Beacon Blue")
+public class BlueDoubleBeacon extends OpMode {
     @Override
     public void init() {
         Scheduler.instance.clear();
@@ -21,7 +19,7 @@ public class BlueDoubleBeaconDoubleShoot extends OpMode {
         Hardware.setHardwareMap(hardwareMap);
         Hardware.setTelemetry(telemetry);
 
-        Scheduler.instance.addTask(AutoCodes.blueDoubleBeaconDoubleShoot());
+        Scheduler.instance.addTask(AutoCodes.blueDoubleBeacon());
     }
 
     @Override

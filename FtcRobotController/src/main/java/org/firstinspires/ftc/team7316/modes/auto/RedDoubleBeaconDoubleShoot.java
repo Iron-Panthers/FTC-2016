@@ -12,7 +12,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
  * Created by wayne on 9/27/16.
 */
 
-@Autonomous(name = "RedDoubleBeaconDoubleShoot")
+@Autonomous(name = "Red Double Beacon Double Shoot")
 public class RedDoubleBeaconDoubleShoot extends OpMode {
 
     @Override

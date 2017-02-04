@@ -1,6 +1,7 @@
-package org.firstinspires.ftc.team7316.modes.auto;
+package org.firstinspires.ftc.team7316.modes.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.team7316.util.Constants;
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 /**
  * Created by andrew on 12/11/16.
  */
+@Disabled
 @Autonomous(name = "TurningTest")
 public class TurnTest extends OpMode {
     @Override

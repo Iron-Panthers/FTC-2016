@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.team7316.modes.teleop;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -17,6 +18,7 @@ import org.firstinspires.ftc.team7316.util.input.GamepadWrapper;
 /**
  * Created by wayne on 10/11/16.
  */
+@Disabled
 @TeleOp(name = "SensorTest")
 public class SensorTest extends OpMode {
 

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.team7316.modes.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
  * Created by andrew on 12/13/16.
  */
 
+@Disabled
 @Autonomous(name="Beacon Press Test Blue")
 public class BeaconPressTest extends OpMode {
     @Override
