@@ -35,8 +35,8 @@ public class LineFollow implements Loopable {
     private int sumCounts = 0;
     private double wantedPower;
 
-    private double minPower = -0.4; //-1 to maxPower
-    private double maxPower = 0.3; //minPower to 1
+    private double minPower = -0.45; //-1 to maxPower
+    private double maxPower = 0.35; //minPower to 1
 
     public LineFollow (DcMotor leftMotor, DcMotor rightMotor, LightSensor sensor, double wantedPower) {
         this(leftMotor, rightMotor, sensor, wantedPower, Alliance.BLUE);
