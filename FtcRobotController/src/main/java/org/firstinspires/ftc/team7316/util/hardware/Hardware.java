@@ -124,4 +124,8 @@ public class Hardware {
             telemetry.addData(caption, value);
         }
     }
+
+    public static void memel0rd() {
+        log("memelord", "mgee");
+    }
 }

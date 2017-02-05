@@ -16,6 +16,8 @@ public class LineFollow implements Loopable {
 
     private int invert = 1;
 
+    private boolean boosted = false;
+
     private LightSensor sensor;
 
     private final double wantedLight = 0.25; //FIX THESE NUMBERS WITH TESTING
@@ -74,6 +76,7 @@ public class LineFollow implements Loopable {
         this.d = d;
         this.maxPower = maxPower;
         this.minPower = minPower;
+        this.boosted = true;
 
         if (turnRight) {
             this.leftMotor = rightMotor;
@@ -106,11 +109,15 @@ public class LineFollow implements Loopable {
         double error = error(this.sensor.getLightDetected());
 
         if (invert == 1) {
+
             this.leftMotor.setPower(leftPower(error));
             this.rightMotor.setPower(rightPower(error));
+
         } else {
+
             this.leftMotor.setPower(rightPower(error));
             this.rightMotor.setPower(leftPower(error));
+
         }
     }
 
