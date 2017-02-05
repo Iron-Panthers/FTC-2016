@@ -14,6 +14,6 @@ public class WaitAndParkCenter extends CommandAuto {
 
     @Override
     protected Loopable getTask() {
-        return AutoCodes.waitAndDrive(0, 0, 1);
+        return AutoCodes.waitAndDriveToCenter(1);
     }
 }

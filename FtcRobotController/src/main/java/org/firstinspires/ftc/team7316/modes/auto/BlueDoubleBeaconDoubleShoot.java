@@ -21,7 +21,7 @@ public class BlueDoubleBeaconDoubleShoot extends OpMode {
         Hardware.setHardwareMap(hardwareMap);
         Hardware.setTelemetry(telemetry);
 
-        Scheduler.instance.addTask(AutoCodes.blueDoubleBeaconDoubleShoot());
+        Scheduler.instance.addTask(AutoCodes.blueDoubleBeaconDoubleShoot(true));
     }
 
     @Override

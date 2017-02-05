@@ -91,16 +91,6 @@ public class AutoCodes {
         return new CommandSequence(cmds);
     }
 
-    public static CommandSequence resetServosNoIntake() {
-        Loopable setLeftServoPosition = new SetServoPosition(Hardware.instance.leftBeaconServo, Constants.LEFT_OFF);
-        Loopable setRightServoPosition = new SetServoPosition(Hardware.instance.rightBeaconServo, Constants.RIGHT_OFF);
-        Loopable setCapBallServoPosition = new SetServoPosition(Hardware.instance.capBallServo, CapballDropper.CLOSED);
-
-        Loopable[] cmds = {setLeftServoPosition, setRightServoPosition, setCapBallServoPosition};
-
-        return new CommandSequence(cmds);
-    }
-
     public static CommandSequence followLineThenBeacon(Alliance alliance) {
         Conditional buttonCondition = new ButtonCondition(Hardware.instance.touchSensor);
         Loopable followLine = new LineFollowUntilCondition(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensorLeft, 0.15, buttonCondition, alliance);
@@ -332,7 +322,7 @@ public class AutoCodes {
         return new CommandSequence(cmds);
     }
 
-    public static CommandSequence blueDoubleBeaconDoubleShoot() {
+    public static CommandSequence blueDoubleBeaconDoubleShoot(boolean cap) {
         //double blue beacon
 
         SimultaneousCommands backUp = AutoCodes.robotDriveDistanceAccurate(1, -0.25);
@@ -341,12 +331,19 @@ public class AutoCodes {
 
         //double shoot
 
-        Loopable[] cmds = {AutoCodes.blueDoubleBeacon(), backUp, turnTowardsCenter, moveTowardsCenter, AutoCodes.doubleShootAndCap()};
+        if (cap) {
+            Loopable[] cmds = {AutoCodes.blueDoubleBeacon(), backUp, turnTowardsCenter, moveTowardsCenter, AutoCodes.doubleShootAndCap()};
 
-        return new CommandSequence(cmds);
+            return new CommandSequence(cmds);
+        } else {
+            Loopable[] cmds = {AutoCodes.blueDoubleBeacon(), backUp, turnTowardsCenter, moveTowardsCenter, AutoCodes.doubleShoot()};
+
+            return new CommandSequence(cmds);
+        }
+
     }
 
-    public static CommandSequence redDoubleBeaconDoubleShoot() {
+    public static CommandSequence redDoubleBeaconDoubleShoot(boolean cap) {
         //double beacon red
 
         SimultaneousCommands backUp = AutoCodes.robotDriveDistanceAccurate(1, -0.25);
@@ -355,9 +352,15 @@ public class AutoCodes {
 
         //double shoot
 
-        Loopable[] cmds = {AutoCodes.redDoubleBeacon(), backUp, turnTowardsCenter, moveTowardsCenter, AutoCodes.doubleShootAndCap()};
+        if (cap) {
+            Loopable[] cmds = {AutoCodes.redDoubleBeacon(), backUp, turnTowardsCenter, moveTowardsCenter, AutoCodes.doubleShootAndCap()};
 
-        return new CommandSequence(cmds);
+            return new CommandSequence(cmds);
+        } else {
+            Loopable[] cmds = {AutoCodes.redDoubleBeacon(), backUp, turnTowardsCenter, moveTowardsCenter, AutoCodes.doubleShoot()};
+
+            return new CommandSequence(cmds);
+        }
     }
 
     public static CommandSequence waitAndDrive(double time, float dist, double power) {
@@ -387,7 +390,7 @@ public class AutoCodes {
 
         Loopable turnTowardsOtherLine = new TurnAccurate(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -98, 0.4);
 
-        SimultaneousCommands driveToOtherLine = AutoCodes.robotDriveDistanceAccurate(2.95, 0.3);
+        SimultaneousCommands driveToOtherLine = AutoCodes.robotDriveDistanceAccurate(2.98, 0.3);
 
         Conditional onLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.2, false);
         TurnGyro turnBack = new RightHoldTurnUntilConditional(120, 0.7, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, onLine);
@@ -421,7 +424,7 @@ public class AutoCodes {
 
         Loopable turnTowardsOtherLine = new TurnAccurate(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 97, 0.4);
 
-        SimultaneousCommands driveToOtherLine = AutoCodes.robotDriveDistanceAccurate(2.9, 0.3);
+        SimultaneousCommands driveToOtherLine = AutoCodes.robotDriveDistanceAccurate(2.95, 0.3);
 
         Conditional onLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.2, false);
         TurnGyro turnBack = new LeftHoldTurnUntilConditional(120, -0.5, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, onLine);
@@ -437,9 +440,33 @@ public class AutoCodes {
         Wait wait = new Wait(time);
         SimultaneousCommands driveToBall = AutoCodes.robotDriveDistanceAccurate(4, 0.9);
 
-        Loopable[] cmds = {AutoCodes.resetServosNoIntake(), wait, driveToBall};
+        Loopable[] cmds = {AutoCodes.resetServos(), wait, driveToBall};
 
         return new CommandSequence(cmds);
+    }
+
+    public static CommandSequence doubleShootFull() {
+
+        Loopable setServoPosition1 = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
+        Loopable wait = new Wait(0.4);
+        Loopable setServoPosition2 = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_DONT_STORE);
+
+        Conditional odsCondition = new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, Constants.CAP_THRESHOLD, false);
+        Loopable armCatapult = new RunMotorUntilConditional(Hardware.instance.catapultMotor, odsCondition, 1);
+
+        Loopable shootCatapult = new RunMotorForTime(Hardware.instance.catapultMotor, 1, 1);
+
+        Loopable runIntake = new RunMotorForTime(Hardware.instance.intakeMotor, Constants.INTAKE_IN_SPEED, 3);
+
+        Loopable[] cmds = {AutoCodes.resetServos(), AutoCodes.robotDriveTime(0.5, 0.3), setServoPosition1, wait, setServoPosition2, wait, armCatapult, shootCatapult, armCatapult, runIntake, shootCatapult};
+
+        return new CommandSequence(cmds);
+    }
+
+    public static CommandSequence doubleShootAndParkFull() {
+        SimultaneousCommands driveToBall = AutoCodes.robotDriveDistanceAccurate(4, 0.9);
+
+        return new CommandSequence(AutoCodes.doubleShootFull(), driveToBall);
     }
 
 }

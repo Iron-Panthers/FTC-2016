@@ -14,6 +14,6 @@ public class DoubleShoot extends CommandAuto {
 
     @Override
     protected Loopable getTask() {
-        return AutoCodes.doubleShoot();
+        return AutoCodes.doubleShootFull();
     }
 }

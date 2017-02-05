@@ -20,7 +20,7 @@ public class DoubleShootAndPark extends OpMode {
         Hardware.setHardwareMap(hardwareMap);
         Hardware.setTelemetry(telemetry);
 
-        Scheduler.instance.addTask(AutoCodes.doubleShootAndCap());
+        Scheduler.instance.addTask(AutoCodes.doubleShootAndParkFull());
     }
 
     @Override
