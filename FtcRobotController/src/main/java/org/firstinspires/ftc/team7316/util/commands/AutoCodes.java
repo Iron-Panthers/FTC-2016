@@ -2,6 +2,7 @@ package org.firstinspires.ftc.team7316.util.commands;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.team7316.util.commands.drive.DriveDistanceLameOrConditional;
 import org.firstinspires.ftc.team7316.modes.CommandAuto;
 import org.firstinspires.ftc.team7316.util.Alliance;
 import org.firstinspires.ftc.team7316.util.Constants;
@@ -48,6 +49,15 @@ public class AutoCodes {
     public static SimultaneousCommands robotDriveDistanceAccurateOrConditonal(double distance, double power, Conditional conditional) {
         DriveDistanceAccurate leftMotor = new DriveDistanceOrCondition(Constants.distanceToTicks(distance), power, Hardware.instance.leftDriveMotor, conditional);
         DriveDistanceAccurate rightMotor = new DriveDistanceOrCondition(Constants.distanceToTicks(distance), power, Hardware.instance.rightDriveMotor, conditional);
+        Loopable[] both = {leftMotor, rightMotor};
+
+        SimultaneousCommands bothDrive = new SimultaneousCommands(both);
+        return bothDrive;
+    }
+
+    public static SimultaneousCommands robotDriveDistanceOrConditonal(double distance, double power, Conditional conditional) {
+        DriveDistanceLameOrConditional leftMotor = new DriveDistanceLameOrConditional((float) Constants.distanceToTicks(distance), power, Hardware.instance.leftDriveMotor, conditional);
+        DriveDistanceLameOrConditional rightMotor = new DriveDistanceLameOrConditional((float) Constants.distanceToTicks(distance), power, Hardware.instance.rightDriveMotor, conditional);
         Loopable[] both = {leftMotor, rightMotor};
 
         SimultaneousCommands bothDrive = new SimultaneousCommands(both);
@@ -375,7 +385,7 @@ public class AutoCodes {
         SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurateOrConditonal(5, 0.3, hitLine);
 
         Conditional offLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.08, true);
-        SimultaneousCommands drivePastLine = AutoCodes.robotDriveUntilCondition(offLine, 0.2);
+        SimultaneousCommands drivePastLine = AutoCodes.robotDriveDistanceOrConditonal(0.1, 0.2, offLine);
 
         //arm catapult
         //reset servos
@@ -397,7 +407,7 @@ public class AutoCodes {
 
         //follow line and press
 
-        Loopable[] cmds = {driveToLine, drivePastLine, AutoCodes.armCatapult(), AutoCodes.resetServos(), /*rotateALittle,*/ rotateUntilLine, AutoCodes.followLineThenBeacon(Alliance.BLUE), backwards, turnTowardsOtherLine, driveToOtherLine, turnBack, AutoCodes.followLineThenBeacon(Alliance.BLUE)};
+        Loopable[] cmds = {driveToLine, /*drivePastLine,*/ AutoCodes.armCatapult(), AutoCodes.resetServos(), /*rotateALittle,*/ rotateUntilLine, AutoCodes.followLineThenBeacon(Alliance.BLUE), backwards, turnTowardsOtherLine, driveToOtherLine, turnBack, AutoCodes.followLineThenBeacon(Alliance.BLUE)};
 
         return new CommandSequence(cmds);
     }
