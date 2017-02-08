@@ -84,9 +84,9 @@ public class AutoCodes {
         Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_DONT_STORE);
         Loopable setLeftServoPosition = new SetServoPosition(Hardware.instance.leftBeaconServo, Constants.LEFT_OFF);
         Loopable setRightServoPosition = new SetServoPosition(Hardware.instance.rightBeaconServo, Constants.RIGHT_OFF);
-        Loopable setCapBallServoPosition = new SetServoPosition(Hardware.instance.capBallServo, CapballDropper.CLOSED);
+        //Loopable setCapBallServoPosition = new SetServoPosition(Hardware.instance.capBallServo, CapballDropper.CLOSED);
 
-        Loopable[] cmds = {setServoPosition, setLeftServoPosition, setRightServoPosition , setCapBallServoPosition};
+        Loopable[] cmds = {setServoPosition, setLeftServoPosition, setRightServoPosition };
 
         return new CommandSequence(cmds);
     }
@@ -94,9 +94,9 @@ public class AutoCodes {
     public static CommandSequence resetServosNoIntake() {
         Loopable setLeftServoPosition = new SetServoPosition(Hardware.instance.leftBeaconServo, Constants.LEFT_OFF);
         Loopable setRightServoPosition = new SetServoPosition(Hardware.instance.rightBeaconServo, Constants.RIGHT_OFF);
-        Loopable setCapBallServoPosition = new SetServoPosition(Hardware.instance.capBallServo, CapballDropper.CLOSED);
+        //Loopable setCapBallServoPosition = new SetServoPosition(Hardware.instance.capBallServo, CapballDropper.CLOSED);
 
-        Loopable[] cmds = {setLeftServoPosition, setRightServoPosition, setCapBallServoPosition};
+        Loopable[] cmds = {setLeftServoPosition, setRightServoPosition};
 
         return new CommandSequence(cmds);
     }
