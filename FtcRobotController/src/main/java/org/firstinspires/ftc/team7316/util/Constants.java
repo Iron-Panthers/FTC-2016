@@ -11,7 +11,7 @@ public class Constants {
     public static final double COLOR_SENSOR_DELAY = 0.1; // seconds
     public static final double COLOR_DIFFERENCE = 2;
     public static final float JOYSTICK_DRIVE_DEADZONE = 0.07f;
-    public static final float DRIVER_MOTOR_DEADZONE = 0.2f;
+    public static final float DRIVER_MOTOR_DEADZONE = 0f;
     public static final int ENCODER_TICK_PER_REV = 1120;
     public static final double DISTANCE_PER_REV = 4*Math.PI;
     public static final double INTAKE_IN_SPEED = 0.25;

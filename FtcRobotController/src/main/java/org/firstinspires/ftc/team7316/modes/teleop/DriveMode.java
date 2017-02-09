@@ -50,7 +50,7 @@ public class DriveMode extends OpMode {
     private DcMotorWrapperWithConditional leftDrive, rightDrive;
     private DcMotorThreeStateWrapper intakeDrive;
     private CatapultWrapper catapultDrive;
-    private CapballWrapper capballWrapper;
+    //private CapballWrapper capballWrapper;
 
     private ServoWrapper leftPusher, rightPusher, intakeRelease;
 
@@ -98,12 +98,14 @@ public class DriveMode extends OpMode {
         leftPusher = new ServoWrapper(Hardware.instance.leftBeaconServo, gpWrapperNotDriver.left_bumper, Constants.LEFT_ON, Constants.LEFT_OFF);
         intakeRelease = new ServoWrapper(Hardware.instance.intakeUpServo, gpWrapperNotDriver.dpLeftWrapper, Constants.INTAKE_SERVO_RELEASE, Constants.INTAKE_SERVO_DONT_STORE, Constants.INTAKE_SERVO_LOCKED);
 
+        /*
         capballWrapper = new CapballWrapper(Hardware.instance.capBallMotor, gpWrapperNotDriver.dp_up, gpWrapperNotDriver.dp_down);
         DoubleTap capBallInput = new DoubleTap(0.5);
         capballDropper = new CapballDropper(Hardware.instance.capBallServo);
 
         gpWrapperNotDriver.y_button.addListener(capBallInput);
         capBallInput.addListener(capballDropper);
+        */
 
         Scheduler.instance.addTask(leftDrive);
         Scheduler.instance.addTask(rightDrive);
@@ -114,8 +116,8 @@ public class DriveMode extends OpMode {
         Scheduler.instance.addTask(leftPusher);
         Scheduler.instance.addTask(intakeRelease);
         Scheduler.instance.addTask(catapultDrive);
-        Scheduler.instance.addTask(capBallInput);
-        Scheduler.instance.addTask(capballWrapper);
+        /*Scheduler.instance.addTask(capBallInput);
+        Scheduler.instance.addTask(capballWrapper);*/
     }
 
     @Override

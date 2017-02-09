@@ -53,10 +53,11 @@ public class Hardware {
     public DcMotor rightDriveMotor; //boosted motor
     public DcMotor catapultMotor;
     public DcMotor intakeMotor;
-    public Servo leftBeaconServo, rightBeaconServo, intakeUpServo, capBallServo;
+    public Servo leftBeaconServo, rightBeaconServo, intakeUpServo;
+    //public Servo capBallServo;
     public OpticalDistanceSensor catapultSensor, lightSensorLeft, lightSensorRight;
     public GyroSensor gyroSensor;
-    public DcMotor capBallMotor;
+    //public DcMotor capBallMotor;
     public ColorSensor colorSensor;
     public TouchSensor touchSensor;
     public SharpIRSensor frontSideInfaredSensor, backSideInfaredSensor;
@@ -100,7 +101,7 @@ public class Hardware {
 
         touchSensor = map.touchSensor.get(TOUCH_SENSOR_NAME);
 
-        capBallMotor = map.dcMotor.get(CAP_BALL_MOTOR_NAME);
+        //capBallMotor = map.dcMotor.get(CAP_BALL_MOTOR_NAME);
 
         frontSideInfaredSensor = new SharpIRSensor(map.analogInput.get(FRONT_SIDE_IR_NAME), 34.301, 0.48347, -13.799);
         backSideInfaredSensor = new SharpIRSensor(map.analogInput.get(BACK_SIDE_IR_NAME), 35.286, 0.19009, -15.371);
@@ -108,7 +109,7 @@ public class Hardware {
         Scheduler.instance.addTask(frontSideInfaredSensor);
         Scheduler.instance.addTask(backSideInfaredSensor);
 
-        capBallServo = map.servo.get(CAP_BALL_SERVO_NAME);
+        //capBallServo = map.servo.get(CAP_BALL_SERVO_NAME);
     }
 
     public static void setHardwareMap(HardwareMap map) {

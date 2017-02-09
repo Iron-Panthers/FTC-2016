@@ -2,6 +2,7 @@ package org.firstinspires.ftc.team7316.util.input;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.robotcore.external.Const;
 import org.firstinspires.ftc.team7316.util.Constants;
 import org.firstinspires.ftc.team7316.util.Scheduler;
 
@@ -83,9 +84,9 @@ public class GamepadWrapper {
     public float axisValue(GamepadAxis axisIndex) {
         switch (axisIndex) {
             case L_STICK_X: return gamepad.left_stick_x;
-            case L_STICK_Y: return deadzone(squared(-gamepad.left_stick_y));
+            case L_STICK_Y: return deadzone(-gamepad.left_stick_y);
             case R_STICK_X: return gamepad.right_stick_x;
-            case R_STICK_Y: return deadzone(squared(-gamepad.right_stick_y));
+            case R_STICK_Y: return deadzone(-gamepad.right_stick_y);
             case L_TRIGGER: return gamepad.left_trigger;
             case R_TRIGGER: return gamepad.right_trigger;
         }
@@ -101,10 +102,15 @@ public class GamepadWrapper {
         if (Math.abs(value) < Constants.JOYSTICK_DRIVE_DEADZONE) {
             return 0;
         } else {
-            float factorToEndAtOneOne = 1/(1 + Constants.DRIVER_MOTOR_DEADZONE - Constants.JOYSTICK_DRIVE_DEADZONE);
-            float newVal = value - Constants.JOYSTICK_DRIVE_DEADZONE + Constants.DRIVER_MOTOR_DEADZONE;
-            newVal *= factorToEndAtOneOne;
-            return newVal;
+            float slope = (1 - Constants.DRIVER_MOTOR_DEADZONE) / (1 - Constants.JOYSTICK_DRIVE_DEADZONE);
+            float preval = slope * (Math.abs(value) - Constants.JOYSTICK_DRIVE_DEADZONE) + Constants.DRIVER_MOTOR_DEADZONE;
+
+            if (value > 0) {
+                return preval;
+            } else {
+                return -preval;
+            }
+
         }
     }
 
