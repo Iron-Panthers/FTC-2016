@@ -4,14 +4,19 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.robotcore.external.Const;
 import org.firstinspires.ftc.team7316.util.Constants;
+import org.firstinspires.ftc.team7316.util.Loopable;
 import org.firstinspires.ftc.team7316.util.Scheduler;
+import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
 /**
  * Created by wayne on 9/15/16.
  */
-public class GamepadWrapper {
+public class GamepadWrapper implements Loopable {
 
     private Gamepad gamepad;
+
+    private float multLeft = 1f;
+    private float multRight = 1f;
 
     public JoystickWrapper left_stick, right_stick;
     public AxisWrapper left_axis_y, right_axis_y;
@@ -84,9 +89,9 @@ public class GamepadWrapper {
     public float axisValue(GamepadAxis axisIndex) {
         switch (axisIndex) {
             case L_STICK_X: return gamepad.left_stick_x;
-            case L_STICK_Y: return deadzone(-gamepad.left_stick_y);
+            case L_STICK_Y: return deadzone(-gamepad.left_stick_y, multLeft);
             case R_STICK_X: return gamepad.right_stick_x;
-            case R_STICK_Y: return deadzone(-gamepad.right_stick_y);
+            case R_STICK_Y: return deadzone(-gamepad.right_stick_y, multRight);
             case L_TRIGGER: return gamepad.left_trigger;
             case R_TRIGGER: return gamepad.right_trigger;
         }
@@ -98,11 +103,11 @@ public class GamepadWrapper {
         return value > 0 ? result : -result;
     }
 
-    private float deadzone(float value) {
+    private float deadzone(float value, float mult) {
         if (Math.abs(value) < Constants.JOYSTICK_DRIVE_DEADZONE) {
             return 0;
         } else {
-            float slope = (1 - Constants.DRIVER_MOTOR_DEADZONE) / (1 - Constants.JOYSTICK_DRIVE_DEADZONE);
+            float slope = (1 - Constants.DRIVER_MOTOR_DEADZONE) / (1 - Constants.JOYSTICK_DRIVE_DEADZONE) * mult;
             float preval = slope * (Math.abs(value) - Constants.JOYSTICK_DRIVE_DEADZONE) + Constants.DRIVER_MOTOR_DEADZONE;
 
             if (value > 0) {
@@ -114,4 +119,33 @@ public class GamepadWrapper {
         }
     }
 
+    @Override
+    public void init() {
+        multLeft = 1;
+        multRight = 1;
+    }
+
+    @Override
+    public void loop() {
+        if (this.right_bumper.state()) {
+            multRight = 0.1f;
+        } else {
+            multRight = 1;
+        }
+
+        if (this.left_bumper.state()) {
+            multLeft = 0.1f;
+        } else {
+            multLeft = 1;
+        }
+    }
+
+    @Override
+    public boolean shouldRemove() {
+        return false;
+    }
+
+    @Override
+    public void terminate() {
+    }
 }

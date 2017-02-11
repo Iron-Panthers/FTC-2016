@@ -47,14 +47,14 @@ public class Hardware {
     private static final String INTAKE_UP_SERVO_NAME = "inUp";
     private static final String FRONT_SIDE_IR_NAME = "fi";
     private static final String BACK_SIDE_IR_NAME = "bi";
-    private static final String CAP_BALL_SERVO_NAME = "cbs";
+    private static final String BEACON_WHEEL_SERVO_NAME = "boss";
 
     public DcMotor leftDriveMotor;
-    public DcMotor rightDriveMotor; //boosted motor
+    public DcMotor rightDriveMotor;
     public DcMotor catapultMotor;
     public DcMotor intakeMotor;
     public Servo leftBeaconServo, rightBeaconServo, intakeUpServo;
-    //public Servo capBallServo;
+    public Servo beaconWheelServo;
     public OpticalDistanceSensor catapultSensor, lightSensorLeft, lightSensorRight;
     public GyroSensor gyroSensor;
     //public DcMotor capBallMotor;
@@ -71,11 +71,8 @@ public class Hardware {
         leftDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftDriveMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        DcMotor rightMotor = map.dcMotor.get(RIGHT_DRIVE_MOTOR_NAME);
-        rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightDriveMotor = new BoostedMotor(rightMotor, 1.05);
-        /*rightDriveMotor = map.dcMotor.get(RIGHT_DRIVE_MOTOR_NAME);
-        rightDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);*/
+        rightDriveMotor = map.dcMotor.get(RIGHT_DRIVE_MOTOR_NAME);
+        rightDriveMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //leftCatcherServo = map.servo.get(LEFT_CATCHER_SERVO_NAME);
         //rightCatcherServo = map.servo.get(RIGHT_CATCHER_SERVO_NAME);
@@ -109,7 +106,7 @@ public class Hardware {
         Scheduler.instance.addTask(frontSideInfaredSensor);
         Scheduler.instance.addTask(backSideInfaredSensor);
 
-        //capBallServo = map.servo.get(CAP_BALL_SERVO_NAME);
+        beaconWheelServo = map.servo.get(BEACON_WHEEL_SERVO_NAME);
     }
 
     public static void setHardwareMap(HardwareMap map) {

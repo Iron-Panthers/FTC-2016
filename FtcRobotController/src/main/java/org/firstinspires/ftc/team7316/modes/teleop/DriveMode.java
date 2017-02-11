@@ -5,8 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.team7316.util.Alliance;
 import org.firstinspires.ftc.team7316.util.Constants;
+import org.firstinspires.ftc.team7316.util.Loopable;
 import org.firstinspires.ftc.team7316.util.Scheduler;
 import org.firstinspires.ftc.team7316.util.commands.AutoCodes;
+import org.firstinspires.ftc.team7316.util.commands.SetServoPosition;
 import org.firstinspires.ftc.team7316.util.commands.conditions.InvertedConditional;
 import org.firstinspires.ftc.team7316.util.commands.conditions.ServoPositionConditional;
 import org.firstinspires.ftc.team7316.util.commands.drive.LineFollowUntilCondition;
@@ -107,6 +109,9 @@ public class DriveMode extends OpMode {
         capBallInput.addListener(capballDropper);
         */
 
+        Loopable setWheelServoPosition = new SetServoPosition(Hardware.instance.beaconWheelServo, Constants.WHEEL_SERVO_RELEASE);
+        Scheduler.instance.addTask(setWheelServoPosition);
+
         Scheduler.instance.addTask(leftDrive);
         Scheduler.instance.addTask(rightDrive);
         Scheduler.instance.addTask(aAndBToggle);
@@ -116,6 +121,7 @@ public class DriveMode extends OpMode {
         Scheduler.instance.addTask(leftPusher);
         Scheduler.instance.addTask(intakeRelease);
         Scheduler.instance.addTask(catapultDrive);
+        Scheduler.instance.addTask(gpWrapperDriver);
         /*Scheduler.instance.addTask(capBallInput);
         Scheduler.instance.addTask(capballWrapper);*/
     }
