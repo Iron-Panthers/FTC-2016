@@ -2,8 +2,10 @@ package org.firstinspires.ftc.team7316.util.commands.drive;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.LightSensor;
+import com.vuforia.EyewearUserCalibrator;
 
 import org.firstinspires.ftc.team7316.util.Alliance;
+import org.firstinspires.ftc.team7316.util.Constants;
 import org.firstinspires.ftc.team7316.util.Loopable;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
@@ -19,10 +21,6 @@ public class LineFollow implements Loopable {
     private boolean boosted = false;
 
     private LightSensor sensor;
-
-    private final double wantedLight = 0.25; //FIX THESE NUMBERS WITH TESTING
-    private final double minLight = 0.03;
-    private final double maxLight = 0.5;
 
     private double errorToLeftRatio = 0;
     private double errorToRightRatio = 0;
@@ -89,9 +87,8 @@ public class LineFollow implements Loopable {
 
         sensor.enableLed(true);
 
-        double minError = this.error(minLight);
-        double maxError = this.error(maxLight);
-
+        double minError = this.error(Constants.MIN_LIGHT);
+        double maxError = this.error(Constants.MAX_LIGHT);
         double minErrorSlope = (maxPower - wantedPower)/minError;
         double maxErrorSlope = (minPower - wantedPower)/maxError;
 
@@ -150,7 +147,7 @@ public class LineFollow implements Loopable {
     }
 
     private double error(double reading) {
-        double error = reading - this.wantedLight;
+        double error = reading - Constants.WANTED_LIGHT;
 
         this.errorSum += error;
         this.sumCounts++;

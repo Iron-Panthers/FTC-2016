@@ -19,6 +19,9 @@ public class Constants {
     public static final double WHEEL_SERVO_RELEASE = 0.5;
     public static final double CAP_BALL_SPEED = 1;
     public static final double CAP_THRESHOLD = 0.1;
+    public static final double WANTED_LIGHT = 0.25; //FIX THESE NUMBERS WITH TESTING
+    public static final double MIN_LIGHT = 0.03;
+    public static final double MAX_LIGHT = 0.5;
 
     public static double distanceToTicks(double dist) {
         double inches = dist*12;
