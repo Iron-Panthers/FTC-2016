@@ -29,6 +29,8 @@ public class TurnDoubleSensor implements Loopable {
     private static final double DRIVING_POWER = Constants.DRIVER_MOTOR_DEADZONE;
     private static final double WANTED_THRESHOLD = 0.02;
     private static final int MAX_CYCLES = 5;
+    private static final double TURN_PERCENT_BOOST = 1.3;
+    private static final double DRIVING_BIAS = 0.5;
 
     public TurnDoubleSensor(DcMotor leftM, DcMotor rightM, OpticalDistanceSensor front, OpticalDistanceSensor back, Direction direction) {
         this.leftM = leftM;
@@ -57,7 +59,7 @@ public class TurnDoubleSensor implements Loopable {
                 this.leftM.setPower(DRIVING_POWER);
                 this.rightM.setPower(DRIVING_POWER);
 
-                if (Math.abs(this.averageError()) < WANTED_THRESHOLD) {
+                if (Math.abs(this.back.getLightDetected()) > Constants.WANTED_LIGHT) {
                     this.leftM.setPower(0);
                     this.rightM.setPower(0);
                     this.state = State.TURNING;
@@ -69,22 +71,23 @@ public class TurnDoubleSensor implements Loopable {
                 this.cycles++;
 
                 if (this.direction == Direction.LEFT) {
-                    this.leftM.setPower(DRIVING_POWER);
-                    this.rightM.setPower(-DRIVING_POWER);
+                    this.leftM.setPower(DRIVING_POWER * TURN_PERCENT_BOOST);
+                    this.rightM.setPower(-DRIVING_POWER * TURN_PERCENT_BOOST);
                 } else if (this.direction == Direction.RIGHT) {
-                    this.leftM.setPower(-DRIVING_POWER);
-                    this.rightM.setPower(DRIVING_POWER);
+                    this.leftM.setPower(-DRIVING_POWER * TURN_PERCENT_BOOST);
+                    this.rightM.setPower(DRIVING_POWER * TURN_PERCENT_BOOST);
                 }
 
-                if (Math.abs(front.getLightDetected() - back.getLightDetected()) < WANTED_THRESHOLD) {
+                if (Math.abs(this.front.getLightDetected()) > Constants.WANTED_LIGHT) {
+                //if (Math.abs(front.getLightDetected()) < Constants.WANTED_LIGHT && Math.abs(back.getLightDetected()) < Constants.WANTED_LIGHT) {
                     this.leftM.setPower(0);
                     this.rightM.setPower(0);
 
-                    if (Math.abs(this.averageError()) < WANTED_THRESHOLD || this.cycles > MAX_CYCLES) {
+                    //if (Math.abs(this.averageError()) < WANTED_THRESHOLD || this.cycles > MAX_CYCLES) {
                         this.state = State.DONE;
-                    } else {
-                        this.state = State.DRIVING;
-                    }
+                    //} else {
+                    //    this.state = State.DRIVING;
+                    //}
                 }
 
                 break;
@@ -115,6 +118,6 @@ public class TurnDoubleSensor implements Loopable {
     }
 
     public double averageError() {
-        return (frontError() + backError()) / 2;
+        return (1-DRIVING_BIAS)*frontError() + DRIVING_BIAS*backError();
     }
 }
