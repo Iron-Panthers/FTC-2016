@@ -2,6 +2,7 @@ package org.firstinspires.ftc.team7316.util.commands;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.team7316.util.Scheduler;
 import org.firstinspires.ftc.team7316.util.commands.drive.DriveDistanceLameOrConditional;
 import org.firstinspires.ftc.team7316.modes.CommandAuto;
 import org.firstinspires.ftc.team7316.util.Alliance;
@@ -25,6 +26,7 @@ import org.firstinspires.ftc.team7316.util.commands.flow.Wait;
 import org.firstinspires.ftc.team7316.util.commands.turn.LeftHoldTurnUntilConditional;
 import org.firstinspires.ftc.team7316.util.commands.turn.RightHoldTurnUntilConditional;
 import org.firstinspires.ftc.team7316.util.commands.turn.TurnAccurate;
+import org.firstinspires.ftc.team7316.util.commands.turn.TurnDoubleSensor;
 import org.firstinspires.ftc.team7316.util.commands.turn.TurnGyro;
 import org.firstinspires.ftc.team7316.util.commands.turn.TurnGyroPID;
 import org.firstinspires.ftc.team7316.util.commands.turn.TurnUntilConditional;
@@ -94,9 +96,9 @@ public class AutoCodes {
         Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_DONT_STORE);
         Loopable setLeftServoPosition = new SetServoPosition(Hardware.instance.leftBeaconServo, Constants.LEFT_OFF);
         Loopable setRightServoPosition = new SetServoPosition(Hardware.instance.rightBeaconServo, Constants.RIGHT_OFF);
-        Loopable setWheelServoPosition = new SetServoPosition(Hardware.instance.beaconWheelServo, Constants.WHEEL_SERVO_RELEASE);
+        Loopable setBeaconServoPosition = new SetServoPosition(Hardware.instance.beaconWheelServo, 0.35);
 
-        Loopable[] cmds = {setServoPosition, setLeftServoPosition, setRightServoPosition, setWheelServoPosition};
+        Loopable[] cmds = {setServoPosition, setLeftServoPosition, setRightServoPosition};
 
         return new CommandSequence(cmds);
     }
@@ -230,104 +232,25 @@ public class AutoCodes {
     public static CommandSequence redDoubleShootDoubleBeacon() {
         //double shoot
 
-        //reset servos
+        //double beacon red
 
-        TurnGyroPID turnTowardsLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -28);
-
-        SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurate(8, 0.4);
-
-        TurnGyroPID turnAlongLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -22);
-
-        //arm capatult
-
-        //follow line and press
-
-        SimultaneousCommands backwards = AutoCodes.robotDriveDistanceAccurate(0.8, -0.3);
-
-        Loopable turnTowardsOtherLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -90);
-
-        SimultaneousCommands driveToOtherLine = AutoCodes.robotDriveDistanceAccurate(4, 0.3);
-
-        Loopable turnBack = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 90);
-
-        //follow line and press
-
-        Loopable[] cmds = {AutoCodes.doubleShoot(), AutoCodes.resetServos(), turnTowardsLine, driveToLine, AutoCodes.armCatapult(), turnAlongLine, AutoCodes.followLineThenBeacon(Alliance.RED), backwards, turnTowardsOtherLine, driveToOtherLine, turnBack, AutoCodes.followLineThenBeacon(Alliance.RED)};
+        Loopable[] cmds = {};
 
         return new CommandSequence(cmds);
     }
 
     public static CommandSequence blueDoubleShootDoubleBeacon() {
-
-        SimultaneousCommands driveUp = AutoCodes.robotDriveDistanceAccurate(0.5, 0.2);
-
         //double shoot
 
-        //reset servos
+        TurnGyroPID toLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 36);
 
-        TurnGyroPID turnTowardsLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 20);
+        //double beacon blue
 
-        SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurate(7.4, 0.4);
+        SimultaneousCommands driveBackABit = AutoCodes.robotDriveTime(0.3, -0.5);
+        TurnGyroPID pointButtTowardsCenter = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -40);
+        SimultaneousCommands driveBackFast = AutoCodes.robotDriveDistanceAccurate(4.5, -1);
 
-        TurnGyroPID turnAlongLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 18);
-
-        //arm capatult
-
-        //follow line and press
-
-        SimultaneousCommands backwards = AutoCodes.robotDriveDistanceAccurate(0.65, -0.3);
-
-        Loopable wait = new Wait(0.5);
-
-        Loopable turnTowardsOtherLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -85);
-
-        SimultaneousCommands driveToOtherLine = AutoCodes.robotDriveDistanceAccurate(4, 0.3);
-
-        Loopable turnBack = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 90);
-
-        SimultaneousCommands driveToSecondLine = AutoCodes.robotDriveDistanceAccurate(0.6, 0.4);
-
-        //follow line and press
-
-        Loopable[] cmds = {driveUp, AutoCodes.doubleShoot(), AutoCodes.resetServos(), turnTowardsLine, driveToLine, AutoCodes.armCatapult(), turnAlongLine, AutoCodes.followLineThenBeacon(Alliance.BLUE), backwards, wait, turnTowardsOtherLine, driveToOtherLine, turnBack, driveToSecondLine, AutoCodes.followLineThenBeacon(Alliance.BLUE)};
-
-        return new CommandSequence(cmds);
-    }
-
-    public static CommandSequence blueDoubleShootDoubleBeaconToLine() {
-
-        SimultaneousCommands driveUp = AutoCodes.robotDriveDistanceAccurate(0.5, 0.2);
-
-        //double shoot
-
-        //reset servos
-
-        TurnGyroPID turnTowardsLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 24);
-
-        Conditional hitLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.3, false);
-        SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurateOrConditonal(7, 0.9, hitLine);
-
-        Conditional offLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.15, true);
-        SimultaneousCommands driveABitMore = AutoCodes.robotDriveUntilCondition(offLine, 0.2);
-
-        TurnUntilConditional turnAlongLine = new TurnUntilConditional(25, 0.5, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, offLine);
-
-        //arm capatult
-
-        //follow line and press
-
-        SimultaneousCommands backwards = AutoCodes.robotDriveDistanceAccurate(0.65, -0.3);
-
-        Loopable turnTowardsOtherLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -88);
-
-        SimultaneousCommands driveToOtherLine = AutoCodes.robotDriveDistanceAccurate(4.1, 0.3);
-
-        Conditional onLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.2, false);
-        TurnUntilConditional turnBack = new TurnUntilConditional(90, 0.45, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, onLine);
-
-        //follow line and press
-
-        Loopable[] cmds = {driveUp, AutoCodes.doubleShoot(), AutoCodes.resetServos(), turnTowardsLine, driveToLine, driveABitMore, AutoCodes.armCatapult(), turnAlongLine, AutoCodes.followLineThenBeacon(Alliance.BLUE), backwards, turnTowardsOtherLine, driveToOtherLine, turnBack, AutoCodes.followLineThenBeacon(Alliance.BLUE)};
+        Loopable[] cmds = {AutoCodes.doubleShootFull(), toLine, AutoCodes.blueDoubleBeacon(), driveBackABit, pointButtTowardsCenter, driveBackFast};
 
         return new CommandSequence(cmds);
     }
@@ -382,51 +305,47 @@ public class AutoCodes {
 
     public static CommandSequence blueDoubleBeacon() {
         Conditional hitLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.3, false);
-        SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurateOrConditonal(5, 0.3, hitLine);
+        SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurate(3.5, 0.4);
 
-        Conditional offLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.08, true);
-        SimultaneousCommands drivePastLine = AutoCodes.robotDriveDistanceOrConditonal(0.1, 0.2, offLine);
+        TurnDoubleSensor turnDouble = new TurnDoubleSensor(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensorLeft, Hardware.instance.lightSensorRight, TurnDoubleSensor.Direction.RIGHT, 1);
 
         //arm catapult
         //reset servos
 
         /*Conditional offLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.08, true);
         Loopable rotateALittle = new TurnUntilConditional(30, 0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, offLine);*/
-        Loopable rotateUntilLine = new TurnUntilConditional(50, 0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, hitLine);
+        //Loopable rotateUntilLine = new TurnUntilConditional(50, 0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, hitLine);
 
         //follow line and press
 
-        SimultaneousCommands backwards = AutoCodes.robotDriveDistanceAccurate(0.635, -0.3);
+        SimultaneousCommands backwards = AutoCodes.robotDriveDistanceAccurate(0.63, -0.3);
 
-        Loopable turnTowardsOtherLine = new TurnAccurate(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -98, 0.4);
+        Loopable turnTowardsOtherLine = new TurnAccurate(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -90, 0.28);
 
-        SimultaneousCommands driveToOtherLine = AutoCodes.robotDriveDistanceAccurate(2.98, 0.3);
+        SimultaneousCommands driveToOtherLine = AutoCodes.robotDriveDistanceAccurate(2.75, 0.4);
+        SimultaneousCommands driveToLineCarefully = AutoCodes.robotDriveDistanceAccurateOrConditonal(1, 0.15, hitLine);
 
-        Conditional onLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.2, false);
-        TurnGyro turnBack = new RightHoldTurnUntilConditional(120, 0.7, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, onLine);
+        TurnDoubleSensor turnDoubleSecondDouble = new TurnDoubleSensor(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensorLeft, Hardware.instance.lightSensorRight, TurnDoubleSensor.Direction.RIGHT, 1);
 
         //follow line and press
 
-        Loopable[] cmds = {driveToLine, /*drivePastLine,*/ AutoCodes.armCatapult(), AutoCodes.resetServos(), /*rotateALittle,*/ rotateUntilLine, AutoCodes.followLineThenBeacon(Alliance.BLUE), backwards, turnTowardsOtherLine, driveToOtherLine, turnBack, AutoCodes.followLineThenBeacon(Alliance.BLUE)};
+        Loopable[] cmds = {driveToLine, AutoCodes.armCatapult(), AutoCodes.resetServos(), turnDouble, AutoCodes.followLineThenBeacon(Alliance.BLUE), backwards, turnTowardsOtherLine, driveToOtherLine, driveToLineCarefully, turnDoubleSecondDouble, AutoCodes.followLineThenBeacon(Alliance.BLUE)};
 
         return new CommandSequence(cmds);
     }
 
     public static CommandSequence redDoubleBeacon() {
         Conditional hitLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.3, false);
-        SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurateOrConditonal(5, 0.3, hitLine);
+        SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurateOrConditonal(3.3, 0.3, hitLine);
 
-        /*SimultaneousCommands driveBackFromLine = AutoCodes.robotDriveUntilCondition(hitLine, -0.3);
-
-        Conditional offLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.08, true);
-        SimultaneousCommands driveToBehindLine  = AutoCodes.robotDriveUntilCondition(offLine, -0.1);/
+        TurnDoubleSensor turnDouble = new TurnDoubleSensor(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensorLeft, Hardware.instance.lightSensorRight, TurnDoubleSensor.Direction.LEFT);
 
         //arm catapult
         //reset servos
 
         /*Conditional offLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.08, true);
         Loopable rotateALittle = new TurnUntilConditional(30, 0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, offLine);*/
-        Loopable rotateUntilLine = new TurnUntilConditional(50, -0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, hitLine);
+        //Loopable rotateUntilLine = new TurnUntilConditional(50, -0.3, Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, hitLine);
 
         //follow line and press
 
@@ -441,7 +360,7 @@ public class AutoCodes {
 
         //follow line and press
 
-        Loopable[] cmds = {driveToLine, AutoCodes.armCatapult(), AutoCodes.resetServos(), /*rotateALittle,*/ rotateUntilLine, AutoCodes.followLineThenBeacon(Alliance.RED), backwards, turnTowardsOtherLine, driveToOtherLine, turnBack, AutoCodes.followLineThenBeacon(Alliance.RED)};
+        Loopable[] cmds = {driveToLine, AutoCodes.armCatapult(), AutoCodes.resetServos(), /*rotateALittle,*/ turnDouble, AutoCodes.followLineThenBeacon(Alliance.RED), backwards, turnTowardsOtherLine, driveToOtherLine, turnBack, AutoCodes.followLineThenBeacon(Alliance.RED)};
 
         return new CommandSequence(cmds);
     }
@@ -468,7 +387,7 @@ public class AutoCodes {
 
         Loopable runIntake = new RunMotorForTime(Hardware.instance.intakeMotor, Constants.INTAKE_IN_SPEED, 3);
 
-        Loopable[] cmds = {AutoCodes.resetServos(), AutoCodes.robotDriveTime(0.5, 0.3), setServoPosition1, wait, setServoPosition2, wait, armCatapult, shootCatapult, armCatapult, runIntake, shootCatapult};
+        Loopable[] cmds = {AutoCodes.resetServos(), AutoCodes.robotDriveTime(0.7, 0.2), setServoPosition1, wait, setServoPosition2, wait, armCatapult, shootCatapult, armCatapult, runIntake, shootCatapult};
 
         return new CommandSequence(cmds);
     }
