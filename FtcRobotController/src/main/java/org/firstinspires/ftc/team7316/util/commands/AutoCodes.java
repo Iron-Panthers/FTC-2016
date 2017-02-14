@@ -404,4 +404,20 @@ public class AutoCodes {
         return new CommandSequence(AutoCodes.doubleShootFull(), driveToBall);
     }
 
+    public static CommandSequence redDoubleShootAndRamp() {
+        Loopable wait = new Wait(10);
+        Loopable turnTowardsRamp = new TurnAccurate(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -45, 0.5);
+        SimultaneousCommands driveToRamp = AutoCodes.robotDriveDistanceAccurate(6, 0.75);
+
+        return new CommandSequence(AutoCodes.doubleShootFull(), wait, turnTowardsRamp, driveToRamp);
+    }
+
+    public static CommandSequence blueDoubleShootAndRamp() {
+        Loopable wait = new Wait(10);
+        Loopable turnTowardsRamp = new TurnAccurate(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 45, 0.5);
+        SimultaneousCommands driveToRamp = AutoCodes.robotDriveDistanceAccurate(6, 0.75);
+
+        return new CommandSequence(AutoCodes.doubleShootFull(), wait, turnTowardsRamp, driveToRamp);
+    }
+
 }
