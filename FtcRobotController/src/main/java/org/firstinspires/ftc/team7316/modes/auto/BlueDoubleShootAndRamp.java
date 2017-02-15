@@ -13,6 +13,6 @@ import org.firstinspires.ftc.team7316.util.commands.AutoCodes;
 public class BlueDoubleShootAndRamp extends CommandAuto {
     @Override
     protected Loopable getTask() {
-        return AutoCodes.blueDoubleShootAndRamp();
+        return AutoCodes.blueDoubleShootAndRamp(15);
     }
 }
