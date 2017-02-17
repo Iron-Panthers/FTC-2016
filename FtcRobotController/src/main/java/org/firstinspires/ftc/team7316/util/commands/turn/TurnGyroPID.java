@@ -15,7 +15,7 @@ public class TurnGyroPID implements Loopable {
 
     public static final float P = 0.01f, I = 0, D = 0;
     public static final float ERROR_THRESHOLD = 3, DELTA_THRESHOLD = 0;
-    private static final double maxPower = 0.4;
+    private static final double maxPower = 0.45;
     private static final double minPower = 0.2;
     public double power = 0;
     private int turnAngle;

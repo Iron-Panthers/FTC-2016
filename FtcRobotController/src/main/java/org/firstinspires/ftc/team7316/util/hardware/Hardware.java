@@ -48,18 +48,21 @@ public class Hardware {
     private static final String FRONT_SIDE_IR_NAME = "fi";
     private static final String BACK_SIDE_IR_NAME = "bi";
     private static final String BEACON_WHEEL_SERVO_NAME = "boss";
+    private static final String CAP_BALL_WHACKER_MOTOR_NAME = "wkm";
+    private static final String CAP_BALL_WHACKER_LEFT = "wkl";
+    private static final String CAP_BALL_WHACKER_RIGHT = "wkr";
 
     public DcMotor leftDriveMotor;
     public DcMotor rightDriveMotor;
     public DcMotor catapultMotor;
-    public DcMotor intakeMotor;
+    public DcMotor intakeMotor, capBallWhackerMotor;
     public Servo leftBeaconServo, rightBeaconServo, intakeUpServo;
     public Servo beaconWheelServo;
     public OpticalDistanceSensor catapultSensor, lightSensorLeft, lightSensorRight;
     public GyroSensor gyroSensor;
     //public DcMotor capBallMotor;
     public ColorSensor colorSensor;
-    public TouchSensor touchSensor;
+    public TouchSensor touchSensor, whackerLeft, whackerRight;
     public SharpIRSensor frontSideInfaredSensor, backSideInfaredSensor;
 
     public double jankDelta = 0;
@@ -85,6 +88,9 @@ public class Hardware {
         intakeMotor = map.dcMotor.get(INTAKE_MOTOR_NAME);
         intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        capBallWhackerMotor = map.dcMotor.get(CAP_BALL_WHACKER_MOTOR_NAME);
+        capBallWhackerMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         leftBeaconServo = map.servo.get(LEFT_BEACON_SERVO_NAME);
         rightBeaconServo = map.servo.get(RIGHT_BEACON_SERVO_NAME);
 
@@ -97,6 +103,9 @@ public class Hardware {
         intakeUpServo = map.servo.get(INTAKE_UP_SERVO_NAME);
 
         touchSensor = map.touchSensor.get(TOUCH_SENSOR_NAME);
+
+        whackerLeft = map.touchSensor.get(CAP_BALL_WHACKER_LEFT);
+        whackerRight = map.touchSensor.get(CAP_BALL_WHACKER_RIGHT);
 
         //capBallMotor = map.dcMotor.get(CAP_BALL_MOTOR_NAME);
 

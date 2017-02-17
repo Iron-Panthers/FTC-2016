@@ -232,12 +232,12 @@ public class AutoCodes {
     public static CommandSequence redDoubleShootDoubleBeacon() {
         //double shoot
 
-        TurnGyroPID toLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -37);
+        TurnGyroPID toLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -38);
 
         //double beacon blue
 
         SimultaneousCommands driveBackABit = AutoCodes.robotDriveTime(0.3, -0.5);
-        TurnGyroPID pointButtTowardsCenter = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 40);
+        TurnGyroPID pointButtTowardsCenter = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 38);
         SimultaneousCommands driveBackFast = AutoCodes.robotDriveDistanceAccurate(4.5, -1);
 
         Loopable[] cmds = {AutoCodes.doubleShootFull(), toLine, AutoCodes.redDoubleBeacon(), driveBackABit, pointButtTowardsCenter, driveBackFast};
@@ -421,7 +421,28 @@ public class AutoCodes {
     }
 
     public static CommandSequence redBeaconDefense() {
-        return new CommandSequence();
+
+        Loopable turnLeft = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 20);
+        SimultaneousCommands forward = AutoCodes.robotDriveDistanceAccurate(10, 0.8);
+
+        return new CommandSequence(AutoCodes.doubleShootFull(), turnLeft, forward);
     }
+
+    public static CommandSequence redPushYogaBall() {
+        SimultaneousCommands forward = AutoCodes.robotDriveDistanceAccurate(7, 0.6);
+        SimultaneousCommands ballPush = AutoCodes.robotDriveDistanceAccurate(1, 0.6);
+        Loopable hitBall = new RunMotorUntilConditional(Hardware.instance.capBallWhackerMotor, new ButtonCondition(Hardware.instance.whackerRight), 0.5);
+
+        return new CommandSequence(forward, new SimultaneousCommands(forward, ballPush));
+    }
+
+    public static CommandSequence bluePushYogaBall() {
+        SimultaneousCommands forward = AutoCodes.robotDriveDistanceAccurate(7, 0.6);
+        SimultaneousCommands ballPush = AutoCodes.robotDriveDistanceAccurate(1, 0.6);
+        Loopable hitBall = new RunMotorUntilConditional(Hardware.instance.capBallWhackerMotor, new ButtonCondition(Hardware.instance.whackerLeft), -0.5);
+
+        return new CommandSequence(forward, new SimultaneousCommands(forward, ballPush));
+    }
+
 
 }
