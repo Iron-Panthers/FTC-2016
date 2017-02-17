@@ -3,6 +3,7 @@ package org.firstinspires.ftc.team7316.util.commands;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.team7316.util.Scheduler;
+import org.firstinspires.ftc.team7316.util.commands.conditions.InvertedConditional;
 import org.firstinspires.ftc.team7316.util.commands.drive.DriveDistanceLameOrConditional;
 import org.firstinspires.ftc.team7316.modes.CommandAuto;
 import org.firstinspires.ftc.team7316.util.Alliance;
@@ -42,6 +43,15 @@ public class AutoCodes {
     public static SimultaneousCommands robotDriveDistanceAccurate(double distance, double power) {
         DriveDistanceAccurate leftMotor = new DriveDistanceAccurate(Constants.distanceToTicks(distance), power, Hardware.instance.leftDriveMotor);
         DriveDistanceAccurate rightMotor = new DriveDistanceAccurate(Constants.distanceToTicks(distance), power, Hardware.instance.rightDriveMotor);
+        Loopable[] both = {leftMotor, rightMotor};
+
+        SimultaneousCommands bothDrive = new SimultaneousCommands(both);
+        return bothDrive;
+    }
+
+    public static SimultaneousCommands robotDriveDistance(double distance, double power) {
+        DriveDistance leftMotor = new DriveDistance(Constants.distanceToTicks(distance), power, Hardware.instance.leftDriveMotor);
+        DriveDistance rightMotor = new DriveDistance(Constants.distanceToTicks(distance), power, Hardware.instance.rightDriveMotor);
         Loopable[] both = {leftMotor, rightMotor};
 
         SimultaneousCommands bothDrive = new SimultaneousCommands(both);
@@ -429,19 +439,27 @@ public class AutoCodes {
     }
 
     public static CommandSequence redPushYogaBall() {
-        SimultaneousCommands forward = AutoCodes.robotDriveDistanceAccurate(7, 0.6);
-        SimultaneousCommands ballPush = AutoCodes.robotDriveDistanceAccurate(1, 0.6);
-        Loopable hitBall = new RunMotorUntilConditional(Hardware.instance.capBallWhackerMotor, new ButtonCondition(Hardware.instance.whackerRight), 0.5);
+        Conditional isReset = new InvertedConditional(new ButtonCondition(Hardware.instance.whackerLeft));
+        Conditional isAtWhackLimit = new ButtonCondition(Hardware.instance.whackerRight);
 
-        return new CommandSequence(forward, new SimultaneousCommands(forward, ballPush));
+        SimultaneousCommands forward = AutoCodes.robotDriveDistance(5, 0.6);
+        Loopable reset = new RunMotorUntilConditional(Hardware.instance.capBallWhackerMotor, isReset, -0.5);
+        SimultaneousCommands ballPush = AutoCodes.robotDriveDistance(1, 1);
+        Loopable hitBall = new RunMotorUntilConditional(Hardware.instance.capBallWhackerMotor, isAtWhackLimit, 1);
+
+        return new CommandSequence(reset, forward, new SimultaneousCommands(ballPush, hitBall));
     }
 
     public static CommandSequence bluePushYogaBall() {
-        SimultaneousCommands forward = AutoCodes.robotDriveDistanceAccurate(7, 0.6);
-        SimultaneousCommands ballPush = AutoCodes.robotDriveDistanceAccurate(1, 0.6);
-        Loopable hitBall = new RunMotorUntilConditional(Hardware.instance.capBallWhackerMotor, new ButtonCondition(Hardware.instance.whackerLeft), -0.5);
+        Conditional isAtWhackLimit = new InvertedConditional(new ButtonCondition(Hardware.instance.whackerLeft));
+        Conditional isReset = new ButtonCondition(Hardware.instance.whackerRight);
 
-        return new CommandSequence(forward, new SimultaneousCommands(forward, ballPush));
+        SimultaneousCommands forward = AutoCodes.robotDriveDistance(5, 0.6);
+        Loopable reset = new RunMotorUntilConditional(Hardware.instance.capBallWhackerMotor, isReset, 0.5);
+        SimultaneousCommands ballPush = AutoCodes.robotDriveDistance(1, 1);
+        Loopable hitBall = new RunMotorUntilConditional(Hardware.instance.capBallWhackerMotor, isAtWhackLimit, -1);
+
+        return new CommandSequence(reset, forward, new SimultaneousCommands(ballPush, hitBall));
     }
 
 

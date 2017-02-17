@@ -12,9 +12,9 @@ public class DriveDistance implements Loopable {
     private DcMotor motor;
 
     private double power;
-    private float wantedDist;
+    private double wantedDist;
 
-    public DriveDistance (float dist, double power, DcMotor motor) {
+    public DriveDistance (double dist, double power, DcMotor motor) {
         wantedDist = dist;
         this.power = power;
         this.motor = motor;
