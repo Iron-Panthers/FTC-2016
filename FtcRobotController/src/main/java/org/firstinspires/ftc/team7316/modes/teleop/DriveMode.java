@@ -91,7 +91,6 @@ public class DriveMode extends OpMode {
                 holdBallConditional
         );
         gpWrapperNotDriver.rightTriggerWrapper.addListener(catapultDrive);
-        gpWrapperNotDriver.leftTriggerWrapper.addListener(Hardware.instance.whackerWrapper);
 
         servoPositionConditional = new InvertedConditional(AutoCodes.servoPositionRange(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_LOCKED - 0.05, Constants.INTAKE_SERVO_LOCKED + 0.05));
         catapultPositionConditional = new CatapultPositionConditional(catapultDrive, true);
@@ -111,8 +110,11 @@ public class DriveMode extends OpMode {
         */
 
         Loopable setWheelServoPosition = new SetServoPosition(Hardware.instance.beaconWheelServo, Constants.WHEEL_SERVO_RELEASE);
-        Scheduler.instance.addTask(setWheelServoPosition);
 
+        gpWrapperDriver.leftTriggerWrapper.addListener(Hardware.instance.whackerWrapper);
+
+        Scheduler.instance.addTask(setWheelServoPosition);
+        Scheduler.instance.addTask(Hardware.instance.whackerWrapper);
         Scheduler.instance.addTask(leftDrive);
         Scheduler.instance.addTask(rightDrive);
         Scheduler.instance.addTask(aAndBToggle);

@@ -15,15 +15,17 @@ import org.firstinspires.ftc.team7316.util.input.ButtonListener;
  * Created by Maxim on 2/17/2017.
  */
 
-public class WhackerWrapper implements ButtonListener {
+public class WhackerWrapper implements ButtonListener, Loopable {
 
     private DcMotor dcMotor;
+    private Loopable currentCommand;
     private TouchSensor left, right;
 
     public WhackerWrapper(DcMotor dcMotor, TouchSensor left, TouchSensor right) {
         this.dcMotor = dcMotor;
         this.left = left;
         this.right = right;
+        this.currentCommand = null;
     }
 
     public Loopable moveToCommand(LateralDirection side, double power) {
@@ -40,15 +42,39 @@ public class WhackerWrapper implements ButtonListener {
 
     @Override
     public void onPressed() {
-        if (right.isPressed()) {
-            Scheduler.instance.addTask(moveToCommand(LateralDirection.LEFT, 1));
-        } else {
-            Scheduler.instance.addTask(moveToCommand(LateralDirection.RIGHT, 1));
+        if (currentCommand == null) {
+            currentCommand = moveToCommand(LateralDirection.LEFT, 1);
+            Scheduler.instance.addTask(currentCommand);
         }
     }
 
     @Override
     public void onReleased() {
+        if (currentCommand == null) {
+            currentCommand = moveToCommand(LateralDirection.RIGHT, 1);
+            Scheduler.instance.addTask(currentCommand);
+        }
+    }
+
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void loop() {
+        if (currentCommand != null && currentCommand.shouldRemove()) {
+            currentCommand = null;
+        }
+    }
+
+    @Override
+    public boolean shouldRemove() {
+        return false;
+    }
+
+    @Override
+    public void terminate() {
 
     }
 }

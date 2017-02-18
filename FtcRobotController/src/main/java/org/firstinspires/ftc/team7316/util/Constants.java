@@ -14,7 +14,7 @@ public class Constants {
     public static final float DRIVER_MOTOR_DEADZONE = 0.14f;
     public static final int ENCODER_TICK_PER_REV = 1120;
     public static final double DISTANCE_PER_REV = 4*Math.PI;
-    public static final double INTAKE_IN_SPEED = 1;
+    public static final double INTAKE_IN_SPEED = 0.7;
     public static final int CAP_BALL_TOP_LIMIT = 18000;
     public static final double WHEEL_SERVO_RELEASE = 0.5;
     public static final double CAP_BALL_SPEED = 1;
