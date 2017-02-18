@@ -50,6 +50,12 @@ public class AutoCodes {
         return bothDrive;
     }
 
+    public static SimultaneousCommands robotDriveAccelerate(double time, double starting, double ending) {
+        DriveMotorAccelerate left = new DriveMotorAccelerate(Hardware.instance.leftDriveMotor, starting, ending, time);
+        DriveMotorAccelerate right = new DriveMotorAccelerate(Hardware.instance.rightDriveMotor, starting, ending, time);
+        return new SimultaneousCommands(left, right);
+    }
+
     public static SimultaneousCommands robotDriveDistance(double distance, double power) {
         DriveDistance leftMotor = new DriveDistance(Constants.distanceToTicks(distance), power, Hardware.instance.leftDriveMotor);
         DriveDistance rightMotor = new DriveDistance(Constants.distanceToTicks(distance), power, Hardware.instance.rightDriveMotor);
