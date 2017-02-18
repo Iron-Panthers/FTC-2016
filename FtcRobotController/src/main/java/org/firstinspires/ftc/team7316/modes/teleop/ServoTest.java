@@ -11,7 +11,7 @@ import org.firstinspires.ftc.team7316.util.input.GamepadWrapper;
 /**
  * Created by Maxim on 10/18/2016.
  */
-@TeleOp(name="servoangletest")
+@TeleOp(name="Servo Test")
 public class ServoTest extends OpMode {
 
     private static final double increments = 0.05;
@@ -26,50 +26,54 @@ public class ServoTest extends OpMode {
         right = hardwareMap.servo.get("rightServo");
         leftpos = 0.5;
         rightpos = 0.5;
-        gp.y_button.addListener(new ButtonListener() {
-            @Override
-            public void onPressed() {
-                rightpos += .05;
-            }
+        if (left != null) {
+            gp.y_button.addListener(new ButtonListener() {
+                @Override
+                public void onPressed() {
+                    rightpos += .05;
+                }
 
-            @Override
-            public void onReleased() {
+                @Override
+                public void onReleased() {
 
-            }
-        });
-        gp.a_button.addListener(new ButtonListener() {
-            @Override
-            public void onPressed() {
-                rightpos -= .05;
-            }
+                }
+            });
+            gp.a_button.addListener(new ButtonListener() {
+                @Override
+                public void onPressed() {
+                    rightpos -= .05;
+                }
 
-            @Override
-            public void onReleased() {
+                @Override
+                public void onReleased() {
 
-            }
-        });
-        gp.dp_up.addListener(new ButtonListener() {
-            @Override
-            public void onPressed() {
-                leftpos += .05;
-            }
+                }
+            });
+        }
+        if (right != null) {
+            gp.dp_up.addListener(new ButtonListener() {
+                @Override
+                public void onPressed() {
+                    leftpos += .05;
+                }
 
-            @Override
-            public void onReleased() {
+                @Override
+                public void onReleased() {
 
-            }
-        });
-        gp.dp_down.addListener(new ButtonListener() {
-            @Override
-            public void onPressed() {
-                leftpos -= .05;
-            }
+                }
+            });
+            gp.dp_down.addListener(new ButtonListener() {
+                @Override
+                public void onPressed() {
+                    leftpos -= .05;
+                }
 
-            @Override
-            public void onReleased() {
+                @Override
+                public void onReleased() {
 
-            }
-        });
+                }
+            });
+        }
     }
 
     @Override
@@ -77,8 +81,12 @@ public class ServoTest extends OpMode {
 
         Scheduler.instance.loop();
 
-        left.setPosition(leftpos);
-        right.setPosition(rightpos);
+        if (left != null) {
+            left.setPosition(leftpos);
+        }
+        if (right != null) {
+            right.setPosition(rightpos);
+        }
         telemetry.addData("left", leftpos);
         telemetry.addData("right", rightpos);
 

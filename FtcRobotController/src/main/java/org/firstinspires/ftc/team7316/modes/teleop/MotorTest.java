@@ -5,14 +5,15 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.team7316.util.hardware.Hardware;
+
 /**
  * Created by Maxim on 10/19/2016.
  */
-@Disabled
-@TeleOp(name = "EngieTest")
+@TeleOp(name = "Motor Test")
 public class MotorTest extends OpMode {
 
-    DcMotor motor;
+    private DcMotor motor;
 
     @Override
     public void init() {
