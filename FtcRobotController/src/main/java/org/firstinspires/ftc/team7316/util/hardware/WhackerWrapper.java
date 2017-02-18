@@ -25,7 +25,6 @@ public class WhackerWrapper implements ButtonListener, Loopable {
         this.dcMotor = dcMotor;
         this.left = left;
         this.right = right;
-        this.currentCommand = null;
     }
 
     public Loopable moveToCommand(LateralDirection side, double power) {
@@ -42,29 +41,36 @@ public class WhackerWrapper implements ButtonListener, Loopable {
 
     @Override
     public void onPressed() {
-        if (currentCommand == null) {
-            currentCommand = moveToCommand(LateralDirection.LEFT, 1);
-            Scheduler.instance.addTask(currentCommand);
+        if (currentCommand != null) {
+            currentCommand.terminate();
         }
+        currentCommand = moveToCommand(LateralDirection.LEFT, 1);
+        currentCommand.init();
     }
 
     @Override
     public void onReleased() {
-        if (currentCommand == null) {
-            currentCommand = moveToCommand(LateralDirection.RIGHT, 1);
-            Scheduler.instance.addTask(currentCommand);
+        if (currentCommand != null) {
+            currentCommand.terminate();
         }
+        currentCommand = moveToCommand(LateralDirection.RIGHT, 1);
+        currentCommand.init();
     }
 
     @Override
     public void init() {
-
+        currentCommand = moveToCommand(LateralDirection.RIGHT, 1);
     }
 
     @Override
     public void loop() {
-        if (currentCommand != null && currentCommand.shouldRemove()) {
-            currentCommand = null;
+
+        if (currentCommand != null){
+            currentCommand.loop();
+            if (currentCommand.shouldRemove()) {
+                currentCommand.terminate();
+                currentCommand = null;
+            }
         }
     }
 
@@ -75,6 +81,6 @@ public class WhackerWrapper implements ButtonListener, Loopable {
 
     @Override
     public void terminate() {
-
+        currentCommand.terminate();
     }
 }
