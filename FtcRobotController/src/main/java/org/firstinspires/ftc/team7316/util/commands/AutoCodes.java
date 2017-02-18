@@ -2,6 +2,7 @@ package org.firstinspires.ftc.team7316.util.commands;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.team7316.util.LateralDirection;
 import org.firstinspires.ftc.team7316.util.Scheduler;
 import org.firstinspires.ftc.team7316.util.commands.conditions.InvertedConditional;
 import org.firstinspires.ftc.team7316.util.commands.drive.DriveDistanceLameOrConditional;
@@ -323,7 +324,7 @@ public class AutoCodes {
         Conditional hitLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.3, false);
         SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurate(3.5, 0.4);
 
-        TurnDoubleSensor turnDouble = new TurnDoubleSensor(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensorLeft, Hardware.instance.lightSensorRight, TurnDoubleSensor.Direction.RIGHT, 1);
+        TurnDoubleSensor turnDouble = new TurnDoubleSensor(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensorLeft, Hardware.instance.lightSensorRight, LateralDirection.RIGHT, 1);
 
         //arm catapult
         //reset servos
@@ -341,7 +342,7 @@ public class AutoCodes {
         SimultaneousCommands driveToOtherLine = AutoCodes.robotDriveDistanceAccurate(2.75, 0.4);
         SimultaneousCommands driveToLineCarefully = AutoCodes.robotDriveDistanceAccurateOrConditonal(1, 0.15, hitLine);
 
-        TurnDoubleSensor turnDoubleSecondDouble = new TurnDoubleSensor(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensorLeft, Hardware.instance.lightSensorRight, TurnDoubleSensor.Direction.RIGHT, 1);
+        TurnDoubleSensor turnDoubleSecondDouble = new TurnDoubleSensor(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensorLeft, Hardware.instance.lightSensorRight, LateralDirection.RIGHT, 1);
 
         //follow line and press
 
@@ -354,7 +355,7 @@ public class AutoCodes {
         Conditional hitLine = new OpticalDistanceSensorThreshold(Hardware.instance.lightSensorLeft, 0.3, false);
         SimultaneousCommands driveToLine = AutoCodes.robotDriveDistanceAccurate(3.5, 0.4);
 
-        TurnDoubleSensor turnDouble = new TurnDoubleSensor(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensorLeft, Hardware.instance.lightSensorRight, TurnDoubleSensor.Direction.LEFT, 1);
+        TurnDoubleSensor turnDouble = new TurnDoubleSensor(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensorLeft, Hardware.instance.lightSensorRight, LateralDirection.LEFT, 1);
 
         //arm catapult
         //reset servos
@@ -372,7 +373,7 @@ public class AutoCodes {
         SimultaneousCommands driveToOtherLine = AutoCodes.robotDriveDistanceAccurate(2.75, 0.4);
         SimultaneousCommands driveToLineCarefully = AutoCodes.robotDriveDistanceAccurateOrConditonal(1, 0.15, hitLine);
 
-        TurnDoubleSensor turnDoubleSecondDouble = new TurnDoubleSensor(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensorLeft, Hardware.instance.lightSensorRight, TurnDoubleSensor.Direction.LEFT, 1);
+        TurnDoubleSensor turnDoubleSecondDouble = new TurnDoubleSensor(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensorLeft, Hardware.instance.lightSensorRight, LateralDirection.LEFT, 1);
 
         //follow line and press
 
@@ -439,25 +440,19 @@ public class AutoCodes {
     }
 
     public static CommandSequence redPushYogaBall() {
-        Conditional isReset = new InvertedConditional(new ButtonCondition(Hardware.instance.whackerLeft));
-        Conditional isAtWhackLimit = new ButtonCondition(Hardware.instance.whackerRight);
-
         SimultaneousCommands forward = AutoCodes.robotDriveDistance(5, 0.6);
-        Loopable reset = new RunMotorUntilConditional(Hardware.instance.capBallWhackerMotor, isReset, -0.5);
+        Loopable reset = Hardware.instance.whackerWrapper.moveToCommand(LateralDirection.LEFT, 0.5);
         SimultaneousCommands ballPush = AutoCodes.robotDriveDistance(1, 1);
-        Loopable hitBall = new RunMotorUntilConditional(Hardware.instance.capBallWhackerMotor, isAtWhackLimit, 1);
+        Loopable hitBall = Hardware.instance.whackerWrapper.moveToCommand(LateralDirection.RIGHT, 1);
 
         return new CommandSequence(reset, forward, new SimultaneousCommands(ballPush, hitBall));
     }
 
     public static CommandSequence bluePushYogaBall() {
-        Conditional isAtWhackLimit = new InvertedConditional(new ButtonCondition(Hardware.instance.whackerLeft));
-        Conditional isReset = new ButtonCondition(Hardware.instance.whackerRight);
-
         SimultaneousCommands forward = AutoCodes.robotDriveDistance(5, 0.6);
-        Loopable reset = new RunMotorUntilConditional(Hardware.instance.capBallWhackerMotor, isReset, 0.5);
+        Loopable reset = Hardware.instance.whackerWrapper.moveToCommand(LateralDirection.RIGHT, 0.5);
         SimultaneousCommands ballPush = AutoCodes.robotDriveDistance(1, 1);
-        Loopable hitBall = new RunMotorUntilConditional(Hardware.instance.capBallWhackerMotor, isAtWhackLimit, -1);
+        Loopable hitBall = Hardware.instance.whackerWrapper.moveToCommand(LateralDirection.LEFT, 1);
 
         return new CommandSequence(reset, forward, new SimultaneousCommands(ballPush, hitBall));
     }

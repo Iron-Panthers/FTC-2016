@@ -65,6 +65,8 @@ public class Hardware {
     public TouchSensor touchSensor, whackerLeft, whackerRight;
     public SharpIRSensor frontSideInfaredSensor, backSideInfaredSensor;
 
+    public WhackerWrapper whackerWrapper;
+
     public double jankDelta = 0;
     public double jankSum = 0;
 
@@ -104,8 +106,10 @@ public class Hardware {
 
         touchSensor = map.touchSensor.get(TOUCH_SENSOR_NAME);
 
-        whackerLeft = map.touchSensor.get(CAP_BALL_WHACKER_LEFT);
+        whackerLeft = new InvertedTouchSensor(map.touchSensor.get(CAP_BALL_WHACKER_LEFT));
         whackerRight = map.touchSensor.get(CAP_BALL_WHACKER_RIGHT);
+
+        whackerWrapper = new WhackerWrapper(capBallWhackerMotor, whackerLeft, whackerRight);
 
         //capBallMotor = map.dcMotor.get(CAP_BALL_MOTOR_NAME);
 

@@ -91,6 +91,7 @@ public class DriveMode extends OpMode {
                 holdBallConditional
         );
         gpWrapperNotDriver.rightTriggerWrapper.addListener(catapultDrive);
+        gpWrapperNotDriver.leftTriggerWrapper.addListener(Hardware.instance.whackerWrapper);
 
         servoPositionConditional = new InvertedConditional(AutoCodes.servoPositionRange(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_LOCKED - 0.05, Constants.INTAKE_SERVO_LOCKED + 0.05));
         catapultPositionConditional = new CatapultPositionConditional(catapultDrive, true);

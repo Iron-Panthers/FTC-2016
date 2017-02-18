@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 
 import org.firstinspires.ftc.team7316.util.Constants;
+import org.firstinspires.ftc.team7316.util.LateralDirection;
 import org.firstinspires.ftc.team7316.util.Loopable;
 import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 
@@ -11,10 +12,6 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
  * Created by andrew on 2/10/17.
  */
 public class TurnDoubleSensor implements Loopable {
-
-    public enum Direction {
-        LEFT, RIGHT
-    }
 
     enum State {
         DRIVING, TURNING_RIGHT, TURNING_LEFT, DONE
@@ -24,7 +21,7 @@ public class TurnDoubleSensor implements Loopable {
     private OpticalDistanceSensor front, back;
     private State state = State.DRIVING;
     private int cycles = 0;
-    private Direction direction;
+    private LateralDirection direction;
 
     private static final double DRIVING_POWER = Constants.DRIVER_MOTOR_DEADZONE;
     private static final double WANTED_THRESHOLD = 0.02;
@@ -33,7 +30,7 @@ public class TurnDoubleSensor implements Loopable {
     private static final double DRIVING_BIAS = 0.5;
     private static final double MIN_LIGHT = 0.08;
 
-    public TurnDoubleSensor(DcMotor leftM, DcMotor rightM, OpticalDistanceSensor front, OpticalDistanceSensor back, Direction direction) {
+    public TurnDoubleSensor(DcMotor leftM, DcMotor rightM, OpticalDistanceSensor front, OpticalDistanceSensor back, LateralDirection direction) {
         this.leftM = leftM;
         this.rightM = rightM;
         this.front = front;
@@ -41,7 +38,7 @@ public class TurnDoubleSensor implements Loopable {
         this.direction = direction;
     }
 
-    public TurnDoubleSensor(DcMotor leftM, DcMotor rightM, OpticalDistanceSensor front, OpticalDistanceSensor back, Direction direction, int cycles) {
+    public TurnDoubleSensor(DcMotor leftM, DcMotor rightM, OpticalDistanceSensor front, OpticalDistanceSensor back, LateralDirection direction, int cycles) {
         this.leftM = leftM;
         this.rightM = rightM;
         this.front = front;
@@ -82,10 +79,10 @@ public class TurnDoubleSensor implements Loopable {
 
             case TURNING_RIGHT:
 
-                if (this.direction == Direction.LEFT) {
+                if (this.direction == LateralDirection.LEFT) {
                     this.leftM.setPower(-DRIVING_POWER * TURN_PERCENT_BOOST);
                     this.rightM.setPower(DRIVING_POWER * TURN_PERCENT_BOOST);
-                } else if (this.direction == Direction.RIGHT) {
+                } else if (this.direction == LateralDirection.RIGHT) {
                     this.leftM.setPower(DRIVING_POWER * TURN_PERCENT_BOOST);
                     this.rightM.setPower(-DRIVING_POWER * TURN_PERCENT_BOOST);
                 }
@@ -109,10 +106,10 @@ public class TurnDoubleSensor implements Loopable {
                 break;
 
             case TURNING_LEFT:
-                if (this.direction == Direction.LEFT) {
+                if (this.direction == LateralDirection.LEFT) {
                     this.leftM.setPower(DRIVING_POWER * TURN_PERCENT_BOOST);
                     this.rightM.setPower(-DRIVING_POWER * TURN_PERCENT_BOOST);
-                } else if (this.direction == Direction.RIGHT) {
+                } else if (this.direction == LateralDirection.RIGHT) {
                     this.leftM.setPower(-DRIVING_POWER * TURN_PERCENT_BOOST);
                     this.rightM.setPower(DRIVING_POWER * TURN_PERCENT_BOOST);
                 }
