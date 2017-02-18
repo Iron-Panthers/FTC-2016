@@ -11,8 +11,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
  * Created by andrew on 2/4/17.
  */
 
-@Autonomous(name = "Red Double Double No Park")
-
+@Autonomous(name = "RO 2b 2s")
 public class RedDoubleDoubleNoPark extends OpMode {
 
     @Override

@@ -9,7 +9,7 @@ import org.firstinspires.ftc.team7316.util.commands.AutoCodes;
 /**
  * Created by Maxim on 1/24/2017.
  */
-@Autonomous(name="Double Shoot")
+@Autonomous(name="A 2s")
 public class DoubleShoot extends CommandAuto {
 
     @Override

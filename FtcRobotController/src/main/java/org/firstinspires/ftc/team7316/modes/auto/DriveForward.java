@@ -13,7 +13,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
  * Created by andrew on 11/20/16.
  */
 @Disabled
-@Autonomous(name = "DriveForward")
+@Autonomous(name = "A pc")
 public class DriveForward extends OpMode {
     @Override
     public void init() {

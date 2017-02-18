@@ -9,7 +9,7 @@ import org.firstinspires.ftc.team7316.util.commands.AutoCodes;
 /**
  * Created by Maxim on 2/13/2017.
  */
-@Autonomous(name="Red Double Shoot and Ramp")
+@Autonomous(name="R 2s w pr")
 public class RedDoubleShootAndRamp extends CommandAuto {
     @Override
     protected Loopable getTask() {

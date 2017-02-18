@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.team7316.modes.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.team7316.util.Alliance;
@@ -14,7 +15,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
  * Created by andrew on 2/10/17.
  */
 
-
+@Disabled
 @Autonomous(name="Double Sensor Turn")
 public class TestLineDouble extends OpMode {
     @Override

@@ -10,7 +10,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 /**
  * Created by andrew on 2/16/17.
  */
-@Autonomous(name = "Red Cap Ball Defense")
+@Autonomous(name = "R troll")
 public class RedCapBallDefense extends CommandAuto {
     @Override
     protected Loopable getTask() {

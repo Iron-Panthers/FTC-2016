@@ -10,7 +10,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 /**
  * Created by andrew on 2/3/17.
  */
-@Autonomous(name = "Double Beacon Blue")
+@Autonomous(name = "B 2b")
 public class BlueDoubleBeacon extends OpMode {
     @Override
     public void init() {

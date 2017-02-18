@@ -11,7 +11,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 /**
  * Created by andrew on 11/20/16.
  */
-@Autonomous(name = "Double Shoot and Park")
+@Autonomous(name = "A 2s pc")
 public class DoubleShootAndPark extends OpMode {
     @Override
     public void init() {

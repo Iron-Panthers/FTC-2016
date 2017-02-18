@@ -11,7 +11,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
  * Created by wayne on 9/27/16.
 */
 
-@Autonomous(name = "Red Double Beacon")
+@Autonomous(name = "R 2b")
 public class RedDoubleBeacon extends OpMode {
 
     @Override

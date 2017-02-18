@@ -11,7 +11,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
  * Created by andrew on 2/4/17.
  */
 
-@Autonomous(name = "Blue Double Double No Park")
+@Autonomous(name = "B 2b 2s")
 
 public class BlueDoubleDoubleNoPark extends OpMode {
 
