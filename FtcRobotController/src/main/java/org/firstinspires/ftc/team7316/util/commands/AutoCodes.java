@@ -115,7 +115,7 @@ public class AutoCodes {
         Loopable setRightServoPosition = new SetServoPosition(Hardware.instance.rightBeaconServo, Constants.RIGHT_OFF);
         Loopable setBeaconServoPosition = new SetServoPosition(Hardware.instance.beaconWheelServo, 0.35);
 
-        Loopable[] cmds = {setServoPosition, setLeftServoPosition, setRightServoPosition};
+        Loopable[] cmds = {setServoPosition, setLeftServoPosition, setRightServoPosition, setBeaconServoPosition};
 
         return new CommandSequence(cmds);
     }
@@ -249,7 +249,7 @@ public class AutoCodes {
     public static CommandSequence redDoubleShootDoubleBeacon() {
         //double shoot
 
-        TurnGyroPID toLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -38);
+        TurnGyroPID toLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -41);
 
         //double beacon blue
 
@@ -265,7 +265,7 @@ public class AutoCodes {
     public static CommandSequence blueDoubleShootDoubleBeacon() {
         //double shoot
 
-        TurnGyroPID toLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 36);
+        TurnGyroPID toLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 38);
 
         //double beacon blue
 
@@ -446,21 +446,25 @@ public class AutoCodes {
     }
 
     public static CommandSequence redPushYogaBall() {
-        SimultaneousCommands forward = AutoCodes.robotDriveDistance(5, 0.6);
         Loopable reset = Hardware.instance.whackerWrapper.moveToCommand(LateralDirection.LEFT, 0.5);
-        SimultaneousCommands ballPush = AutoCodes.robotDriveDistance(1, 1);
+        SimultaneousCommands forward = AutoCodes.robotDriveDistance(3.5, 0.6);
+        SimultaneousCommands approach = AutoCodes.robotDriveDistance(0.75, 0.2);
+        SimultaneousCommands ballPush = AutoCodes.robotDriveAccelerate(1.2, 0.4, 1);
         Loopable hitBall = Hardware.instance.whackerWrapper.moveToCommand(LateralDirection.RIGHT, 1);
+        SimultaneousCommands back = AutoCodes.robotDriveDistance(-1, -1);
 
-        return new CommandSequence(reset, forward, new SimultaneousCommands(ballPush, hitBall));
+        return new CommandSequence(reset, forward, approach, new SimultaneousCommands(ballPush, hitBall), back);
     }
 
     public static CommandSequence bluePushYogaBall() {
-        SimultaneousCommands forward = AutoCodes.robotDriveDistance(5, 0.6);
         Loopable reset = Hardware.instance.whackerWrapper.moveToCommand(LateralDirection.RIGHT, 0.5);
-        SimultaneousCommands ballPush = AutoCodes.robotDriveDistance(1, 1);
+        SimultaneousCommands forward = AutoCodes.robotDriveDistance(3.5, 0.6);
+        SimultaneousCommands approach = AutoCodes.robotDriveDistance(0.75, 0.2);
+        SimultaneousCommands ballPush = AutoCodes.robotDriveAccelerate(1.2, 0.4, 1);
         Loopable hitBall = Hardware.instance.whackerWrapper.moveToCommand(LateralDirection.LEFT, 1);
+        SimultaneousCommands back = AutoCodes.robotDriveDistance(-1, -1);
 
-        return new CommandSequence(reset, forward, new SimultaneousCommands(ballPush, hitBall));
+        return new CommandSequence(reset, forward, approach, new SimultaneousCommands(ballPush, hitBall), back);
     }
 
 

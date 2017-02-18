@@ -18,7 +18,6 @@ public class RedCapBallDefense extends CommandAuto {
     }
 
     public void onLoop() {
-        Hardware.log("left", Hardware.instance.whackerLeft.isPressed());
-        Hardware.log("right", Hardware.instance.whackerRight.isPressed());
+        Hardware.log("motor power", Hardware.instance.leftDriveMotor.getPower());
     }
 }
