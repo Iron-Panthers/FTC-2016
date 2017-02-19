@@ -203,9 +203,7 @@ public class AutoCodes {
 
         Loopable shootCatapult = new RunMotorForTime(Hardware.instance.catapultMotor, 1, 1);
 
-        SimultaneousCommands driveToBall = AutoCodes.robotDriveTime(2.7, 0.5);
-
-        Loopable[] cmds = {AutoCodes.resetServos(), driveToLine, setServoPosition, armCatapult, shootCatapult, driveToBall};
+        Loopable[] cmds = {AutoCodes.resetServos(), driveToLine, setServoPosition, armCatapult, shootCatapult};
 
         return new CommandSequence(cmds);
 
@@ -446,27 +444,29 @@ public class AutoCodes {
     }
 
     public static CommandSequence redPushYogaBall() {
+        Loopable fireCatapult = AutoCodes.simpleShoot();
         Loopable reset = Hardware.instance.whackerWrapper.moveToCommand(LateralDirection.LEFT, 0.5);
-        SimultaneousCommands forward = AutoCodes.robotDriveDistance(2.5, 0.6);
+        SimultaneousCommands forward = AutoCodes.robotDriveDistance(2.1, 0.6);
         SimultaneousCommands approach = AutoCodes.robotDriveDistance(2.5, 0.2);
         SimultaneousCommands ballPush = AutoCodes.robotDriveAccelerate(1.2, 0.4, 1);
         Loopable hitBall = Hardware.instance.whackerWrapper.moveToCommand(LateralDirection.RIGHT, 1);
         Wait wait = new Wait(0.5);
         SimultaneousCommands back = AutoCodes.robotDriveTime(1, -1);
 
-        return new CommandSequence(reset, forward, approach, new SimultaneousCommands(ballPush, hitBall), wait, back);
+        return new CommandSequence(fireCatapult, reset, forward, approach, new SimultaneousCommands(ballPush, hitBall), wait, back);
     }
 
     public static CommandSequence bluePushYogaBall() {
+        Loopable fireCatapult = AutoCodes.simpleShoot();
         Loopable reset = Hardware.instance.whackerWrapper.moveToCommand(LateralDirection.RIGHT, 0.5);
-        SimultaneousCommands forward = AutoCodes.robotDriveDistance(2.5, 0.6);
+        SimultaneousCommands forward = AutoCodes.robotDriveDistance(2.1, 0.6);
         SimultaneousCommands approach = AutoCodes.robotDriveDistance(2.5, 0.2);
         SimultaneousCommands ballPush = AutoCodes.robotDriveAccelerate(1.2, 0.4, 0.4);
         Loopable hitBall = Hardware.instance.whackerWrapper.moveToCommand(LateralDirection.LEFT, 1);
         Wait wait = new Wait(0.5);
         SimultaneousCommands back = AutoCodes.robotDriveTime(1, -1);
 
-        return new CommandSequence(reset, forward, approach, new SimultaneousCommands(ballPush, hitBall), wait, back);
+        return new CommandSequence(fireCatapult, reset, forward, approach, new SimultaneousCommands(ballPush, hitBall), wait, back);
     }
 
 
