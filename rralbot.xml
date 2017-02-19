@@ -8,9 +8,10 @@
         <Servo name="leftServo" port="1" />
         <Servo name="rightServo" port="2" />
         <Servo name="inUp" port="3" />
+        <Servo name="boss" port="4" />
     </ServoController>
     <MotorController name="Motor Controller 2" serialNumber="AL00UVLV">
-        <Motor name="cpm" port="1" />
+        <Motor name="wkm" port="1" />
     </MotorController>
     <MotorController name="Motor Controller 1" serialNumber="AL00VIFV">
         <Motor name="mdl" port="1" />
@@ -25,5 +26,7 @@
         <OpticalDistanceSensor name="lil" port="6" />
         <OpticalDistanceSensor name="cat" port="7" />
         <TouchSensor name="touch" port="0" />
+        <TouchSensor name="wkl" port="3" />
+        <TouchSensor name="wkr" port="7" />
     </DeviceInterfaceModule>
 </Robot>
