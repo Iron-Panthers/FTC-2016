@@ -13,7 +13,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
  */
 
 @Autonomous(name = "B 2s 2b pc")
-public class DoubleShootDoubleBeaconBlue extends OpMode {
+public class BlueDoubleShootDoubleBeacon extends OpMode {
     @Override
     public void init() {
         Scheduler.instance.clear();
@@ -21,7 +21,7 @@ public class DoubleShootDoubleBeaconBlue extends OpMode {
         Hardware.setHardwareMap(hardwareMap);
         Hardware.setTelemetry(telemetry);
 
-        Scheduler.instance.addTask(AutoCodes.blueDoubleShootDoubleBeacon());
+        Scheduler.instance.addTask(AutoCodes.blueDoubleShootDoubleBeaconAndPark());
     }
 
     @Override

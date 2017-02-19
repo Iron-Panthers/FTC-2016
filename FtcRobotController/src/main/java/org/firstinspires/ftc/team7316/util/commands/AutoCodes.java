@@ -265,13 +265,17 @@ public class AutoCodes {
 
         //double beacon blue
 
+
+        Loopable[] cmds = {AutoCodes.doubleShootFull(), toLine, AutoCodes.blueDoubleBeacon()};
+
+        return new CommandSequence(cmds);
+    }
+
+    public static CommandSequence blueDoubleShootDoubleBeaconAndPark() {
         SimultaneousCommands driveBackABit = AutoCodes.robotDriveTime(0.3, -0.5);
         TurnGyroPID pointButtTowardsCenter = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -40);
         SimultaneousCommands driveBackFast = AutoCodes.robotDriveDistanceAccurate(4.5, -1);
-
-        Loopable[] cmds = {AutoCodes.doubleShootFull(), toLine, AutoCodes.blueDoubleBeacon(), driveBackABit, pointButtTowardsCenter, driveBackFast};
-
-        return new CommandSequence(cmds);
+        return new CommandSequence(blueDoubleShootDoubleBeacon(), driveBackABit, pointButtTowardsCenter, driveBackFast);
     }
 
     public static CommandSequence blueDoubleBeaconDoubleShoot(boolean cap) {
