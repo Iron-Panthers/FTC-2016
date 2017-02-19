@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.team7316.modes.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.team7316.util.Scheduler;
@@ -13,8 +12,8 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
  */
 
 
-@Autonomous(name = "R 2s 2b pc")
-public class DoubleShootDoubleBeaconRed extends OpMode {
+@Autonomous(name = "R 2s 2b")
+public class RedDoubleShootDoubleBeaconNoPark extends OpMode {
     @Override
     public void init() {
         Scheduler.instance.clear();

@@ -189,14 +189,16 @@ public class AutoCodes {
 
         SimultaneousCommands driveToLine = AutoCodes.robotDriveTime(0.4, 0.3);
 
-        Loopable setServoPosition = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
+        Loopable dropIntake = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
+        Loopable waitForServo = new Wait(0.4);
+        Loopable openServo = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_DONT_STORE);
 
         Conditional odsCondition = new OpticalDistanceSensorThreshold(Hardware.instance.catapultSensor, Constants.CAP_THRESHOLD, false);
         Loopable armCatapult = new RunMotorUntilConditional(Hardware.instance.catapultMotor, odsCondition, 1);
 
         Loopable shootCatapult = new RunMotorForTime(Hardware.instance.catapultMotor, 1, 1);
 
-        Loopable[] cmds = {AutoCodes.resetServos(), driveToLine, setServoPosition, armCatapult, shootCatapult};
+        Loopable[] cmds = {AutoCodes.resetServos(), driveToLine, dropIntake, waitForServo, openServo, armCatapult, shootCatapult};
 
         return new CommandSequence(cmds);
 
@@ -244,19 +246,22 @@ public class AutoCodes {
 
         //double beacon blue
 
+        Loopable[] cmds = {AutoCodes.doubleShootFull(), toLine, AutoCodes.redDoubleBeacon()};
+
+        return new CommandSequence(cmds);
+    }
+
+    public static CommandSequence redDoubleShootDoubleBeaconAndPark() {
         SimultaneousCommands driveBackABit = AutoCodes.robotDriveTime(0.3, -0.5);
         TurnGyroPID pointButtTowardsCenter = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 38);
         SimultaneousCommands driveBackFast = AutoCodes.robotDriveDistanceAccurate(4.5, -1);
-
-        Loopable[] cmds = {AutoCodes.doubleShootFull(), toLine, AutoCodes.redDoubleBeacon(), driveBackABit, pointButtTowardsCenter, driveBackFast};
-
-        return new CommandSequence(cmds);
+        return new CommandSequence(redDoubleShootDoubleBeacon(),  driveBackABit, pointButtTowardsCenter, driveBackFast);
     }
 
     public static CommandSequence blueDoubleShootDoubleBeacon() {
         //double shoot
 
-        TurnGyroPID toLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 39);
+        TurnGyroPID toLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 39   );
 
         //double beacon blue
 
