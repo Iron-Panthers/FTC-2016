@@ -13,7 +13,7 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
  */
 
 
-@Autonomous(name = "R 2s 2b")
+@Autonomous(name = "R 2s 2b pc")
 public class DoubleShootDoubleBeaconRed extends OpMode {
     @Override
     public void init() {

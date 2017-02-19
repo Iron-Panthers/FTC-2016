@@ -256,7 +256,7 @@ public class AutoCodes {
     public static CommandSequence blueDoubleShootDoubleBeacon() {
         //double shoot
 
-        TurnGyroPID toLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 34);
+        TurnGyroPID toLine = new TurnGyroPID(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, 39);
 
         //double beacon blue
 
