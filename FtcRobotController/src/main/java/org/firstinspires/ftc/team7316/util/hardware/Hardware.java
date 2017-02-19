@@ -1,20 +1,13 @@
 package org.firstinspires.ftc.team7316.util.hardware;
 
-import android.graphics.Color;
-import android.webkit.CookieManager;
-
-import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
-import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.team7316.util.Scheduler;
@@ -58,7 +51,7 @@ public class Hardware {
     public DcMotor intakeMotor, capBallWhackerMotor;
     public Servo leftBeaconServo, rightBeaconServo, intakeUpServo;
     public Servo beaconWheelServo;
-    public OpticalDistanceSensor catapultSensor, lightSensorLeft, lightSensorRight;
+    public OpticalDistanceSensor catapultSensor, lightSensorFront, lightSensorBack;
     public GyroSensor gyroSensor;
     //public DcMotor capBallMotor;
     public ColorSensor colorSensor;
@@ -96,8 +89,8 @@ public class Hardware {
         leftBeaconServo = map.servo.get(LEFT_BEACON_SERVO_NAME);
         rightBeaconServo = map.servo.get(RIGHT_BEACON_SERVO_NAME);
 
-        lightSensorLeft = map.opticalDistanceSensor.get(LIGHT_SENSOR_NAME_LEFT);
-        lightSensorRight = map.opticalDistanceSensor.get(LIGHT_SENSOR_NAME_RIGHT);
+        lightSensorFront = map.opticalDistanceSensor.get(LIGHT_SENSOR_NAME_LEFT);
+        lightSensorBack = map.opticalDistanceSensor.get(LIGHT_SENSOR_NAME_RIGHT);
         gyroSensor = map.gyroSensor.get(GYRO_SENSOR_NAME);
         colorSensor = map.colorSensor.get(COLOR_SENSOR_NAME);
         //distanceSensor = map.ultrasonicSensor.get(DISTANCE_SENSOR_NAME);

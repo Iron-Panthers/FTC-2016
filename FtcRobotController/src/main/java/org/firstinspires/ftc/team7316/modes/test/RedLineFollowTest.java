@@ -18,7 +18,7 @@ public class RedLineFollowTest extends CommandAuto {
 
     @Override
     protected Loopable getTask() {
-        return new LineFollow(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensorLeft, 0.15, Alliance.RED);
+        return new LineFollow(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.lightSensorFront, 0.15, Alliance.RED);
     }
 
 }
