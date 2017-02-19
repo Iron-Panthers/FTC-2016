@@ -10,7 +10,6 @@ import org.firstinspires.ftc.team7316.util.hardware.Hardware;
 /**
  * Created by wayne on 10/11/16.
  */
-@Disabled
 @TeleOp(name = "SensorTest")
 public class SensorTest extends OpMode {
 

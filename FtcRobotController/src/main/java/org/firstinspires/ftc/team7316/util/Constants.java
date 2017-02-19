@@ -11,7 +11,7 @@ public class Constants {
     public static final double COLOR_SENSOR_DELAY = 0.1; // seconds
     public static final double COLOR_DIFFERENCE = 2;
     public static final float JOYSTICK_DRIVE_DEADZONE = 0.03f;
-    public static final float DRIVER_MOTOR_DEADZONE = 0.14f;
+    public static final float DRIVER_MOTOR_DEADZONE = 0.16f;
     public static final int ENCODER_TICK_PER_REV = 1120;
     public static final double DISTANCE_PER_REV = 4*Math.PI;
     public static final double INTAKE_IN_SPEED = 0.7;
@@ -19,9 +19,9 @@ public class Constants {
     public static final double WHEEL_SERVO_RELEASE = 0.5;
     public static final double CAP_BALL_SPEED = 1;
     public static final double CAP_THRESHOLD = 0.1;
-    public static final double WANTED_LIGHT = 0.25; //FIX THESE NUMBERS WITH TESTING
-    public static final double MIN_LIGHT = 0.03;
-    public static final double MAX_LIGHT = 0.5;
+    public static final double WANTED_LIGHT = 0.23; //FIX THESE NUMBERS WITH TESTING
+    public static final double MIN_LIGHT = 0.04;
+    public static final double MAX_LIGHT = 0.4;
 
     public static double distanceToTicks(double dist) {
         double inches = dist*12;
