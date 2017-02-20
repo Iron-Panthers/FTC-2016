@@ -187,7 +187,7 @@ public class AutoCodes {
 
     public static CommandSequence simpleShoot() {
 
-        SimultaneousCommands driveToLine = AutoCodes.robotDriveTime(0.4, 0.3);
+        SimultaneousCommands driveToLine = AutoCodes.robotDriveTime(0.8, 0.3);
 
         Loopable dropIntake = new SetServoPosition(Hardware.instance.intakeUpServo, Constants.INTAKE_SERVO_RELEASE);
         Loopable waitForServo = new Wait(0.4);
@@ -448,7 +448,7 @@ public class AutoCodes {
     public static CommandSequence redPushYogaBall() {
         Loopable fireCatapult = AutoCodes.simpleShoot();
         Loopable reset = Hardware.instance.whackerWrapper.moveToCommand(LateralDirection.LEFT, 0.5);
-        SimultaneousCommands forward = AutoCodes.robotDriveDistance(2.1, 0.6);
+        SimultaneousCommands forward = AutoCodes.robotDriveDistance(1.6, 0.6);
         SimultaneousCommands approach = AutoCodes.robotDriveDistance(2.5, 0.2);
         SimultaneousCommands ballPush = AutoCodes.robotDriveAccelerate(1.2, 0.4, 1);
         Loopable hitBall = Hardware.instance.whackerWrapper.moveToCommand(LateralDirection.RIGHT, 1);
@@ -461,7 +461,7 @@ public class AutoCodes {
     public static CommandSequence bluePushYogaBall() {
         Loopable fireCatapult = AutoCodes.simpleShoot();
         Loopable reset = Hardware.instance.whackerWrapper.moveToCommand(LateralDirection.RIGHT, 0.5);
-        SimultaneousCommands forward = AutoCodes.robotDriveDistance(2.1, 0.6);
+        SimultaneousCommands forward = AutoCodes.robotDriveDistance(1.6, 0.6);
         SimultaneousCommands approach = AutoCodes.robotDriveDistance(2.5, 0.2);
         SimultaneousCommands ballPush = AutoCodes.robotDriveAccelerate(1.2, 0.4, 0.4);
         Loopable hitBall = Hardware.instance.whackerWrapper.moveToCommand(LateralDirection.LEFT, 1);
