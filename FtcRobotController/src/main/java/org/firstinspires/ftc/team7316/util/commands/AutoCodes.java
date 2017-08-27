@@ -421,6 +421,13 @@ public class AutoCodes {
         return new CommandSequence(AutoCodes.doubleShootFull(), driveToBall);
     }
 
+    public static CommandSequence doubleShootWaitAndParkFull() {
+        SimultaneousCommands driveToBall = AutoCodes.robotDriveDistanceAccurate(4, 0.9);
+        Loopable wait = new Wait(10);
+
+        return new CommandSequence(AutoCodes.doubleShootFull(), wait, driveToBall);
+    }
+
     public static CommandSequence redDoubleShootAndRamp(double time) {
         Loopable wait = new Wait(time);
         Loopable turnTowardsRamp = new TurnAccurate(Hardware.instance.leftDriveMotor, Hardware.instance.rightDriveMotor, Hardware.instance.gyroSensor, -45, 0.5);
